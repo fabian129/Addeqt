@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Addeqt — Moodboard 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff; --bg-2: #f8f9fa; --surface: #f3f4f6; --surface-2: #e9ecef; --surface-3: #dee2e6;
+      --fg: #111827; --fg-dim: #374151; --fg-muted: #9ca3af;
+      --accent: #242748; --accent-dim: rgba(36,39,72,0.07); --accent-glow: rgba(36,39,72,0.13);
+      --green: #059669; --red: #dc2626; --amber: #d97706; --lavender: #7c3aed;
+      --border: rgba(0,0,0,0.06); --radius: 16px; --radius-sm: 10px;
+      --font-display: 'Space Grotesk', -apple-system, sans-serif;
+      --font-body: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    ::selection { background: var(--accent-dim); color: var(--fg); }
+    body { font-family: var(--font-body); background: var(--bg); color: var(--fg); line-height: 1.7; font-size: 15px; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+    .scroll-progress { position: fixed; top: 0; left: 0; z-index: 1000; height: 2px; width: 0%; background: linear-gradient(90deg, var(--accent), var(--lavender)); }
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 2rem; }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-d1 { transition-delay: 0.08s; } .reveal-d2 { transition-delay: 0.16s; } .reveal-d3 { transition-delay: 0.24s; } .reveal-d4 { transition-delay: 0.32s; }
+
+    /* ═══ COVER ═══ */
+    .cover { min-height: 85vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 80px 2rem; position: relative; overflow: hidden; }
+    .cover::before { content: ''; position: absolute; top: 35%; left: 50%; width: 900px; height: 900px; background: radial-gradient(ellipse, var(--accent-glow) 0%, transparent 50%); transform: translate(-50%,-50%); animation: glow-drift 8s ease-in-out infinite alternate; pointer-events: none; }
+    @keyframes glow-drift { 0% { opacity: 0.3; transform: translate(-50%,-50%) scale(1); } 100% { opacity: 0.5; transform: translate(-50%,-50%) scale(1.15); } }
+    .cover::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 180px; background: linear-gradient(to top, var(--bg), transparent); pointer-events: none; }
+    .cover-badge { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); background: var(--accent-dim); border: 1px solid var(--accent-glow); padding: 8px 22px; border-radius: 999px; margin-bottom: 2.5rem; position: relative; }
+    .cover-sub { font-size: 1.1rem; color: var(--fg-dim); font-weight: 300; margin-top: 1.25rem; position: relative; max-width: 480px; line-height: 1.8; }
+    .cover-divider { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent); margin: 2rem auto 0; position: relative; }
+    .cover-meta { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-muted); margin-top: 1.5rem; position: relative; }
+
+    /* ═══ SECTION ═══ */
+    .section { padding: 5rem 0; border-top: 1px solid var(--border); }
+    .section-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.75rem; }
+    .section-label::after { content: ''; flex: 1; max-width: 50px; height: 1px; background: var(--accent-glow); }
+    .section h2 { font-family: var(--font-display); font-size: clamp(1.6rem,3.5vw,2.2rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.5rem; line-height: 1.2; }
+    .section-intro { font-size: 0.95rem; color: var(--fg-dim); margin-bottom: 2.5rem; max-width: 520px; }
+
+    /* ═══ PALETTE ═══ */
+    .palette-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap: 0.75rem; margin-bottom: 1.5rem; }
+    .swatch { border-radius: var(--radius); overflow: hidden; background: var(--bg); border: 1px solid var(--border); transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), border-color 0.3s, box-shadow 0.3s; }
+    .swatch:hover { transform: translateY(-6px) scale(1.03); border-color: var(--accent-glow); box-shadow: 0 16px 48px -16px rgba(0,0,0,0.12); }
+    .swatch-color { height: 110px; transition: height 0.3s; position: relative; }
+    .swatch:hover .swatch-color { height: 130px; }
+    .swatch-color::after { content: attr(data-hex); position: absolute; bottom: 8px; right: 10px; font-family: var(--font-mono); font-size: 9px; color: rgba(255,255,255,0.7); background: rgba(0,0,0,0.3); padding: 3px 10px; border-radius: 6px; opacity: 0; transition: opacity 0.3s; }
+    .swatch:hover .swatch-color::after { opacity: 1; }
+    .swatch-info { padding: 0.85rem 1rem; }
+    .swatch-name { font-weight: 600; font-size: 13px; }
+    .swatch-hex { font-family: var(--font-mono); font-size: 11px; color: var(--fg-muted); margin-top: 2px; }
+    .swatch-role { font-size: 10px; color: var(--fg-muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .gradient-strip { height: 80px; border-radius: var(--radius); margin-top: 1rem; background: linear-gradient(135deg, #242748, #3d4a8a, #a5b4fc, #f5f5f7); position: relative; overflow: hidden; }
+    .gradient-strip::after { content: 'GRADIENT SIGNATURE'; position: absolute; bottom: 12px; right: 16px; font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.12em; color: rgba(255,255,255,0.4); }
+
+    /* ═══ TYPE ═══ */
+    .type-sample { padding: 2rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 0.75rem; transition: border-color 0.3s, transform 0.3s; position: relative; overflow: hidden; }
+    .type-sample:hover { border-color: var(--accent-glow); transform: translateY(-2px); }
+    .type-sample::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--accent-glow), transparent); opacity: 0; transition: opacity 0.4s; }
+    .type-sample:hover::before { opacity: 1; }
+    .type-label { font-family: var(--font-mono); font-size: 9px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.75rem; }
+    .type-meta { font-family: var(--font-mono); font-size: 10px; color: var(--fg-muted); margin-top: 0.75rem; letter-spacing: 0.04em; }
+    .font-pair-label { font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); background: var(--accent-dim); border: 1px solid var(--accent-glow); padding: 6px 16px; border-radius: 999px; display: inline-block; margin-bottom: 1.25rem; }
+
+    /* ═══ TEXT EXAMPLES ═══ */
+    .text-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin: 1rem 0; }
+    .text-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; transition: border-color 0.3s, transform 0.3s; position: relative; overflow: hidden; }
+    .text-card:hover { border-color: var(--accent-glow); transform: translateY(-2px); }
+    .text-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--accent-glow), transparent); opacity: 0; transition: opacity 0.4s; }
+    .text-card:hover::before { opacity: 1; }
+    .text-card.span-2 { grid-column: span 2; }
+    .text-card-label { font-family: var(--font-mono); font-size: 9px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 1rem; }
+    .text-card h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; font-family: var(--font-display); letter-spacing: -0.02em; }
+    .text-card p { color: var(--fg-dim); font-size: 14px; line-height: 1.8; }
+
+    /* ═══ COMPONENTS ═══ */
+    .comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin: 1rem 0; }
+    .comp-block { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; transition: border-color 0.3s; }
+    .comp-block:hover { border-color: var(--accent-glow); }
+    .comp-block.span-2 { grid-column: span 2; }
+    .comp-label { font-family: var(--font-mono); font-size: 9px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 1.25rem; }
+    .btn { display: inline-block; padding: 0.7rem 1.8rem; border-radius: 999px; font-weight: 600; font-size: 14px; text-decoration: none; border: none; cursor: pointer; transition: all 0.25s cubic-bezier(0.16,1,0.3,1); font-family: var(--font-body); }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { filter: brightness(1.15); transform: translateY(-2px); box-shadow: 0 8px 24px -8px var(--accent-glow); }
+    .btn-outline { background: transparent; color: var(--fg); border: 1px solid var(--border); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-ghost { background: transparent; color: var(--accent); padding: 0.7rem 0; font-weight: 500; }
+
+    .nav-demo { display: flex; align-items: center; gap: 2rem; padding: 0.75rem 1.5rem; background: rgba(255,255,255,0.85); backdrop-filter: blur(12px); border-radius: 999px; border: 1px solid var(--border); box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+    .nav-demo a { color: var(--fg-muted); text-decoration: none; font-size: 13px; font-weight: 500; transition: color 0.2s; }
+    .nav-demo a:hover, .nav-demo a.active { color: var(--accent); }
+
+    .card-demo { background: var(--bg); border: 1px solid var(--border); border-radius: 24px; padding: 1.75rem; transition: border-color 0.3s, transform 0.25s, box-shadow 0.3s; }
+    .card-demo:hover { border-color: var(--accent-glow); transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,0.06); }
+    .card-demo-cat { font-family: var(--font-mono); font-size: 9px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.75rem; }
+    .card-demo h4 { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+    .card-demo p { font-size: 13px; color: var(--fg-dim); line-height: 1.7; }
+
+    .input-demo { width: 100%; padding: 0.75rem 1rem; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--fg); font-family: var(--font-body); font-size: 14px; outline: none; transition: border-color 0.2s; }
+    .input-demo:focus { border-color: var(--accent); }
+    .input-label { font-size: 12px; font-weight: 600; color: var(--fg-muted); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.04em; }
+
+    /* ═══ UI PREVIEW — Extracted from v4/v5 ═══ */
+    .ui-preview { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 0; overflow: hidden; margin-bottom: 0.75rem; }
+    .ui-browser-bar { height: 36px; background: var(--bg); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 1rem; gap: 8px; }
+    .ui-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--surface-2); }
+    .ui-url { font-family: var(--font-mono); font-size: 9px; color: var(--fg-muted); background: var(--surface); padding: 3px 12px; border-radius: 6px; margin-left: 8px; }
+    .ui-content { padding: 1.5rem; }
+
+    .stat-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; }
+    .stat-card { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 1rem; text-align: center; }
+    .stat-value { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--fg); letter-spacing: -0.02em; }
+    .stat-label { font-family: var(--font-mono); font-size: 8px; color: var(--fg-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 4px; }
+
+    /* phone mockup */
+    .phone-mockup { width: 200px; margin: 0 auto; background: var(--bg); border-radius: 28px; border: 4px solid var(--fg); position: relative; padding: 2rem 1rem 1.5rem; box-shadow: 0 20px 50px rgba(0,0,0,0.08); }
+    .phone-notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 14px; background: var(--fg); border-radius: 0 0 10px 10px; }
+    .phone-content { text-align: center; }
+    .phone-label { font-family: var(--font-mono); font-size: 7px; color: var(--fg-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+    .phone-value { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; margin: 4px 0; letter-spacing: -0.02em; }
+    .phone-badge { display: inline-block; font-size: 10px; font-weight: 600; color: var(--green); background: rgba(5,150,105,0.08); border: 1px solid rgba(5,150,105,0.15); padding: 2px 8px; border-radius: 6px; }
+    .phone-btn { display: block; width: 100%; margin-top: 12px; padding: 8px; background: var(--accent); color: #fff; border: none; border-radius: 10px; font-size: 10px; font-weight: 600; cursor: pointer; }
+
+    /* ═══ IMAGE DIRECTION ═══ */
+    .image-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin: 1rem 0; }
+    .image-rule { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.75rem; position: relative; border-left: 3px solid var(--border); transition: border-color 0.3s; }
+    .image-rule.do { border-left-color: var(--green); }
+    .image-rule.dont { border-left-color: var(--red); }
+    .image-rule-label { font-family: var(--font-mono); font-size: 9px; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.75rem; }
+    .image-rule.do .image-rule-label { color: var(--green); }
+    .image-rule.dont .image-rule-label { color: var(--red); }
+    .image-rule p { font-size: 14px; color: var(--fg-dim); line-height: 1.7; }
+    .pills { display: flex; flex-wrap: wrap; gap: 8px; margin: 0.75rem 0; }
+    .pill { font-size: 12px; font-weight: 500; padding: 7px 18px; border-radius: 999px; background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent-glow); transition: transform 0.2s; }
+    .pill:hover { transform: scale(1.04); }
+    .pill.green { background: rgba(5,150,105,0.06); color: var(--green); border-color: rgba(5,150,105,0.15); }
+
+    /* ═══ BENTO GRID ═══ */
+    .bento-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 280px; gap: 0.75rem; margin: 1rem 0; }
+    .bento-item { border-radius: var(--radius); overflow: hidden; position: relative; border: 1px solid var(--border); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s; }
+    .bento-item:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,0.08); }
+    .bento-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); }
+    .bento-item:hover img { transform: scale(1.04); }
+    .bento-item.span-2 { grid-column: span 2; }
+    .bento-item.tall { grid-row: span 2; }
+    .bento-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 1rem 1.25rem; background: linear-gradient(to top, rgba(0,0,0,0.5), transparent); }
+    .bento-caption span { font-family: var(--font-mono); font-size: 9px; color: rgba(255,255,255,0.8); text-transform: uppercase; letter-spacing: 0.1em; }
+
+    /* ═══ PRINCIPLES ═══ */
+    .principles-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.75rem; margin: 1rem 0; }
+    .principle { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.75rem; transition: border-color 0.3s, transform 0.3s; position: relative; }
+    .principle:hover { border-color: var(--accent-glow); transform: translateY(-2px); }
+    .principle-num { font-family: var(--font-mono); font-size: 36px; font-weight: 800; color: var(--accent); opacity: 0.08; position: absolute; top: 0.75rem; right: 1rem; line-height: 1; }
+    .principle h4 { font-size: 14px; font-weight: 700; margin-bottom: 0.5rem; }
+    .principle p { font-size: 12px; color: var(--fg-muted); line-height: 1.7; }
+
+    .footer { text-align: center; padding: 5rem 2rem 3rem; position: relative; }
+    .footer::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 80px; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent); }
+    .footer p { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-muted); }
+    .footer .zaitex { color: var(--accent); font-weight: 600; }
+
+    @media (max-width: 768px) {
+      .text-grid, .comp-grid, .image-grid { grid-template-columns: 1fr; }
+      .text-card.span-2, .comp-block.span-2 { grid-column: span 1; }
+      .principles-grid { grid-template-columns: 1fr; }
+      .palette-grid { grid-template-columns: 1fr 1fr; }
+      .stat-grid { grid-template-columns: 1fr; }
+      .bento-grid { grid-template-columns: 1fr; }
+      .bento-item.span-2 { grid-column: span 1; }
+    }
+    @media print {
+      .scroll-progress { display: none; }
+      .reveal { opacity: 1; transform: none; }
+      body { font-size: 12px; }
+      .cover { min-height: auto; padding: 2rem 0; }
+      .section { padding: 2rem 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- ═══ COVER ═══ -->
+  <section class="cover">
+    <div class="cover-badge reveal">Moodboard · 2026</div>
+    <div class="reveal reveal-d1" style="position:relative;">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 189 35.32" style="height:clamp(40px,8vw,60px);width:auto;fill:var(--fg);"><g><path d="M22.73,8.64h5.08l12,31.17H35.58L33,33H17.57L15,39.81H10.73ZM31.58,29.3,25.29,12.73,19,29.3Z" transform="translate(-10.73 -8.17)"/><path d="M45.39,39.81V8.64H56.33a18.58,18.58,0,0,1,6.58,1.11A14.64,14.64,0,0,1,68,12.92a13.72,13.72,0,0,1,3.26,4.91,17.13,17.13,0,0,1,1.14,6.4,17.38,17.38,0,0,1-1.14,6.42A13.42,13.42,0,0,1,68,35.55a14.89,14.89,0,0,1-5.07,3.15,18.58,18.58,0,0,1-6.58,1.11Zm4-3.72h7a13.91,13.91,0,0,0,4.88-.81A10.62,10.62,0,0,0,65,32.93a10.42,10.42,0,0,0,2.4-3.75,14,14,0,0,0,.83-4.95,14.1,14.1,0,0,0-.83-5A10.42,10.42,0,0,0,65,15.52a10.62,10.62,0,0,0-3.75-2.35,13.91,13.91,0,0,0-4.88-.81h-7Z" transform="translate(-10.73 -8.17)"/><path d="M79.36,39.81V8.64H90.3a18.58,18.58,0,0,1,6.58,1.11A14.64,14.64,0,0,1,102,12.92a13.85,13.85,0,0,1,3.26,4.91,17.13,17.13,0,0,1,1.14,6.4,17.38,17.38,0,0,1-1.14,6.42,13.55,13.55,0,0,1-3.26,4.9,14.89,14.89,0,0,1-5.07,3.15,18.58,18.58,0,0,1-6.58,1.11Zm4-3.72h7a14,14,0,0,0,4.88-.81,10.62,10.62,0,0,0,3.75-2.35,10.4,10.4,0,0,0,2.39-3.75,13.82,13.82,0,0,0,.84-4.95,13.87,13.87,0,0,0-.84-5,10.4,10.4,0,0,0-2.39-3.75,10.62,10.62,0,0,0-3.75-2.35,14,14,0,0,0-4.88-.81h-7Z" transform="translate(-10.73 -8.17)"/><path d="M113.33,8.64h21.4v3.72H117.28V22.55h14.85V26H117.28V36.09h17.45v3.72h-21.4Z" transform="translate(-10.73 -8.17)"/><path d="M143.57,24.23a11.92,11.92,0,0,1,.93-4.68,12.16,12.16,0,0,1,6.35-6.47,11.36,11.36,0,0,1,4.59-.95,11.24,11.24,0,0,1,4.6.95c.26.11.5.24.74.37.95-1,1.94-2,2.95-2.95a16.33,16.33,0,0,0-2-1.07,16.13,16.13,0,0,0-12.5,0,16.24,16.24,0,0,0-5.12,3.44A16.41,16.41,0,0,0,140.64,18a16.11,16.11,0,0,0,0,12.49,16.69,16.69,0,0,0,1.22,2.29c.5-.43,1-.87,1.51-1.28s1.16-.9,1.74-1.35a13,13,0,0,1-.61-1.24A11.91,11.91,0,0,1,143.57,24.23Z" transform="translate(-10.73 -8.17)"/><path d="M169.79,31.46a15.53,15.53,0,0,0,1.7-7.23A15.6,15.6,0,0,0,170.23,18a17.18,17.18,0,0,0-1.46-2.71c-1.05,1-2.09,1.94-3.05,3a11.4,11.4,0,0,1,.65,1.31,12.17,12.17,0,0,1-2.56,13.21A12.25,12.25,0,0,1,160,35.37a11.24,11.24,0,0,1-4.6,1,11.36,11.36,0,0,1-4.59-1l-.7-.35c-.65.52-1.33,1-2,1.54-.47.38-.93.78-1.39,1.17A17.49,17.49,0,0,0,149.2,39a16,16,0,0,0,9.56.91,16.5,16.5,0,0,0,3.1-1l3.91,4.56h4.93L165.21,37A16.32,16.32,0,0,0,169.79,31.46Z" transform="translate(-10.73 -8.17)"/><path d="M184.57,12.36H173.35V8.64h26.38v3.72H188.52V39.81h-4Z" transform="translate(-10.73 -8.17)"/><path d="M148.55,22.93h5.89V17h2.74v5.89h5.89v2.74h-5.89v5.89h-2.74V25.67h-5.89Z" transform="translate(-10.73 -8.17)"/></g></svg>
+    </div>
+    <p class="cover-sub reveal reveal-d2">Visuell referens och designriktning för hemsideproduktion</p>
+    <div class="cover-divider reveal reveal-d3"></div>
+    <p class="cover-meta reveal reveal-d4">Producerad av Zaitex · April 2026 · v2.0</p>
+  </section>
+
+  <!-- ═══ 01 FÄRGPALETT ═══ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-label reveal">Visuell identitet</div>
+      <h2 class="reveal reveal-d1">Färger som bygger förtroende</h2>
+      <p class="section-intro reveal reveal-d2">Navy som grund. Ljusa, rena toner runtom. Varje färgval signalerar trygghet, modernitet och schweizisk precision.</p>
+      <div class="reveal reveal-d3">
+        <p style="font-size:12px;font-weight:600;color:var(--fg-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.5rem;">Primära färger</p>
+        <div class="palette-grid">
+          <div class="swatch"><div class="swatch-color" style="background:#242748;" data-hex="#242748"></div><div class="swatch-info"><div class="swatch-name">Navy</div><div class="swatch-hex">#242748</div><div class="swatch-role">Accent · CTA · Rubriker</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#3d4a8a;" data-hex="#3D4A8A"></div><div class="swatch-info"><div class="swatch-name">Indigo</div><div class="swatch-hex">#3D4A8A</div><div class="swatch-role">Hover · Gradienter</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#a5b4fc;" data-hex="#A5B4FC"></div><div class="swatch-info"><div class="swatch-name">Lavendel</div><div class="swatch-hex">#A5B4FC</div><div class="swatch-role">Accenter · Ikoner</div></div></div>
+        </div>
+      </div>
+      <div class="reveal reveal-d4">
+        <p style="font-size:12px;font-weight:600;color:var(--fg-muted);text-transform:uppercase;letter-spacing:0.05em;margin:1.5rem 0 0.5rem;">Bakgrunder & neutrala</p>
+        <div class="palette-grid">
+          <div class="swatch"><div class="swatch-color" style="background:#ffffff;border-bottom:1px solid #eee;" data-hex="#FFFFFF"></div><div class="swatch-info"><div class="swatch-name">Vit</div><div class="swatch-hex">#FFFFFF</div><div class="swatch-role">Huvudbakgrund</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#f5f5f7;" data-hex="#F5F5F7"></div><div class="swatch-info"><div class="swatch-name">Snow</div><div class="swatch-hex">#F5F5F7</div><div class="swatch-role">Sektioner · Cards</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#111827;" data-hex="#111827"></div><div class="swatch-info"><div class="swatch-name">Kol</div><div class="swatch-hex">#111827</div><div class="swatch-role">Rubriker · Primär text</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#0D0F1E;" data-hex="#0D0F1E"></div><div class="swatch-info"><div class="swatch-name">Midnight</div><div class="swatch-hex">#0D0F1E</div><div class="swatch-role">Dark sections · CTA-block</div></div></div>
+        </div>
+      </div>
+      <div class="gradient-strip reveal"></div>
+    </div>
+  </section>
+
+  <!-- ═══ 02 TYPOGRAFI — 3 ALTERNATIV ═══ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-label reveal">Typografi</div>
+      <h2 class="reveal reveal-d1">Orden som bär varumärket</h2>
+      <p class="section-intro reveal reveal-d2">Fyra typografiska riktningar. Varje par sätter tonen — från det geometriska till det editoriala.</p>
+
+      <!-- ALT A -->
+      <div class="reveal">
+        <div class="font-pair-label">Alternativ A — Space Grotesk + Inter</div>
+        <div class="type-sample">
+          <div class="type-label">Hero H1</div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;letter-spacing:-0.03em;line-height:1.1;">Rätt rådgivning. På dina villkor.</div>
+          <div class="type-meta">Space Grotesk · 700 · Tracking -0.03em</div>
+        </div>
+        <div class="type-sample">
+          <div class="type-label">Brödtext</div>
+          <p style="font-family:'Inter',sans-serif;font-size:15px;color:var(--fg-dim);line-height:1.8;max-width:600px;">Vi skapar långsiktigt värde genom datadriven analys och personlig rådgivning. Kundnyttan styr varje beslut vi fattar — inte kvartalsmål eller kortsiktig vinst.</p>
+          <div class="type-meta">Inter · 400 · 15px · LH 1.8</div>
+        </div>
+        <p style="font-size:12px;color:var(--fg-muted);margin:0.5rem 0 2rem;font-style:italic;">↳ Geometrisk och tech-inspirerad. Samma stil som kunden reagerade positivt på i webb-demo v5.</p>
+      </div>
+
+      <!-- ALT B -->
+      <div class="reveal">
+        <div class="font-pair-label">Alternativ B — Outfit + Inter</div>
+        <div class="type-sample">
+          <div class="type-label">Hero H1</div>
+          <div style="font-family:'Outfit',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;letter-spacing:-0.03em;line-height:1.1;">Rätt rådgivning. På dina villkor.</div>
+          <div class="type-meta">Outfit · 700 · Tracking -0.03em</div>
+        </div>
+        <div class="type-sample">
+          <div class="type-label">Brödtext</div>
+          <p style="font-family:'Inter',sans-serif;font-size:15px;color:var(--fg-dim);line-height:1.8;max-width:600px;">Vi skapar långsiktigt värde genom datadriven analys och personlig rådgivning. Kundnyttan styr varje beslut vi fattar — inte kvartalsmål eller kortsiktig vinst.</p>
+          <div class="type-meta">Inter · 400 · 15px · LH 1.8</div>
+        </div>
+        <p style="font-size:12px;color:var(--fg-muted);margin:0.5rem 0 2rem;font-style:italic;">↳ Mjukare och mer skandinavisk. Ren, avrundad karaktär som känns premium utan att vara stel.</p>
+      </div>
+
+      <!-- ALT C -->
+      <div class="reveal">
+        <div class="font-pair-label">Alternativ C — Manrope + Geist</div>
+        <div class="type-sample">
+          <div class="type-label">Hero H1</div>
+          <div style="font-family:'Manrope',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;letter-spacing:-0.03em;line-height:1.1;">Rätt rådgivning. På dina villkor.</div>
+          <div class="type-meta">Manrope · 700 · Tracking -0.03em</div>
+        </div>
+        <div class="type-sample">
+          <div class="type-label">Brödtext</div>
+          <p style="font-family:'Geist',sans-serif;font-size:15px;color:var(--fg-dim);line-height:1.8;max-width:600px;">Vi skapar långsiktigt värde genom datadriven analys och personlig rådgivning. Kundnyttan styr varje beslut vi fattar — inte kvartalsmål eller kortsiktig vinst.</p>
+          <div class="type-meta">Geist · 400 · 15px · LH 1.8</div>
+        </div>
+        <p style="font-size:12px;color:var(--fg-muted);margin:0.5rem 0 2rem;font-style:italic;">↳ Rak, geometrisk och premium. Exakt samma font-par som användes i den godkända webb-demon (v4).</p>
+      </div>
+
+      <!-- ★ Alternativ D — Editorial -->
+      <div class="reveal" style="position:relative;">
+        <div style="position:absolute; top:0.5rem; right:0; background:var(--accent); color:white; font-family:var(--font-mono); font-size:9px; letter-spacing:0.08em; text-transform:uppercase; padding:0.35rem 0.85rem; border-radius:999px;">Rekommenderad</div>
+        <div class="font-pair-label">Alternativ D — Manrope + Inter</div>
+        <div class="type-sample">
+          <div class="type-label">Hero H1</div>
+          <div style="font-family:'Manrope',sans-serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:300;letter-spacing:-0.05em;line-height:1.1;color:var(--fg);">Känslan ska vara en <span style="color:var(--fg-muted);">schweizisk privatbank</span> — diskret, pålitlig, exklusiv.</div>
+          <div class="type-meta">Manrope · 300 · Tracking -0.05em</div>
+        </div>
+        <div class="type-sample">
+          <div class="type-label">H2 — Section</div>
+          <div style="font-family:'Manrope',sans-serif;font-size:clamp(1.2rem,2.5vw,1.5rem);font-weight:500;letter-spacing:-0.025em;line-height:1.3;color:var(--fg);">Oberoende rådgivning utan kopplingar till banker eller produktbolag.</div>
+          <div class="type-meta">Manrope · 500 · Tracking -0.025em</div>
+        </div>
+        <div class="type-sample">
+          <div class="type-label">Brödtext</div>
+          <p style="font-family:'Inter',sans-serif;font-size:15px;color:var(--fg-dim);line-height:1.8;max-width:600px;">Vi skapar långsiktigt värde genom datadriven analys och personlig rådgivning. Kundnyttan styr varje beslut vi fattar — inte kvartalsmål eller kortsiktig vinst.</p>
+          <div class="type-meta">Inter · 400 · 15px · LH 1.8</div>
+        </div>
+        <div class="type-sample" style="margin-top:1rem;">
+          <div class="type-label">Stats / Data</div>
+          <div style="display:flex; gap:3rem; align-items:flex-end;">
+            <div>
+              <span style="font-family:'Manrope',sans-serif; font-size:3rem; font-weight:300; color:var(--fg); letter-spacing:-0.05em;">FI</span>
+              <p style="margin-top:0.25rem; font-family:var(--font-mono); font-size:10px; text-transform:uppercase; color:var(--fg-muted); letter-spacing:0.05em;">Tillstånd</p>
+            </div>
+            <div>
+              <span style="font-family:'Manrope',sans-serif; font-size:3rem; font-weight:300; color:var(--fg); letter-spacing:-0.05em;">Euroclear</span>
+              <p style="margin-top:0.25rem; font-family:var(--font-mono); font-size:10px; text-transform:uppercase; color:var(--fg-muted); letter-spacing:0.05em;">Avveckling</p>
+            </div>
+          </div>
+          <div class="type-meta" style="margin-top:0.75rem;">Manrope · 300 · Large display</div>
+        </div>
+        <p style="font-size:12px;color:var(--fg-muted);margin:0.5rem 0 2rem;font-style:italic;">↳ Den editorial-stil som redan används i scroll-galleriet. Tunna vikter (300) ger en lyxig, diskret känsla — perfekt för Genève-estetiken.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 03 EXEMPELTEXTER ═══ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-label reveal">Tonalitet</div>
+      <h2 class="reveal reveal-d1">Så här låter ADDEQT</h2>
+      <p class="section-intro reveal reveal-d2">Tydlig, varm och trygg. Aldrig hype — alltid bevisbar.</p>
+      <div class="text-grid">
+        <div class="text-card span-2 reveal">
+          <div class="text-card-label">Hero / Tagline</div>
+          <h3>Rätt rådgivning. På dina villkor.</h3>
+          <p>Vi är ett oberoende värdepappersbolag utan egna fonder eller provisioner — bara genuint engagerade i din ekonomiska framgång.</p>
+        </div>
+        <div class="text-card reveal">
+          <div class="text-card-label">Tjänstebeskrivning</div>
+          <h3>Kapitalförvaltning</h3>
+          <p>Aktiv portföljförvaltning anpassad efter din riskaptit, tidshorisont och mål — bland marknadens bästa produkter utan begränsningar.</p>
+        </div>
+        <div class="text-card reveal">
+          <div class="text-card-label">CTA / Closing</div>
+          <h3>Redo att ta nästa steg?</h3>
+          <p>Boka ett kostnadsfritt och förutsättningslöst samtal. Vi lyssnar, ställer rätt frågor och ger dig en tydlig bild.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <!-- ═══ LOGO SECTION BREAK ═══ -->
+  <section class="section" style="background:var(--bg); padding:5rem 0;">
+    <div class="container">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem;">
+        <!-- Navy on white -->
+        <div class="reveal" style="background:#f8f8f8; border:1px solid var(--border); border-radius:1.25rem; padding:3.5rem 2.5rem; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:340px;">
+          <p style="font-family:var(--font-mono); font-size:10px; text-transform:uppercase; letter-spacing:0.12em; color:var(--fg-muted); margin-bottom:3rem;">Navy på vit</p>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 189 35.32" style="height:clamp(38px,6vw,52px);width:auto;fill:var(--accent);"><g><path d="M22.73,8.64h5.08l12,31.17H35.58L33,33H17.57L15,39.81H10.73ZM31.58,29.3,25.29,12.73,19,29.3Z" transform="translate(-10.73 -8.17)"/><path d="M45.39,39.81V8.64H56.33a18.58,18.58,0,0,1,6.58,1.11A14.64,14.64,0,0,1,68,12.92a13.72,13.72,0,0,1,3.26,4.91,17.13,17.13,0,0,1,1.14,6.4,17.38,17.38,0,0,1-1.14,6.42A13.42,13.42,0,0,1,68,35.55a14.89,14.89,0,0,1-5.07,3.15,18.58,18.58,0,0,1-6.58,1.11Zm4-3.72h7a13.91,13.91,0,0,0,4.88-.81A10.62,10.62,0,0,0,65,32.93a10.42,10.42,0,0,0,2.4-3.75,14,14,0,0,0,.83-4.95,14.1,14.1,0,0,0-.83-5A10.42,10.42,0,0,0,65,15.52a10.62,10.62,0,0,0-3.75-2.35,13.91,13.91,0,0,0-4.88-.81h-7Z" transform="translate(-10.73 -8.17)"/><path d="M79.36,39.81V8.64H90.3a18.58,18.58,0,0,1,6.58,1.11A14.64,14.64,0,0,1,102,12.92a13.85,13.85,0,0,1,3.26,4.91,17.13,17.13,0,0,1,1.14,6.4,17.38,17.38,0,0,1-1.14,6.42,13.55,13.55,0,0,1-3.26,4.9,14.89,14.89,0,0,1-5.07,3.15,18.58,18.58,0,0,1-6.58,1.11Zm4-3.72h7a14,14,0,0,0,4.88-.81,10.62,10.62,0,0,0,3.75-2.35,10.4,10.4,0,0,0,2.39-3.75,13.82,13.82,0,0,0,.84-4.95,13.87,13.87,0,0,0-.84-5,10.4,10.4,0,0,0-2.39-3.75,10.62,10.62,0,0,0-3.75-2.35,14,14,0,0,0-4.88-.81h-7Z" transform="translate(-10.73 -8.17)"/><path d="M113.33,8.64h21.4v3.72H117.28V22.55h14.85V26H117.28V36.09h17.45v3.72h-21.4Z" transform="translate(-10.73 -8.17)"/><path d="M143.57,24.23a11.92,11.92,0,0,1,.93-4.68,12.16,12.16,0,0,1,6.35-6.47,11.36,11.36,0,0,1,4.59-.95,11.24,11.24,0,0,1,4.6.95c.26.11.5.24.74.37.95-1,1.94-2,2.95-2.95a16.33,16.33,0,0,0-2-1.07,16.13,16.13,0,0,0-12.5,0,16.24,16.24,0,0,0-5.12,3.44A16.41,16.41,0,0,0,140.64,18a16.11,16.11,0,0,0,0,12.49,16.69,16.69,0,0,0,1.22,2.29c.5-.43,1-.87,1.51-1.28s1.16-.9,1.74-1.35a13,13,0,0,1-.61-1.24A11.91,11.91,0,0,1,143.57,24.23Z" transform="translate(-10.73 -8.17)"/><path d="M169.79,31.46a15.53,15.53,0,0,0,1.7-7.23A15.6,15.6,0,0,0,170.23,18a17.18,17.18,0,0,0-1.46-2.71c-1.05,1-2.09,1.94-3.05,3a11.4,11.4,0,0,1,.65,1.31,12.17,12.17,0,0,1-2.56,13.21A12.25,12.25,0,0,1,160,35.37a11.24,11.24,0,0,1-4.6,1,11.36,11.36,0,0,1-4.59-1l-.7-.35c-.65.52-1.33,1-2,1.54-.47.38-.93.78-1.39,1.17A17.49,17.49,0,0,0,149.2,39a16,16,0,0,0,9.56.91,16.5,16.5,0,0,0,3.1-1l3.91,4.56h4.93L165.21,37A16.32,16.32,0,0,0,169.79,31.46Z" transform="translate(-10.73 -8.17)"/><path d="M184.57,12.36H173.35V8.64h26.38v3.72H188.52V39.81h-4Z" transform="translate(-10.73 -8.17)"/><path d="M148.55,22.93h5.89V17h2.74v5.89h5.89v2.74h-5.89v5.89h-2.74V25.67h-5.89Z" transform="translate(-10.73 -8.17)"/></g></svg>
+          <div style="display:flex; gap:0.75rem; margin-top:3rem;">
+            <div style="width:2.25rem; height:2.25rem; border-radius:50%; background:var(--accent); display:flex; align-items:center; justify-content:center;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div style="width:2.25rem; height:2.25rem; border-radius:50%; background:var(--accent); display:flex; align-items:center; justify-content:center;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+            </div>
+            <div style="width:2.25rem; height:2.25rem; border-radius:50%; background:var(--accent); display:flex; align-items:center; justify-content:center;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M6 3h12l4 6-10 13L2 9z"/></svg>
+            </div>
+          </div>
+        </div>
+        <!-- White on navy -->
+        <div class="reveal reveal-d1" style="background:var(--accent); border-radius:1.25rem; padding:3.5rem 2.5rem; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:340px;">
+          <p style="font-family:var(--font-mono); font-size:10px; text-transform:uppercase; letter-spacing:0.12em; color:rgba(255,255,255,0.5); margin-bottom:3rem;">Vit på navy</p>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 189 35.32" style="height:clamp(38px,6vw,52px);width:auto;fill:#ffffff;"><g><path d="M22.73,8.64h5.08l12,31.17H35.58L33,33H17.57L15,39.81H10.73ZM31.58,29.3,25.29,12.73,19,29.3Z" transform="translate(-10.73 -8.17)"/><path d="M45.39,39.81V8.64H56.33a18.58,18.58,0,0,1,6.58,1.11A14.64,14.64,0,0,1,68,12.92a13.72,13.72,0,0,1,3.26,4.91,17.13,17.13,0,0,1,1.14,6.4,17.38,17.38,0,0,1-1.14,6.42A13.42,13.42,0,0,1,68,35.55a14.89,14.89,0,0,1-5.07,3.15,18.58,18.58,0,0,1-6.58,1.11Zm4-3.72h7a13.91,13.91,0,0,0,4.88-.81A10.62,10.62,0,0,0,65,32.93a10.42,10.42,0,0,0,2.4-3.75,14,14,0,0,0,.83-4.95,14.1,14.1,0,0,0-.83-5A10.42,10.42,0,0,0,65,15.52a10.62,10.62,0,0,0-3.75-2.35,13.91,13.91,0,0,0-4.88-.81h-7Z" transform="translate(-10.73 -8.17)"/><path d="M79.36,39.81V8.64H90.3a18.58,18.58,0,0,1,6.58,1.11A14.64,14.64,0,0,1,102,12.92a13.85,13.85,0,0,1,3.26,4.91,17.13,17.13,0,0,1,1.14,6.4,17.38,17.38,0,0,1-1.14,6.42,13.55,13.55,0,0,1-3.26,4.9,14.89,14.89,0,0,1-5.07,3.15,18.58,18.58,0,0,1-6.58,1.11Zm4-3.72h7a14,14,0,0,0,4.88-.81,10.62,10.62,0,0,0,3.75-2.35,10.4,10.4,0,0,0,2.39-3.75,13.82,13.82,0,0,0,.84-4.95,13.87,13.87,0,0,0-.84-5,10.4,10.4,0,0,0-2.39-3.75,10.62,10.62,0,0,0-3.75-2.35,14,14,0,0,0-4.88-.81h-7Z" transform="translate(-10.73 -8.17)"/><path d="M113.33,8.64h21.4v3.72H117.28V22.55h14.85V26H117.28V36.09h17.45v3.72h-21.4Z" transform="translate(-10.73 -8.17)"/><path d="M143.57,24.23a11.92,11.92,0,0,1,.93-4.68,12.16,12.16,0,0,1,6.35-6.47,11.36,11.36,0,0,1,4.59-.95,11.24,11.24,0,0,1,4.6.95c.26.11.5.24.74.37.95-1,1.94-2,2.95-2.95a16.33,16.33,0,0,0-2-1.07,16.13,16.13,0,0,0-12.5,0,16.24,16.24,0,0,0-5.12,3.44A16.41,16.41,0,0,0,140.64,18a16.11,16.11,0,0,0,0,12.49,16.69,16.69,0,0,0,1.22,2.29c.5-.43,1-.87,1.51-1.28s1.16-.9,1.74-1.35a13,13,0,0,1-.61-1.24A11.91,11.91,0,0,1,143.57,24.23Z" transform="translate(-10.73 -8.17)"/><path d="M169.79,31.46a15.53,15.53,0,0,0,1.7-7.23A15.6,15.6,0,0,0,170.23,18a17.18,17.18,0,0,0-1.46-2.71c-1.05,1-2.09,1.94-3.05,3a11.4,11.4,0,0,1,.65,1.31,12.17,12.17,0,0,1-2.56,13.21A12.25,12.25,0,0,1,160,35.37a11.24,11.24,0,0,1-4.6,1,11.36,11.36,0,0,1-4.59-1l-.7-.35c-.65.52-1.33,1-2,1.54-.47.38-.93.78-1.39,1.17A17.49,17.49,0,0,0,149.2,39a16,16,0,0,0,9.56.91,16.5,16.5,0,0,0,3.1-1l3.91,4.56h4.93L165.21,37A16.32,16.32,0,0,0,169.79,31.46Z" transform="translate(-10.73 -8.17)"/><path d="M184.57,12.36H173.35V8.64h26.38v3.72H188.52V39.81h-4Z" transform="translate(-10.73 -8.17)"/><path d="M148.55,22.93h5.89V17h2.74v5.89h5.89v2.74h-5.89v5.89h-2.74V25.67h-5.89Z" transform="translate(-10.73 -8.17)"/></g></svg>
+          <div style="display:flex; gap:0.75rem; margin-top:3rem;">
+            <div style="width:2.25rem; height:2.25rem; border-radius:50%; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div style="width:2.25rem; height:2.25rem; border-radius:50%; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+            </div>
+            <div style="width:2.25rem; height:2.25rem; border-radius:50%; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2); display:flex; align-items:center; justify-content:center;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2"><path d="M6 3h12l4 6-10 13L2 9z"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- ═══ 04 KOMPONENTER — UI från v4/v5 ═══ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-label reveal">Komponenter</div>
+      <h2 class="reveal reveal-d1">UI-riktning</h2>
+      <p class="section-intro reveal reveal-d2">Baserat på den visuella riktning som redan godkänts i webbdemo v4 och v5.</p>
+
+      <div class="comp-grid">
+        <!-- Buttons -->
+        <div class="comp-block reveal">
+          <div class="comp-label">Knappar</div>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;">
+            <button class="btn btn-primary">Boka möte →</button>
+            <button class="btn btn-outline">Våra tjänster</button>
+            <span class="btn btn-ghost" style="font-size:13px;">Kontakta oss →</span>
+          </div>
+          <p style="margin-top: 1rem;font-size:11px;color:var(--fg-muted);">Pill-formade knappar (border-radius: 999px) — samma stil som v4/v5.</p>
+        </div>
+
+        <!-- Nav -->
+        <div class="comp-block reveal">
+          <div class="comp-label">Navigation</div>
+          <div class="nav-demo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 189 35.32" style="height:16px;width:auto;fill:var(--accent);"><g><path d="M22.73,8.64h5.08l12,31.17H35.58L33,33H17.57L15,39.81H10.73ZM31.58,29.3,25.29,12.73,19,29.3Z" transform="translate(-10.73 -8.17)"/><path d="M45.39,39.81V8.64H56.33a18.58,18.58,0,0,1,6.58,1.11A14.64,14.64,0,0,1,68,12.92a13.72,13.72,0,0,1,3.26,4.91,17.13,17.13,0,0,1,1.14,6.4,17.38,17.38,0,0,1-1.14,6.42A13.42,13.42,0,0,1,68,35.55a14.89,14.89,0,0,1-5.07,3.15,18.58,18.58,0,0,1-6.58,1.11Zm4-3.72h7a13.91,13.91,0,0,0,4.88-.81A10.62,10.62,0,0,0,65,32.93a10.42,10.42,0,0,0,2.4-3.75,14,14,0,0,0,.83-4.95,14.1,14.1,0,0,0-.83-5A10.42,10.42,0,0,0,65,15.52a10.62,10.62,0,0,0-3.75-2.35,13.91,13.91,0,0,0-4.88-.81h-7Z" transform="translate(-10.73 -8.17)"/><path d="M79.36,39.81V8.64H90.3a18.58,18.58,0,0,1,6.58,1.11A14.64,14.64,0,0,1,102,12.92a13.85,13.85,0,0,1,3.26,4.91,17.13,17.13,0,0,1,1.14,6.4,17.38,17.38,0,0,1-1.14,6.42,13.55,13.55,0,0,1-3.26,4.9,14.89,14.89,0,0,1-5.07,3.15,18.58,18.58,0,0,1-6.58,1.11Zm4-3.72h7a14,14,0,0,0,4.88-.81,10.62,10.62,0,0,0,3.75-2.35,10.4,10.4,0,0,0,2.39-3.75,13.82,13.82,0,0,0,.84-4.95,13.87,13.87,0,0,0-.84-5,10.4,10.4,0,0,0-2.39-3.75,10.62,10.62,0,0,0-3.75-2.35,14,14,0,0,0-4.88-.81h-7Z" transform="translate(-10.73 -8.17)"/><path d="M113.33,8.64h21.4v3.72H117.28V22.55h14.85V26H117.28V36.09h17.45v3.72h-21.4Z" transform="translate(-10.73 -8.17)"/><path d="M143.57,24.23a11.92,11.92,0,0,1,.93-4.68,12.16,12.16,0,0,1,6.35-6.47,11.36,11.36,0,0,1,4.59-.95,11.24,11.24,0,0,1,4.6.95c.26.11.5.24.74.37.95-1,1.94-2,2.95-2.95a16.33,16.33,0,0,0-2-1.07,16.13,16.13,0,0,0-12.5,0,16.24,16.24,0,0,0-5.12,3.44A16.41,16.41,0,0,0,140.64,18a16.11,16.11,0,0,0,0,12.49,16.69,16.69,0,0,0,1.22,2.29c.5-.43,1-.87,1.51-1.28s1.16-.9,1.74-1.35a13,13,0,0,1-.61-1.24A11.91,11.91,0,0,1,143.57,24.23Z" transform="translate(-10.73 -8.17)"/><path d="M169.79,31.46a15.53,15.53,0,0,0,1.7-7.23A15.6,15.6,0,0,0,170.23,18a17.18,17.18,0,0,0-1.46-2.71c-1.05,1-2.09,1.94-3.05,3a11.4,11.4,0,0,1,.65,1.31,12.17,12.17,0,0,1-2.56,13.21A12.25,12.25,0,0,1,160,35.37a11.24,11.24,0,0,1-4.6,1,11.36,11.36,0,0,1-4.59-1l-.7-.35c-.65.52-1.33,1-2,1.54-.47.38-.93.78-1.39,1.17A17.49,17.49,0,0,0,149.2,39a16,16,0,0,0,9.56.91,16.5,16.5,0,0,0,3.1-1l3.91,4.56h4.93L165.21,37A16.32,16.32,0,0,0,169.79,31.46Z" transform="translate(-10.73 -8.17)"/><path d="M184.57,12.36H173.35V8.64h26.38v3.72H188.52V39.81h-4Z" transform="translate(-10.73 -8.17)"/><path d="M148.55,22.93h5.89V17h2.74v5.89h5.89v2.74h-5.89v5.89h-2.74V25.67h-5.89Z" transform="translate(-10.73 -8.17)"/></g></svg>
+            <a href="#" class="active">Om oss</a>
+            <a href="#">Tjänster</a>
+            <a href="#">Kontakt</a>
+          </div>
+          <p style="margin-top:1rem;font-size:11px;color:var(--fg-muted);">Glassmorphism pill-nav med backdrop-blur — från v4.</p>
+        </div>
+
+        <!-- Card -->
+        <div class="comp-block reveal">
+          <div class="comp-label">Tjänstekort</div>
+          <div class="card-demo">
+            <div class="card-demo-cat">Tjänst</div>
+            <h4>förmögenhetsrådgivning</h4>
+            <p>Heltäckande rådgivning med din livssituation som utgångspunkt. Vi kartlägger, analyserar och skapar en personlig plan.</p>
+          </div>
+          <p style="margin-top:1rem;font-size:11px;color:var(--fg-muted);">Runda kort (24px radius), subtil hover-lift — från v5 bento-grid.</p>
+        </div>
+
+        <!-- Input -->
+        <div class="comp-block reveal">
+          <div class="comp-label">Formulär</div>
+          <div>
+            <div class="input-label">E-post</div>
+            <input class="input-demo" type="text" placeholder="namn@exempel.se" readonly>
+            <div style="margin-top:1rem;">
+              <div class="input-label">Meddelande</div>
+              <input class="input-demo" type="text" placeholder="Jag vill boka ett möte..." readonly>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero stats — from v5 -->
+        <div class="comp-block span-2 reveal">
+          <div class="comp-label">UI Preview — Hero Stats (från v5)</div>
+          <div style="display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap;">
+            <div class="stat-grid" style="flex:1;min-width:260px;">
+              <div class="stat-card"><div class="stat-value">25+</div><div class="stat-label">Års erfarenhet</div></div>
+              <div class="stat-card"><div class="stat-value">100%</div><div class="stat-label">Oberoende</div></div>
+              <div class="stat-card"><div class="stat-value">FI</div><div class="stat-label">Tillstånd</div></div>
+              <div class="stat-card"><div class="stat-value">Sthlm</div><div class="stat-label">Artillerigatan 45</div></div>
+            </div>
+            <div class="phone-mockup">
+              <div class="phone-notch"></div>
+              <div class="phone-content">
+                <div class="phone-label">Portföljvärde</div>
+                <div class="phone-value">4 862 500 kr</div>
+                <div class="phone-badge">+8,4% YTD</div>
+                <button class="phone-btn">Se full rapport →</button>
+              </div>
+            </div>
+          </div>
+          <p style="margin-top:1rem;font-size:11px;color:var(--fg-muted);">Stat-kort + telefon-mockup direkt från godkänd v5 webb-demo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+
+  <!-- ═══ 07 INTERACTIVE FINANCE INSIGHTS (from library) ═══ -->
+  <style>
+    .fi-card { transition: transform 0.7s ease-out; }
+    .fi-card:hover { transform: translateY(-6px); }
+    .fi-icon-float { transition: transform 0.7s; }
+    .fi-card:hover .fi-icon-float { transform: translateY(-4px); }
+    @keyframes fi-bar-grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+  </style>
+  <section class="section" style="background:var(--surface); padding:5rem 0;">
+    <div class="container">
+      <div class="section-label reveal">Webbkoncept</div>
+      <h2 class="reveal reveal-d1">Interaktiva insikter</h2>
+      <p class="section-intro reveal reveal-d2">Funktionalitetskort som visar hur ADDEQTs digitala plattform kan kännas — ljus, modern och datadriven.</p>
+
+      <div class="reveal" style="display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; margin-top:2rem;">
+        <!-- Card 1: Weekly Digest -->
+        <div class="fi-card" style="position:relative; height:36rem; border-radius:2rem; overflow:hidden; display:flex; flex-direction:column; align-items:center; padding-top:2.5rem; background:linear-gradient(180deg,#ffffff 0%,var(--surface) 100%); box-shadow:inset 0 1px 2px rgba(255,255,255,0.8), 0 25px 50px -12px rgba(36,39,72,0.08); border:1px solid var(--border);">
+          <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:150%; height:60%; background:radial-gradient(ellipse at center, rgba(36,39,72,0.06) 0%, transparent 70%); pointer-events:none;"></div>
+          <div style="position:relative; z-index:10; display:flex; align-items:center; gap:0.5rem; padding:0.375rem 0.75rem; border-radius:9999px; font-family:var(--font-mono); font-size:10px; color:var(--fg-muted); text-transform:uppercase; letter-spacing:0.08em; background:var(--surface); border:1px solid var(--border);">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+            <span>Utvärdera</span>
+          </div>
+          <h3 style="position:relative; z-index:10; font-family:'Manrope',sans-serif; font-size:1.5rem; font-weight:400; letter-spacing:-0.025em; color:var(--fg); margin:1.5rem 0 0.75rem; text-align:center;">Automatisk vecko-<br>rapport</h3>
+          <p style="position:relative; z-index:10; font-family:'Geist',sans-serif; font-size:13px; color:var(--fg-muted); text-align:center; max-width:85%; line-height:1.6;">AI-driven sammanfattning av portföljrörelser och avvikande aktivitet.</p>
+          <div style="position:absolute; bottom:2.5rem; width:100%; display:flex; flex-direction:column; align-items:center; z-index:10;">
+            <div style="position:relative; width:100%; height:6rem; margin-bottom:1.5rem; display:flex; justify-content:center;">
+              <div class="fi-icon-float" style="position:absolute; bottom:1rem; margin-left:-6rem; width:2.5rem; height:2.5rem; border-radius:9999px; display:flex; align-items:center; justify-content:center; color:var(--fg-muted); background:var(--surface); box-shadow:0 10px 15px rgba(0,0,0,0.04); border:1px solid var(--border);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
+              </div>
+              <div class="fi-icon-float" style="position:absolute; bottom:2rem; margin-left:-2rem; width:3rem; height:3rem; border-radius:9999px; display:flex; align-items:center; justify-content:center; color:var(--accent); z-index:10; background:var(--bg); box-shadow:0 15px 20px rgba(0,0,0,0.06); border:1px solid var(--border);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M12 12h.01"/></svg>
+              </div>
+              <div class="fi-icon-float" style="position:absolute; bottom:1rem; margin-left:3rem; width:2.5rem; height:2.5rem; border-radius:9999px; display:flex; align-items:center; justify-content:center; color:var(--fg-muted); background:var(--surface); box-shadow:0 10px 15px rgba(0,0,0,0.04); border:1px solid var(--border);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              </div>
+            </div>
+            <span style="font-family:'Manrope',sans-serif; font-size:3rem; font-weight:300; letter-spacing:-0.025em; color:var(--fg);">+22%</span>
+            <p style="font-family:'Geist',sans-serif; font-size:13px; color:var(--fg-muted); margin-top:0.5rem;">Total avkastning</p>
+          </div>
+        </div>
+
+        <!-- Card 2: Intelligent Sorting -->
+        <div class="fi-card" style="position:relative; height:36rem; border-radius:2rem; display:flex; flex-direction:column; align-items:center; padding-top:2.5rem; overflow:hidden; background:linear-gradient(180deg,#ffffff 0%,var(--surface) 100%); box-shadow:inset 0 1px 2px rgba(255,255,255,0.8), 0 25px 50px -12px rgba(36,39,72,0.08); border:1px solid var(--border);">
+          <div style="position:absolute; bottom:0; left:0; width:100%; height:60%; background:linear-gradient(to top, rgba(36,39,72,0.06) 0%, transparent 100%); pointer-events:none;"></div>
+          <div style="position:relative; z-index:20; display:flex; align-items:center; gap:0.5rem; padding:0.375rem 0.75rem; border-radius:9999px; font-family:var(--font-mono); font-size:10px; color:var(--fg-muted); text-transform:uppercase; letter-spacing:0.08em; background:var(--surface); border:1px solid var(--border);">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.84Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg>
+            <span>Sortera</span>
+          </div>
+          <h3 style="position:relative; z-index:20; font-family:'Manrope',sans-serif; font-size:1.5rem; font-weight:400; letter-spacing:-0.025em; color:var(--fg); margin:1.5rem 0 0; text-align:center;">Intelligent kategorisering</h3>
+          <!-- Floating tags -->
+          <div style="position:relative; flex:1; width:100%; z-index:10; display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:0.75rem; padding:2rem;">
+            <span style="padding:0.5rem 1rem; border-radius:9999px; font-family:'Geist',sans-serif; font-size:13px; color:var(--fg); background:var(--bg); border:1px solid var(--border); box-shadow:0 4px 12px rgba(0,0,0,0.04);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" style="vertical-align:-2px;margin-right:4px;"><path d="M6 22V12h4v10"/><path d="M14 22V12h4v10"/><path d="M2 22h20"/><path d="M12 7V2l10 5H2l10-5z"/></svg> Avgifter</span>
+            <span style="padding:0.5rem 1rem; border-radius:9999px; font-family:'Geist',sans-serif; font-size:13px; color:var(--fg); background:var(--bg); border:1px solid var(--border); box-shadow:0 4px 12px rgba(0,0,0,0.04);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" style="vertical-align:-2px;margin-right:4px;"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg> Utdelningar</span>
+            <span style="padding:0.5rem 1rem; border-radius:9999px; font-family:'Geist',sans-serif; font-size:13px; color:var(--fg); background:var(--bg); border:1px solid var(--border); box-shadow:0 4px 12px rgba(0,0,0,0.04);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" style="vertical-align:-2px;margin-right:4px;"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg> Intäkter</span>
+            <span style="padding:0.5rem 1rem; border-radius:9999px; font-family:'Geist',sans-serif; font-size:13px; color:var(--fg); background:var(--bg); border:1px solid var(--border); box-shadow:0 4px 12px rgba(0,0,0,0.04);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" style="vertical-align:-2px;margin-right:4px;"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg> Rebalansering</span>
+            <span style="padding:0.5rem 1rem; border-radius:9999px; font-family:'Geist',sans-serif; font-size:13px; color:var(--fg); background:var(--bg); border:1px solid var(--border); box-shadow:0 4px 12px rgba(0,0,0,0.04);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" style="vertical-align:-2px;margin-right:4px;"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Fastighetsexponering</span>
+          </div>
+        </div>
+
+        <!-- Card 3: Liquidity Projections -->
+        <div class="fi-card" style="position:relative; height:36rem; border-radius:2rem; display:flex; flex-direction:column; align-items:center; padding-top:2.5rem; padding-left:1rem; padding-right:1rem; overflow:hidden; background:linear-gradient(180deg,#ffffff 0%,var(--surface) 100%); box-shadow:inset 0 1px 2px rgba(255,255,255,0.8), 0 25px 50px -12px rgba(36,39,72,0.08); border:1px solid var(--border);">
+          <div style="display:flex; align-items:center; gap:0.5rem; padding:0.375rem 0.75rem; border-radius:9999px; font-family:var(--font-mono); font-size:10px; color:var(--fg-muted); text-transform:uppercase; letter-spacing:0.08em; background:var(--surface); border:1px solid var(--border);">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="M9 9h.01"/><path d="M15 15h.01"/></svg>
+            <span>Prognos</span>
+          </div>
+          <h3 style="font-family:'Manrope',sans-serif; font-size:1.5rem; font-weight:400; letter-spacing:-0.025em; color:var(--fg); margin:1.5rem 0 0; text-align:center;">Likviditetsprojektioner</h3>
+          <div style="margin-top:2rem; width:100%; flex:1; border-radius:1.5rem 1.5rem 0 0; padding:1.5rem; display:flex; flex-direction:column; position:relative; overflow:hidden; background:var(--accent); border:1px solid rgba(255,255,255,0.1); border-bottom:none;">
+            <div style="display:flex; align-items:baseline; gap:0.25rem; margin-top:0.5rem;">
+              <span style="font-family:'Manrope',sans-serif; font-size:1.5rem; font-weight:300; color:rgba(255,255,255,0.8);">+</span>
+              <span style="font-family:'Manrope',sans-serif; font-size:2.25rem; font-weight:400; letter-spacing:-0.025em; color:#fff;">72 500 kr</span>
+            </div>
+            <div style="margin-top:auto; width:100%; height:10rem; position:relative;">
+              <svg width="100%" height="100%" viewBox="0 0 200 100" preserveAspectRatio="none" style="position:absolute; bottom:0; left:0;">
+                <g stroke="rgba(255,255,255,0.15)" stroke-width="2" stroke-linecap="round">
+                  <line x1="20" y1="70" x2="20" y2="100"/><line x1="60" y1="50" x2="60" y2="100"/><line x1="100" y1="80" x2="100" y2="100"/><line x1="140" y1="30" x2="140" y2="100"/><line x1="180" y1="20" x2="180" y2="100"/>
+                </g>
+                <line x1="180" y1="20" x2="180" y2="100" stroke="#059669" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="180" cy="20" r="3" fill="#059669"/>
+              </svg>
+            </div>
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-top:1rem; border-top:1px solid rgba(255,255,255,0.1); padding-top:1rem;">
+              <span style="font-family:'Geist',sans-serif; font-size:12px; color:rgba(255,255,255,0.8);">30 dagars prognos</span>
+              <span style="font-family:var(--font-mono); font-size:11px; color:#fff; padding:0.25rem 0.5rem; border-radius:9999px; background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.1);">+11%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══ 08 EDITORIAL SCROLL GALLERY ═══ -->
+  <section class="section" style="background:#ffffff; padding:5rem 1.5rem; font-family:'Geist',sans-serif; position:relative; overflow:hidden;">
+    <style>
+      @keyframes adq-reveal { 0% { opacity:0; transform:translateY(40px) scale(0.98); filter:blur(12px); } 100% { opacity:1; transform:translateY(0) scale(1); filter:blur(0); } }
+      @keyframes adq-scroll-marquee { 0% { transform:translateX(0); } 100% { transform:translateX(-100%); } }
+      .adq-reveal { opacity:0; }
+      .adq-reveal.adq-active { animation: adq-reveal 1.2s cubic-bezier(0.2,0.6,0.2,1) both; }
+      .adq-d1 { animation-delay:100ms; } .adq-d2 { animation-delay:200ms; } .adq-d3 { animation-delay:300ms; } .adq-d4 { animation-delay:400ms; } .adq-d5 { animation-delay:500ms; }
+      .adq-scroll-track { animation: adq-scroll-marquee 40s linear infinite; }
+      .adq-img-zoom { transition: transform 0.7s; }
+      .adq-img-zoom:hover img { transform: scale(1.05); }
+    </style>
+    <div class="container">
+      <!-- Tag -->
+      <div style="margin-bottom:3rem; border-bottom:1px solid rgba(0,0,0,0.08); padding-bottom:1.5rem;" class="adq-reveal">
+        <div style="display:flex; align-items:center; justify-content:space-between; font-family:var(--font-mono); font-size:10px; text-transform:uppercase; letter-spacing:0.05em; color:var(--fg-muted);">
+          <span>// Genève, inte Wall Street — diskret expertis sedan 2001.</span>
+        </div>
+      </div>
+
+      <!-- Row 1: Left tall image + right big text -->
+      <div style="display:grid; grid-template-columns:1fr 2fr; gap:3rem;">
+        <div style="display:flex; flex-direction:column; gap:1rem; margin-top:6rem;" class="adq-reveal adq-d1">
+          <div class="adq-img-zoom" style="position:relative; aspect-ratio:4/5; overflow:hidden; border-radius:2px; background:var(--surface);">
+            <img src="/addeqt/vertical-shot-sailing-boat-ocean-sunset.jpg" alt="Segling" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;">
+          </div>
+          <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:10px; text-transform:uppercase; letter-spacing:0.05em; color:var(--fg-muted);">
+            <span>[01] Skärgård — Frihet</span>
+            <span>©2026</span>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:5rem;">
+          <p class="adq-reveal adq-d2" style="font-family:'Manrope',sans-serif; font-size:clamp(1.8rem,3.5vw,3.5rem); font-weight:300; line-height:1.15; letter-spacing:-0.05em; color:var(--fg);">
+            ADDEQT ser <span style="font-weight:300; opacity:0.6;">förmögenhetsförvaltning</span> som konsten att skapa trygghet. Varje beslut formas för långsiktig effekt.
+          </p>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:3rem;">
+            <div class="adq-reveal adq-d3">
+              <div class="adq-img-zoom" style="position:relative; aspect-ratio:4/5; overflow:hidden; border-radius:2px; background:var(--surface);">
+                <img src="/addeqt/minimalistic-long-exposure-seascape-shot-guernsey.jpg" alt="Hav" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;">
+              </div>
+              <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:10px; text-transform:uppercase; letter-spacing:0.05em; color:var(--fg-muted); margin-top:0.75rem;">
+                <span>[02] Stillhet</span>
+                <span>©2026</span>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; justify-content:space-between; padding:1rem 0;">
+              <div class="adq-reveal adq-d4">
+                <p style="font-family:'Geist',sans-serif; font-size:1.125rem; line-height:1.6; color:var(--fg-dim); letter-spacing:-0.025em;">
+                  Vi arbetar med de som värdesätter tystnad framför brus — oberoende rådgivning utan kopplingar till banker eller produktbolag.
+                </p>
+              </div>
+              <!-- Stats -->
+              <div class="adq-reveal adq-d5" style="margin-top:3rem; display:flex; align-items:flex-end; justify-content:space-between; border-top:1px solid rgba(0,0,0,0.08); padding-top:3rem;">
+                <div style="display:flex; gap:3rem;">
+                  <div>
+                    <span style="font-family:'Manrope',sans-serif; font-size:3rem; font-weight:300; color:var(--fg); letter-spacing:-0.05em;">23+</span>
+                    <p style="margin-top:0.5rem; font-family:var(--font-mono); font-size:10px; text-transform:uppercase; color:var(--fg-muted); letter-spacing:0.05em;">År</p>
+                  </div>
+                  <div>
+                    <span style="font-family:'Manrope',sans-serif; font-size:3rem; font-weight:300; color:var(--fg); letter-spacing:-0.05em;">100%</span>
+                    <p style="margin-top:0.5rem; font-family:var(--font-mono); font-size:10px; text-transform:uppercase; color:var(--fg-muted); letter-spacing:0.05em;">Oberoende</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ════ Row 2: Brand mockups in editorial layout ════ -->
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-top:8rem; align-items:end;">
+        <div class="adq-reveal adq-d1">
+          <div class="adq-img-zoom" style="position:relative; aspect-ratio:4/5; overflow:hidden; border-radius:2px; background:var(--surface);">
+            <img src="/addeqt/Minimal business card mockup psd with zen stones in wellness concept.png" alt="Visitkort" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;">
+          </div>
+          <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:10px; text-transform:uppercase; letter-spacing:0.05em; color:var(--fg-muted); margin-top:0.75rem;">
+            <span>[03] Visitkort — Sand & Sten</span>
+            <span>©2026</span>
+          </div>
+        </div>
+        <div class="adq-reveal adq-d2">
+          <div class="adq-img-zoom" style="position:relative; aspect-ratio:4/5; overflow:hidden; border-radius:2px; background:var(--surface);">
+            <img src="/addeqt/Stationery mock-up with dark rugged rock.png" alt="Mobil mockup" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;">
+          </div>
+          <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:10px; text-transform:uppercase; letter-spacing:0.05em; color:var(--fg-muted); margin-top:0.75rem;">
+            <span>[04] Mobil — Print</span>
+            <span>©2026</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Magazine full-width -->
+      <div style="margin-top:6rem;" class="adq-reveal">
+        <div class="adq-img-zoom" style="position:relative; aspect-ratio:21/9; overflow:hidden; border-radius:2px; background:var(--surface);">
+          <img src="/addeqt/MAGAZINE AND CATALOG BROCHURE MOCKUP.png" alt="Magasin" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;">
+        </div>
+        <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:10px; text-transform:uppercase; letter-spacing:0.05em; color:var(--fg-muted); margin-top:0.75rem;">
+          <span>[05] Editorial — Magasin</span>
+          <span>©2026</span>
+        </div>
+      </div>
+
+<!-- ════ Row 3: Two images side by side ════ -->
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-top:6rem;">
+        <div class="adq-reveal adq-d1">
+          <div class="adq-img-zoom" style="position:relative; aspect-ratio:3/4; overflow:hidden; border-radius:2px; background:var(--surface);">
+            <img src="/addeqt/small-sailing-ship-sea-surrounded-by-mountains-covered-fog-daytime.jpg" alt="Dimma" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;">
+          </div>
+          <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:10px; text-transform:uppercase; letter-spacing:0.05em; color:var(--fg-muted); margin-top:0.75rem;">
+            <span>[08] Berg — Stabilitet</span>
+            <span>©2026</span>
+          </div>
+        </div>
+        <div class="adq-reveal adq-d2">
+          <div class="adq-img-zoom" style="position:relative; aspect-ratio:3/4; overflow:hidden; border-radius:2px; background:var(--surface);">
+            <img src="/addeqt/aerial-view-lake-beautiful-forest-great-wallpapers.jpg" alt="Skog" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;">
+          </div>
+          <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:10px; text-transform:uppercase; letter-spacing:0.05em; color:var(--fg-muted); margin-top:0.75rem;">
+            <span>[07] Natur — Lugn & Djup</span>
+            <span>©2026</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ════ Row 4: Right-aligned image + left text ════ -->
+      <div style="display:grid; grid-template-columns:2fr 1fr; gap:3rem; margin-top:8rem;">
+        <div style="display:flex; flex-direction:column; justify-content:center;" class="adq-reveal adq-d1">
+          <p style="font-family:'Manrope',sans-serif; font-size:clamp(1.5rem,2.5vw,2.5rem); font-weight:300; line-height:1.2; letter-spacing:-0.04em; color:var(--fg); max-width:30rem;">
+            Känslan ska vara en <span style="opacity:0.5;">schweizisk privatbank</span> — diskret, pålitlig, exklusiv. Aldrig aggressiv eller säljig.
+          </p>
+          <div style="margin-top:3rem; display:flex; gap:4rem;">
+            <div>
+              <span style="font-family:'Manrope',sans-serif; font-size:2.5rem; font-weight:300; color:var(--fg); letter-spacing:-0.05em;">FI</span>
+              <p style="margin-top:0.5rem; font-family:var(--font-mono); font-size:10px; text-transform:uppercase; color:var(--fg-muted); letter-spacing:0.05em;">Tillstånd</p>
+            </div>
+            <div>
+              <span style="font-family:'Manrope',sans-serif; font-size:2.5rem; font-weight:300; color:var(--fg); letter-spacing:-0.05em;">Euroclear</span>
+              <p style="margin-top:0.5rem; font-family:var(--font-mono); font-size:10px; text-transform:uppercase; color:var(--fg-muted); letter-spacing:0.05em;">Avveckling</p>
+            </div>
+          </div>
+        </div>
+        <div class="adq-reveal adq-d2">
+          <div class="adq-img-zoom" style="position:relative; aspect-ratio:4/5; overflow:hidden; border-radius:2px; background:var(--surface);">
+            <img src="/addeqt/landscape-mountains.jpg" alt="Berg" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;">
+          </div>
+          <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:10px; text-transform:uppercase; letter-spacing:0.05em; color:var(--fg-muted); margin-top:0.75rem;">
+            <span>[06] Berg — Tidlöshet</span>
+            <span>©2026</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ════ Row 5: Three column grid ════ -->
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:2rem; margin-top:6rem;">
+        <div class="adq-reveal adq-d1">
+          <div class="adq-img-zoom" style="position:relative; aspect-ratio:1/1; overflow:hidden; border-radius:2px; background:var(--surface);">
+            <img src="/addeqt/isolated-red-wooden-house-shore-near-ocean-blue-sky-sunny-day.jpg" alt="Kust" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;">
+          </div>
+          <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:10px; text-transform:uppercase; letter-spacing:0.05em; color:var(--fg-muted); margin-top:0.75rem;">
+            <span>[09] Kust — Nordisk charm</span>
+          </div>
+        </div>
+        <div class="adq-reveal adq-d2">
+          <div class="adq-img-zoom" style="position:relative; aspect-ratio:1/1; overflow:hidden; border-radius:2px; background:var(--surface);">
+            <img src="/addeqt/sailboat-sailing-sea-clear-day.jpg" alt="Skärgård" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;">
+          </div>
+          <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:10px; text-transform:uppercase; letter-spacing:0.05em; color:var(--fg-muted); margin-top:0.75rem;">
+            <span>[10] Skärgård — Ro</span>
+          </div>
+        </div>
+        <div class="adq-reveal adq-d3">
+          <div class="adq-img-zoom" style="position:relative; aspect-ratio:1/1; overflow:hidden; border-radius:2px; background:var(--surface);">
+            <img src="/addeqt/aerial-view-golyam-beglik-reservoir-bulgaria.jpg" alt="Perspektiv" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;">
+          </div>
+          <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:10px; text-transform:uppercase; letter-spacing:0.05em; color:var(--fg-muted); margin-top:0.75rem;">
+            <span>[11] Natur — Perspektiv</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ════ Row 6: Full-width Stockholm panorama ════ -->
+      <div style="margin-top:6rem;" class="adq-reveal">
+        <div class="adq-img-zoom" style="position:relative; aspect-ratio:16/7; overflow:hidden; border-radius:2px; background:var(--surface);">
+          <img src="/addeqt/aerial-view-stockholm-city-center-autumn-vacation-travel-concept.jpg" alt="Stockholm" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;">
+        </div>
+        <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:10px; text-transform:uppercase; letter-spacing:0.05em; color:var(--fg-muted); margin-top:0.75rem;">
+          <span>[12] Stockholm — Hemmaplan</span>
+          <span>©2026</span>
+        </div>
+      </div>
+
+      <!-- Trusted Partners Marquee -->
+      <div class="adq-reveal adq-d2" style="border-top:1px solid rgba(0,0,0,0.08); margin-top:6rem; padding-top:3rem;">
+        <p style="font-family:var(--font-mono); font-size:10px; text-transform:uppercase; color:var(--fg-muted); letter-spacing:0.05em; margin-bottom:2rem;">Verifierad av</p>
+        <div style="position:relative; display:flex; width:100%; overflow:hidden; -webkit-mask-image:linear-gradient(to right,transparent,black 20%,black 80%,transparent); mask-image:linear-gradient(to right,transparent,black 20%,black 80%,transparent);">
+          <div class="adq-scroll-track" style="display:flex; flex-shrink:0; align-items:center; gap:3rem; padding-right:3rem; opacity:0.4;">
+            <span style="font-family:'Manrope',sans-serif; font-size:1.25rem; font-weight:600; white-space:nowrap;">Finansinspektionen</span>
+            <span style="font-family:'Manrope',sans-serif; font-size:1.25rem; font-weight:600; white-space:nowrap;">Euroclear</span>
+            <span style="font-family:'Manrope',sans-serif; font-size:1.25rem; font-weight:600; white-space:nowrap;">Oberoende rådgivare</span>
+            <span style="font-family:'Manrope',sans-serif; font-size:1.25rem; font-weight:600; white-space:nowrap;">Strukturerade produkter</span>
+            <span style="font-family:'Manrope',sans-serif; font-size:1.25rem; font-weight:600; white-space:nowrap;">Kapitalförsäkring</span>
+          </div>
+          <div class="adq-scroll-track" style="display:flex; flex-shrink:0; align-items:center; gap:3rem; padding-right:3rem; opacity:0.4;" aria-hidden="true">
+            <span style="font-family:'Manrope',sans-serif; font-size:1.25rem; font-weight:600; white-space:nowrap;">Finansinspektionen</span>
+            <span style="font-family:'Manrope',sans-serif; font-size:1.25rem; font-weight:600; white-space:nowrap;">Euroclear</span>
+            <span style="font-family:'Manrope',sans-serif; font-size:1.25rem; font-weight:600; white-space:nowrap;">Oberoende rådgivare</span>
+            <span style="font-family:'Manrope',sans-serif; font-size:1.25rem; font-weight:600; white-space:nowrap;">Strukturerade produkter</span>
+            <span style="font-family:'Manrope',sans-serif; font-size:1.25rem; font-weight:600; white-space:nowrap;">Kapitalförsäkring</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      (function(){const o=new IntersectionObserver((e)=>{e.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('adq-active');});},{threshold:0.1});document.querySelectorAll('.adq-reveal').forEach(el=>o.observe(el));})();
+    </script>
+  </section>
+
+  <!-- ═══ 09 ENTERPRISE FEATURE CARDS (from library) ═══ -->
+  <style>
+    .ent-card { transition: all 0.7s ease-out; }
+    .ent-card:hover { transform: translateY(-8px); }
+    @keyframes ent-float { 0%,100% { transform:translateY(0) rotate(0deg); } 50% { transform:translateY(-10px) rotate(1deg); } }
+    .ent-float { animation: ent-float 6s ease-in-out infinite; }
+  </style>
+  <section class="section" style="background:#f8fafc; padding:6rem 0; position:relative; overflow:hidden;">
+    <div class="container">
+      <div style="margin-bottom:4rem; max-width:36rem;">
+        <p class="reveal" style="font-family:var(--font-mono); font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--accent); font-weight:600; margin-bottom:1rem;">Enterprise Ready</p>
+        <h2 class="reveal reveal-d1" style="font-family:'Manrope',sans-serif; font-size:clamp(1.8rem,3vw,2.5rem); font-weight:700; letter-spacing:-0.025em; color:var(--fg); margin-bottom:1.5rem;">Byggd för pålitlighet och skala</h2>
+        <p class="reveal reveal-d2" style="font-family:'Geist',sans-serif; font-size:1.125rem; color:var(--fg-dim); line-height:1.6;">Lita på era mest kritiska flöden till en plattform med oberoende styrning och institutionell Säkerhet.</p>
+      </div>
+
+      <div class="reveal" style="display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem;">
+        <!-- Card 1: rådgivning -->
+        <div class="ent-card" style="display:flex; flex-direction:column; width:100%; height:37.5rem; border-radius:1.5rem; position:relative; overflow:hidden; background:linear-gradient(145deg,#ffffff 0%,#f0f0ff 100%); box-shadow:2px 4px 8px rgba(0,0,0,0.02), 8px 16px 24px rgba(0,0,0,0.03), 0 0 0 1px rgba(0,0,0,0.04);">
+          <div style="padding:2rem 2rem 0; position:relative; z-index:10; display:flex; justify-content:space-between; align-items:start;">
+            <h3 style="font-family:'Manrope',sans-serif; font-size:1.5rem; letter-spacing:-0.025em; font-weight:500; max-width:200px; line-height:1.2; color:var(--fg);">Oberoende förmögenhets-rådgivning</h3>
+            <div style="background:var(--accent-dim); padding:0.625rem; border-radius:0.75rem; color:var(--accent); display:flex; align-items:center; justify-content:center;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
+          </div>
+          <div style="position:relative; z-index:10; flex:1; display:flex; flex-direction:column; padding:2rem;">
+            <div style="display:flex; flex-direction:column; gap:0.75rem; flex:1; justify-content:flex-end; padding-bottom:1.5rem;">
+              <div style="align-self:flex-end; background:var(--bg); border:1px solid var(--border); border-radius:1rem 1rem 0.25rem 1rem; padding:1rem; box-shadow:0 2px 8px rgba(0,0,0,0.04); max-width:85%;">
+                <p style="font-family:'Geist',sans-serif; font-size:12px; color:var(--fg-muted); line-height:1.6;">Hur minskar vi riskerna vid gränsöverskridande transaktioner?</p>
+              </div>
+              <div style="align-self:flex-start; background:var(--bg); border:1px solid var(--border); border-radius:1rem 1rem 1rem 0.25rem; padding:1rem; box-shadow:0 2px 8px rgba(0,0,0,0.04); max-width:85%;">
+                <p style="font-family:'Geist',sans-serif; font-size:12px; color:var(--fg-muted); line-height:1.6;">Vi har justerat dina risktrösklar och återvunnit 4.2% av avkastningen.</p>
+              </div>
+            </div>
+            <div style="background:var(--bg); border:1px solid var(--border); border-radius:1rem; padding:1.5rem; box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.25rem;">
+                <div>
+                  <div style="width:2.5rem; height:2.5rem; border-radius:0.75rem; background:var(--accent-dim); display:flex; align-items:center; justify-content:center; margin-bottom:1rem;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                  </div>
+                  <p style="font-family:'Geist',sans-serif; font-size:13px; font-weight:500; color:var(--fg);">FI-tillstånd</p>
+                  <p style="font-family:var(--font-mono); font-size:9px; text-transform:uppercase; color:var(--fg-muted); letter-spacing:0.08em; margin:0.25rem 0;">Skydd</p>
+                  <p style="font-family:'Manrope',sans-serif; font-size:1.25rem; color:var(--accent);">99.8%</p>
+                  <p style="font-family:var(--font-mono); font-size:9px; text-transform:uppercase; color:var(--accent); opacity:0.7; letter-spacing:0.08em; margin-top:0.25rem;">Kundnöjdhet</p>
+                </div>
+                <div>
+                  <div style="width:2.5rem; height:2.5rem; border-radius:0.75rem; background:var(--accent-dim); display:flex; align-items:center; justify-content:center; margin-bottom:1rem;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                  </div>
+                  <p style="font-family:'Geist',sans-serif; font-size:13px; font-weight:500; color:var(--fg);">Euroclear</p>
+                  <p style="font-family:var(--font-mono); font-size:9px; text-transform:uppercase; color:var(--fg-muted); letter-spacing:0.08em; margin:0.25rem 0;">Avveckling</p>
+                  <p style="font-family:'Manrope',sans-serif; font-size:1.25rem; color:var(--accent);">Sedan 2001</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Säkerhet -->
+        <div class="ent-card" style="display:flex; flex-direction:column; width:100%; height:37.5rem; border-radius:1.5rem; position:relative; overflow:hidden; background:linear-gradient(145deg,#ffffff 0%,#f0fdf8 100%); box-shadow:2px 4px 8px rgba(0,0,0,0.02), 8px 16px 24px rgba(0,0,0,0.03), 0 0 0 1px rgba(0,0,0,0.04);">
+          <div style="padding:2rem 2rem 0; position:relative; z-index:20; display:flex; justify-content:space-between; align-items:start;">
+            <h3 style="font-family:'Manrope',sans-serif; font-size:1.5rem; letter-spacing:-0.025em; font-weight:500; max-width:220px; line-height:1.2; color:var(--fg);">Institutionell Säkerhet och regelefterlevnad</h3>
+            <div style="background:rgba(5,150,105,0.08); padding:0.625rem; border-radius:0.75rem; color:var(--green); display:flex; align-items:center; justify-content:center;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+          </div>
+          <div style="position:relative; z-index:10; flex:1; display:flex; align-items:center; justify-content:center; padding:2rem;">
+            <div class="ent-float" style="position:relative; width:14rem; height:21rem; border-radius:1.5rem; overflow:hidden; box-shadow:0 25px 50px rgba(5,150,105,0.15); border:1px solid rgba(255,255,255,0.4);">
+              <div style="position:absolute; inset:0; background:linear-gradient(150deg,var(--accent) 0%,#3a3d6e 50%,#059669 100%); opacity:0.9;"></div>
+              <div style="position:absolute; inset:0; background:linear-gradient(to top,rgba(255,255,255,0.3),transparent);"></div>
+              <div style="position:absolute; inset:0; padding:1.5rem; display:flex; flex-direction:column; justify-content:space-between; z-index:10;">
+                <div style="display:flex; justify-content:flex-end; padding-top:1rem; padding-right:0.5rem;">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+                </div>
+                <div style="display:flex; flex-direction:column; padding-bottom:0.5rem;">
+                  <span style="font-family:'Manrope',sans-serif; color:#fff; font-weight:500; letter-spacing:0.1em; font-size:13px; opacity:0.8;">FI-TILLSTÅND</span>
+                  <span style="font-family:'Manrope',sans-serif; color:#fff; font-weight:500; letter-spacing:0.15em; font-size:1.125rem; opacity:0.95;">CERTIFIERAT SÄKERT</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Integrationer -->
+        <div class="ent-card" style="display:flex; flex-direction:column; width:100%; height:37.5rem; border-radius:1.5rem; position:relative; overflow:hidden; background:linear-gradient(145deg,#ffffff 0%,#eff6ff 100%); box-shadow:2px 4px 8px rgba(0,0,0,0.02), 8px 16px 24px rgba(0,0,0,0.03), 0 0 0 1px rgba(0,0,0,0.04);">
+          <div style="position:absolute; inset:0; overflow:hidden; pointer-events:none; border-radius:1.5rem;">
+            <div style="position:absolute; top:-20%; left:-10%; width:70%; height:70%; background:rgba(36,39,72,0.05); border-radius:9999px; filter:blur(80px);"></div>
+            <div style="position:absolute; bottom:-20%; right:-10%; width:60%; height:60%; background:rgba(5,150,105,0.05); border-radius:9999px; filter:blur(80px);"></div>
+          </div>
+          <div style="z-index:20; display:flex; padding:2rem 2rem 0; position:relative; align-items:start; justify-content:space-between;">
+            <h3 style="font-family:'Manrope',sans-serif; font-size:1.5rem; letter-spacing:-0.025em; font-weight:500; max-width:280px; line-height:1.2; color:var(--fg);">Sömlöst kopplad till hela ditt ekosystem</h3>
+            <div style="background:var(--accent-dim); padding:0.625rem; border-radius:0.75rem; color:var(--accent); display:flex; align-items:center; justify-content:center;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 1 1 0 10h-2"/><line x1="8" x2="16" y1="12" y2="12"/></svg>
+            </div>
+          </div>
+          <div style="flex:1; display:flex; align-items:center; justify-content:center; padding:2rem; position:relative;">
+            <div class="ent-float" style="background:rgba(255,255,255,0.95); backdrop-filter:blur(8px); border:1px solid var(--border); box-shadow:0 4px 16px rgba(0,0,0,0.06); border-radius:0.5rem; padding:0.375rem 0.75rem; display:flex; align-items:center; gap:0.5rem; position:absolute; top:60%; left:10%;">
+              <div style="width:1.25rem; height:1.25rem; background:var(--accent); border-radius:0.25rem; display:flex; align-items:center; justify-content:center;">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect width="7" height="7" x="14" y="3" rx="1"/><path d="M10 21V8a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H3"/></svg>
+              </div>
+              <span style="font-family:'Geist',sans-serif; font-size:12px; font-weight:500; color:var(--fg);">Globalt <span style="color:var(--fg-muted);">nätverk aktivt</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 06 BILDSTIL ═══ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-label reveal">Bildspråk</div>
+      <h2 class="reveal reveal-d1">Visuell känsla</h2>
+      <p class="section-intro reveal reveal-d2">Genève, inte Wall Street. Natur som andas frihet, stabilitet och ro.</p>
+      <div class="reveal">
+        <div style="display:flex; flex-wrap:wrap; gap:0.75rem; margin-bottom:2rem;">
+            <span style="display:inline-flex; align-items:center; gap:6px; font-family:var(--font-mono); font-size:10px; text-transform:uppercase; letter-spacing:0.06em; color:var(--fg-dim); background:var(--surface); border:1px solid var(--border); padding:0.5rem 1rem; border-radius:999px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><path d="M22 18H2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3Z"/><path d="M2 18l9.4-13.4a1 1 0 0 1 1.8.4L15 18"/><path d="M15 18V4.9a1 1 0 0 1 1.6-.8L22 18"/></svg>
+              Segling
+            </span>
+            <span style="display:inline-flex; align-items:center; gap:6px; font-family:var(--font-mono); font-size:10px; text-transform:uppercase; letter-spacing:0.06em; color:var(--fg-dim); background:var(--surface); border:1px solid var(--border); padding:0.5rem 1rem; border-radius:999px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></svg>
+              Berg
+            </span>
+            <span style="display:inline-flex; align-items:center; gap:6px; font-family:var(--font-mono); font-size:10px; text-transform:uppercase; letter-spacing:0.06em; color:var(--fg-dim); background:var(--surface); border:1px solid var(--border); padding:0.5rem 1rem; border-radius:999px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><path d="M17 22v-2"/><path d="M7 22v-2"/><path d="m17 8-5-6-5 6h10z"/><path d="m17 14-5-6-5 6h10z"/><path d="m17 20-5-6-5 6h10z"/></svg>
+              Natur
+            </span>
+            <span style="display:inline-flex; align-items:center; gap:6px; font-family:var(--font-mono); font-size:10px; text-transform:uppercase; letter-spacing:0.06em; color:var(--fg-dim); background:var(--surface); border:1px solid var(--border); padding:0.5rem 1rem; border-radius:999px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg>
+              Vatten
+            </span>
+            <span style="display:inline-flex; align-items:center; gap:6px; font-family:var(--font-mono); font-size:10px; text-transform:uppercase; letter-spacing:0.06em; color:var(--fg-dim); background:var(--surface); border:1px solid var(--border); padding:0.5rem 1rem; border-radius:999px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+              Dimma
+            </span>
+          </div>
+            <div class="bento-grid reveal" style="grid-template-columns:repeat(3,1fr); grid-auto-rows:200px; gap:0.75rem;">
+        <div class="bento-item" style="grid-column:span 2; grid-row:span 2;">
+          <img src="/addeqt/sailboat-sailing-sea-against-clear-sky.jpg" alt="Segelbåt" loading="lazy">
+          <div class="bento-caption"><span>Segling — Frihet</span></div>
+        </div>
+        <div class="bento-item">
+          <img src="/addeqt/beautiful-shot-water-surrounded-by-mountains-cloudy-sky.jpg" alt="Sjö och berg" loading="lazy">
+          <div class="bento-caption"><span>Genève — Stillhet</span></div>
+        </div>
+        <div class="bento-item">
+          <img src="/addeqt/dramatic-sky-mountain-peaks.jpg" alt="Bergstoppar" loading="lazy">
+          <div class="bento-caption"><span>Alpint — Precision</span></div>
+        </div>
+        <div class="bento-item">
+          <img src="/addeqt/small-sailing-ship-sea-surrounded-by-mountains-covered-fog-daytime.jpg" alt="Dimma" loading="lazy">
+          <div class="bento-caption"><span>Berg — Stabilitet</span></div>
+        </div>
+        <div class="bento-item" style="grid-column:span 2;">
+          <img src="/addeqt/beautiful-mountainous-landscape-austria.jpg" alt="Bergslandskap" loading="lazy">
+          <div class="bento-caption"><span>Alper — Tidlöshet</span></div>
+        </div>
+        <div class="bento-item" style="grid-column:span 2;">
+          <img src="/addeqt/orange-trees-landscape-with-fog.jpg" alt="Dimma och träd" loading="lazy">
+          <div class="bento-caption"><span>Dimma — Mystik</span></div>
+        </div>
+        <div class="bento-item">
+          <img src="/addeqt/minimalistic-long-exposure-seascape-shot-guernsey.jpg" alt="Hav" loading="lazy">
+          <div class="bento-caption"><span>Hav — Minimalism</span></div>
+        </div>
+        <div class="bento-item">
+          <img src="/addeqt/aerial-view-stockholm-city-center-autumn-vacation-travel-concept.jpg" alt="Stockholm" loading="lazy">
+          <div class="bento-caption"><span>Stockholm — Hemmaplan</span></div>
+        </div>
+      </div></div>
+      <div class="image-grid" style="margin-top:1.5rem;">
+        <div class="image-rule do reveal">
+          <div class="image-rule-label">✓ Gör detta</div>
+          <p>Naturliga scener: Stockholms skärgård, nordisk natur, segelbåtar i solnedgång. Använd varma ljusa toner med mycket whitespace.</p>
+        </div>
+        <div class="image-rule dont reveal">
+          <div class="image-rule-label">✕ Undvik</div>
+          <p>Stockfoton med poserade leenden. Generiska kontorsbilder. Mörka teman som huvudspår. "Billig" estetik.</p>
+        </div>
+        <div class="image-rule do reveal">
+          <div class="image-rule-label">✓ Genève, inte Wall Street</div>
+          <p>Känslan ska vara schweizisk privatbank: diskret, pålitlig, exklusiv. Aldrig aggressiv eller säljig.</p>
+        </div>
+        <div class="image-rule dont reveal">
+          <div class="image-rule-label">✕ Inga flashiga effekter</div>
+          <p>Inga explosioner av färg, inga 3D-renderingar, inga neonaccenter. Subtila, tysta, kvalitativa bilder.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 06 DESIGNPRINCIPER ═══ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-label reveal">Designprinciper</div>
+      <h2 class="reveal reveal-d1">Så bygger vi ADDEQT</h2>
+      <p class="section-intro reveal reveal-d2">Principer som styr varje designbeslut — från pixel till presentation.</p>
+      <div class="principles-grid">
+        <div class="principle reveal"><div class="principle-num">01</div><h4>Luft och utrymme</h4><p>Generösa marginaler. Varje element får rum att andas och varje sektion sin egen tyngd.</p></div>
+        <div class="principle reveal"><div class="principle-num">02</div><h4>Mjuka former</h4><p>Avrundade hörn på kort, knappar och sektioner. Pill-formade knappar genom hela upplevelsen.</p></div>
+        <div class="principle reveal"><div class="principle-num">03</div><h4>Subtil rörelse</h4><p>Element som glider in vid scroll. Aldrig överdriven rörelse, elegans i tystnad.</p></div>
+        <div class="principle reveal"><div class="principle-num">04</div><h4>Typografisk hierarki</h4><p>Stora, tunna rubriker mot kompakt brödtext. Storleken skapar ordningen.</p></div>
+        <div class="principle reveal"><div class="principle-num">05</div><h4>Ljust som standard</h4><p>Huvudsakligen ljusa ytor. Mörka block används sparsamt för kontrast och tyngd.</p></div>
+        <div class="principle reveal"><div class="principle-num">06</div><h4>Förtroende synligt</h4><p>FI-tillståndet, oberoendet och Euroclear visas tydligt genom hela sajten.</p></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══ EDITORIAL DESIGN NOTE ═══ -->
+  <section class="section" style="background:var(--bg); padding:6rem 0;">
+    <div class="container" style="max-width:680px;">
+      <div class="reveal" style="position:relative; padding:3rem 0;">
+        <div style="position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg, transparent, var(--accent-dim), transparent);"></div>
+        <p style="font-family:var(--font-mono); font-size:9px; text-transform:uppercase; letter-spacing:0.15em; color:var(--accent); margin-bottom:2rem;">Design Note — Kreativ Direktion</p>
+        <p style="font-family:'Manrope',sans-serif; font-size:clamp(1.1rem,2.2vw,1.35rem); font-weight:300; line-height:1.8; color:var(--fg); letter-spacing:-0.02em;">
+          Den editoriala känslan blandad med SaaS-inspirerade tech-kort kan bli något genuint unikt för ADDEQTs varumärke. Typsnittsvalet Manrope i lättare vikter (300–400) skapar en känsla av skandinavisk minimalism, tyst auktoritet och exklusivitet utan att bli skrikig eller blaffig.
+        </p>
+        <p style="font-family:'Manrope',sans-serif; font-size:clamp(1.1rem,2.2vw,1.35rem); font-weight:300; line-height:1.8; color:var(--fg); letter-spacing:-0.02em; margin-top:1.5rem;">
+          När man drar ner vikten till 300 och öppnar upp trackingen på texten händer något med hela layouten, allt börjar andas. Det blir tyst på rätt sätt. Man kan köra stora typstorlekar utan att det skriker, och det ger varje sektion ett naturligt editorial flow som jag tycker passar ADDEQT <span style="color:var(--accent); font-weight:400;">extremt bra.</span>
+        </p>
+        <p style="font-family:'Manrope',sans-serif; font-size:clamp(1.1rem,2.2vw,1.35rem); font-weight:300; line-height:1.8; color:var(--fg); letter-spacing:-0.02em; margin-top:1.5rem;">
+          Tech-spåret med fyrkantigare snitt och mer datadrivna komponenter är också intressant, det ger en annan typ av precision. Men ska jag välja, så landar jag i <span style="color:var(--accent); font-weight:400;">den skandinaviska tysta stilen.</span> Den har mer personlighet, mer luft, och känslan sitter direkt för mig.
+        </p>
+        <div style="display:flex; align-items:center; gap:1rem; margin-top:2.5rem; padding-top:2rem; border-top:1px solid var(--border);">
+          <div style="width:2.5rem; height:2.5rem; border-radius:50%; background:var(--accent); display:flex; align-items:center; justify-content:center;">
+            <span style="font-family:'Manrope',sans-serif; font-size:11px; font-weight:600; color:white;">FL</span>
+          </div>
+          <div>
+            <p style="font-family:'Manrope',sans-serif; font-size:14px; font-weight:300; color:var(--fg); letter-spacing:-0.02em;">Fabian Lindström</p>
+            <p style="font-family:var(--font-mono); font-size:10px; color:var(--fg-muted); letter-spacing:0.03em;">Design Lead · Zaitex</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <section class="footer">
+    <p>Producerad av <span class="zaitex">Zaitex</span> · April 2026 · v2.0</p>
+    <p style="margin-top:0.5rem;">Moodboard skapad för Addeqt — visuell referens för hemsideproduktion.</p>
+  </section>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+      document.getElementById('scrollProgress').style.width = pct + '%';
+    });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

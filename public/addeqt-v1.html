@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="sv" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AddEqt — En trygg partner i finansiella frågor</title>
+<meta name="description" content="AddEqt är en oberoende förmögenhetsrådgivare och kapitalförvaltare. Inga egna fonder, inga dolda incitament — bara din bästa investering.">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500&display=swap');
+body { font-family: 'Satoshi', 'Inter', sans-serif; }
+.font-cormorant { font-family: 'Cormorant Garamond', serif; }
+.reveal { opacity: 0; transform: translateY(30px) scale(0.98); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); will-change: opacity, transform; }
+.reveal.active { opacity: 1; transform: translateY(0) scale(1); }
+.delay-100 { transition-delay: 0.1s; }
+.delay-200 { transition-delay: 0.2s; }
+.delay-300 { transition-delay: 0.3s; }
+@keyframes blob {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+.animate-blob { animation: blob 7s infinite; }
+/* Calculator */
+input[type=range] { -webkit-appearance: none; width: 100%; height: 4px; border-radius: 4px; background: #E3EBE6; outline: none; }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #2D4438; cursor: pointer; }
+</style>
+</head>
+<body class="bg-[#F4F7F5] text-stone-600 antialiased overflow-x-hidden">
+
+  <!-- Navigation -->
+  <nav class="fixed w-full z-50 top-0 left-0 bg-[#F4F7F5]/80 backdrop-blur-md border-b border-[#E3EBE6]">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 189 35.32" class="h-7 w-auto" style="fill:#1F3027">
+          <g><path d="M22.73,8.64h5.08l12,31.17H35.58L33,33H17.57L15,39.81H10.73ZM31.58,29.3,25.29,12.73,19,29.3Z" transform="translate(-10.73 -8.17)"/><path d="M45.39,39.81V8.64H56.33a18.58,18.58,0,0,1,6.58,1.11A14.64,14.64,0,0,1,68,12.92a13.72,13.72,0,0,1,3.26,4.91,17.13,17.13,0,0,1,1.14,6.4,17.38,17.38,0,0,1-1.14,6.42A13.42,13.42,0,0,1,68,35.55a14.89,14.89,0,0,1-5.07,3.15,18.58,18.58,0,0,1-6.58,1.11Zm4-3.72h7a13.91,13.91,0,0,0,4.88-.81A10.62,10.62,0,0,0,65,32.93a10.42,10.42,0,0,0,2.4-3.75,14,14,0,0,0,.83-4.95,14.1,14.1,0,0,0-.83-5A10.42,10.42,0,0,0,65,15.52a10.62,10.62,0,0,0-3.75-2.35,13.91,13.91,0,0,0-4.88-.81h-7Z" transform="translate(-10.73 -8.17)"/><path d="M79.36,39.81V8.64H90.3a18.58,18.58,0,0,1,6.58,1.11A14.64,14.64,0,0,1,102,12.92a13.85,13.85,0,0,1,3.26,4.91,17.13,17.13,0,0,1,1.14,6.4,17.38,17.38,0,0,1-1.14,6.42,13.55,13.55,0,0,1-3.26,4.9,14.89,14.89,0,0,1-5.07,3.15,18.58,18.58,0,0,1-6.58,1.11Zm4-3.72h7a14,14,0,0,0,4.88-.81,10.62,10.62,0,0,0,3.75-2.35,10.4,10.4,0,0,0,2.39-3.75,13.82,13.82,0,0,0,.84-4.95,13.87,13.87,0,0,0-.84-5,10.4,10.4,0,0,0-2.39-3.75,10.62,10.62,0,0,0-3.75-2.35,14,14,0,0,0-4.88-.81h-7Z" transform="translate(-10.73 -8.17)"/><path d="M113.33,8.64h21.4v3.72H117.28V22.55h14.85V26H117.28V36.09h17.45v3.72h-21.4Z" transform="translate(-10.73 -8.17)"/><path d="M143.57,24.23a11.92,11.92,0,0,1,.93-4.68,12.16,12.16,0,0,1,6.35-6.47,11.36,11.36,0,0,1,4.59-.95,11.24,11.24,0,0,1,4.6.95c.26.11.5.24.74.37.95-1,1.94-2,2.95-2.95a16.33,16.33,0,0,0-2-1.07,16.13,16.13,0,0,0-12.5,0,16.24,16.24,0,0,0-5.12,3.44A16.41,16.41,0,0,0,140.64,18a16.11,16.11,0,0,0,0,12.49,16.69,16.69,0,0,0,1.22,2.29c.5-.43,1-.87,1.51-1.28s1.16-.9,1.74-1.35a13,13,0,0,1-.61-1.24A11.91,11.91,0,0,1,143.57,24.23Z" transform="translate(-10.73 -8.17)"/><path d="M169.79,31.46a15.53,15.53,0,0,0,1.7-7.23A15.6,15.6,0,0,0,170.23,18a17.18,17.18,0,0,0-1.46-2.71c-1.05,1-2.09,1.94-3.05,3a11.4,11.4,0,0,1,.65,1.31,12.17,12.17,0,0,1-2.56,13.21A12.25,12.25,0,0,1,160,35.37a11.24,11.24,0,0,1-4.6,1,11.36,11.36,0,0,1-4.59-1l-.7-.35c-.65.52-1.33,1-2,1.54-.47.38-.93.78-1.39,1.17A17.49,17.49,0,0,0,149.2,39a16,16,0,0,0,9.56.91,16.5,16.5,0,0,0,3.1-1l3.91,4.56h4.93L165.21,37A16.32,16.32,0,0,0,169.79,31.46Z" transform="translate(-10.73 -8.17)"/><path d="M184.57,12.36H173.35V8.64h26.38v3.72H188.52V39.81h-4Z" transform="translate(-10.73 -8.17)"/><path d="M148.55,22.93h5.89V17h2.74v5.89h5.89v2.74h-5.89v5.89h-2.74V25.67h-5.89Z" transform="translate(-10.73 -8.17)"/></g>
+        </svg>
+      </a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#om-oss" class="text-sm font-medium text-stone-500 hover:text-[#2D4438] transition-colors">Om oss</a>
+        <a href="#tjanster" class="text-sm font-medium text-stone-500 hover:text-[#2D4438] transition-colors">Tjänster</a>
+        <a href="#team" class="text-sm font-medium text-stone-500 hover:text-[#2D4438] transition-colors">Team</a>
+      </div>
+      <a href="#kontakt" class="px-5 py-2 rounded-full bg-[#2D4438] text-white text-sm font-medium hover:bg-[#1F3027] transition-all hover:shadow-lg active:scale-95">
+        Boka möte
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="relative pt-36 pb-20 px-6 overflow-hidden border-b border-[#E3EBE6] lg:pt-48 lg:pb-28">
+    <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#C5D6CC] to-transparent opacity-50"></div>
+    <div class="max-w-4xl mx-auto text-center reveal active">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#C5D6CC] shadow-sm mb-8">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-[#6B9078]"></span>
+        </span>
+        <span class="text-xs font-medium text-[#2D4438] tracking-wide uppercase">Oberoende sedan 2023</span>
+      </div>
+      <h1 class="md:text-7xl leading-[1.1] text-5xl font-normal text-[#1F3027] tracking-tight font-cormorant mb-6">
+        En trygg partner<br><em class="text-stone-400">i finansiella frågor</em>
+      </h1>
+      <p class="md:text-xl leading-relaxed text-lg font-light text-stone-500 max-w-2xl mx-auto mb-10 reveal delay-100 active">
+        Vi är en oberoende förmögenhetsrådgivare och kapitalförvaltare. Inga egna fonder, inga dolda incitament — bara din bästa investering.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 reveal delay-200 active">
+        <a href="#tjanster" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-[#2D4438] text-white text-base font-medium hover:bg-[#1F3027] transition-all shadow-xl shadow-[#C5D6CC]/50 flex items-center justify-center gap-2 hover:-translate-y-1">
+          Våra tjänster
+        </a>
+        <a href="#kalkylator" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white border border-[#C5D6CC] text-[#1F3027] text-base font-medium hover:border-[#87A995] transition-all flex items-center justify-center gap-2 hover:-translate-y-1">
+          Beräkna ditt sparande
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Partners strip -->
+  <section class="bg-white border-b border-[#E3EBE6] py-14">
+    <div class="max-w-5xl mx-auto px-6 text-center reveal active">
+      <p class="text-xs font-medium text-stone-400 tracking-wide uppercase mb-8">Samarbetar med</p>
+      <div class="flex flex-wrap gap-12 lg:gap-20 opacity-40 hover:opacity-80 transition-opacity duration-500 justify-center items-center cursor-default">
+        <span class="text-2xl font-cormorant font-semibold tracking-wider text-[#1F3027] uppercase">Nordnet</span>
+        <span class="text-xl font-satoshi font-medium tracking-widest text-[#1F3027] uppercase">Finansinspektionen</span>
+        <span class="text-2xl font-cormorant italic tracking-widest text-[#1F3027]">Nasdaq</span>
+        <span class="text-xl font-satoshi font-semibold tracking-wide text-[#1F3027] uppercase">Euronext</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Oberoende — Then vs Now -->
+  <section id="om-oss" class="py-24 px-6 bg-white relative border-b border-[#E3EBE6]">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-12 reveal">
+        <span class="text-xs font-medium text-[#2D4438] tracking-wide uppercase block mb-4">Varför AddEqt</span>
+        <h2 class="text-4xl md:text-5xl font-normal font-cormorant text-[#1F3027] tracking-tight">Storbank vs. Oberoende</h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+        <div class="space-y-8 reveal">
+          <p class="text-stone-500 leading-relaxed text-lg font-light">Storbankernas verklighet: egna fonder, dolda incitament, ett säljsystem.</p>
+          <div class="space-y-6 pt-4">
+            <div class="flex items-center gap-5 text-stone-600 group">
+              <div class="w-12 h-12 rounded-full bg-red-50 text-red-400 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
+                <iconify-icon icon="solar:danger-linear" class="text-xl"></iconify-icon>
+              </div>
+              <span class="block text-sm font-medium text-[#1F3027]">Egna fonder med höga avgifter</span>
+            </div>
+            <div class="flex items-center gap-5 text-stone-600 group">
+              <div class="w-12 h-12 rounded-full bg-orange-50 text-orange-400 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
+                <iconify-icon icon="solar:dollar-minimalistic-linear" class="text-xl"></iconify-icon>
+              </div>
+              <span class="block text-sm font-medium text-[#1F3027]">Oönskade incitament som snedvrider råden</span>
+            </div>
+            <div class="flex items-center gap-5 text-stone-600 group">
+              <div class="w-12 h-12 rounded-full bg-stone-100 text-stone-400 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
+                <iconify-icon icon="solar:users-group-two-rounded-linear" class="text-xl"></iconify-icon>
+              </div>
+              <span class="block text-sm font-medium text-[#1F3027]">Standardlösningar — inte anpassade för dig</span>
+            </div>
+          </div>
+        </div>
+        <div class="relative bg-[#F4F7F5] rounded-[2.5rem] p-8 md:p-14 reveal delay-200 hover:shadow-xl transition-shadow duration-500 border border-transparent hover:border-[#E3EBE6]">
+          <p class="leading-relaxed text-lg font-light text-stone-500 mb-8">AddEqt: Oberoende. Transparent. Din sida.</p>
+          <div class="space-y-6 pt-4">
+            <div class="flex items-center gap-5 text-[#2D4438] group">
+              <div class="w-12 h-12 rounded-full bg-white border border-[#C5D6CC] flex items-center justify-center shrink-0 shadow-sm group-hover:scale-110 transition-transform duration-300">
+                <iconify-icon icon="solar:shield-check-linear" class="text-xl text-[#4F705D]"></iconify-icon>
+              </div>
+              <span class="block text-sm font-medium text-[#1F3027]">Inga egna fonder eller finansiella produkter</span>
+            </div>
+            <div class="flex items-center gap-5 text-[#2D4438] group">
+              <div class="w-12 h-12 rounded-full bg-white border border-[#C5D6CC] flex items-center justify-center shrink-0 shadow-sm group-hover:scale-110 transition-transform duration-300">
+                <iconify-icon icon="solar:eye-linear" class="text-xl text-[#4F705D]"></iconify-icon>
+              </div>
+              <span class="block text-sm font-medium text-[#1F3027]">Enkel och transparent prissättning</span>
+            </div>
+            <div class="flex items-center gap-5 text-[#2D4438] group">
+              <div class="w-12 h-12 rounded-full bg-white border border-[#C5D6CC] flex items-center justify-center shrink-0 shadow-sm group-hover:scale-110 transition-transform duration-300">
+                <iconify-icon icon="solar:heart-linear" class="text-xl text-[#4F705D]"></iconify-icon>
+              </div>
+              <span class="block text-sm font-medium text-[#1F3027]">Vi anpassar lösningen efter dig — inte tvärtom</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tre nyckelfördelar -->
+  <section class="py-24 px-6 bg-white overflow-hidden border-b border-[#E3EBE6]">
+    <div class="max-w-6xl mx-auto">
+      <span class="text-xs font-medium text-[#2D4438] tracking-wide uppercase text-center block mb-4 reveal">Vad gör oss annorlunda</span>
+      <h2 class="text-4xl md:text-5xl font-cormorant text-center text-[#1F3027] tracking-tight mb-6 reveal">
+        <span class="font-normal">Tre grundpelare.</span>
+        <span class="italic text-stone-400"> Ett löfte.</span>
+      </h2>
+      <p class="text-stone-500 text-lg text-center max-w-2xl mx-auto mb-24 reveal delay-100">
+        AddEqt grundades 2023 av erfarna rådgivare och förvaltare med ett gemensamt mål: att alltid agera i kundens bästa intresse.
+      </p>
+      <div class="relative">
+        <div class="absolute left-1/2 top-0 bottom-0 w-px bg-[#E3EBE6] hidden md:block"></div>
+        <div class="space-y-32">
+          <div class="relative flex flex-col md:flex-row items-center gap-12 md:gap-24 reveal">
+            <div class="md:w-1/2 flex justify-end">
+              <div class="bg-[#F4F7F5] p-6 rounded-2xl border border-[#E3EBE6] max-w-md w-full shadow-sm rotate-1 hover:rotate-0 hover:scale-105 transition-all duration-500 cursor-default">
+                <div class="flex items-center gap-3 mb-4 border-b border-[#C5D6CC] pb-3">
+                  <iconify-icon icon="solar:shield-check-bold" class="text-xl text-[#4F705D]"></iconify-icon>
+                  <span class="text-sm font-medium text-stone-700">Fullständig oberoendegaranti</span>
+                </div>
+                <p class="text-xs text-stone-500 leading-relaxed">Vi har inga egna fonder, ingen provisionsbaserad ersättning och inga andra oönskade incitament.</p>
+              </div>
+            </div>
+            <div class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-16 h-16 rounded-full bg-white border-4 border-[#F4F7F5] items-center justify-center z-10 shadow-lg">
+              <iconify-icon icon="solar:shield-linear" class="text-2xl text-[#2D4438]"></iconify-icon>
+            </div>
+            <div class="md:w-1/2">
+              <h3 class="text-xl font-medium text-[#1F3027] mb-3">Fullständigt oberoende</h3>
+              <p class="text-stone-500">Vi väljer investeringar från ett brett och diversifierat universum — utan egenintresse. Ditt mål är vårt enda uppdrag.</p>
+            </div>
+          </div>
+          <div class="relative flex flex-col md:flex-row-reverse items-center gap-12 md:gap-24 reveal">
+            <div class="md:w-1/2 flex justify-start">
+              <div class="bg-[#F4F7F5] p-6 rounded-2xl border border-[#E3EBE6] max-w-md w-full shadow-sm -rotate-1 hover:rotate-0 hover:scale-105 transition-all duration-500 cursor-default">
+                <div class="flex items-center gap-3 mb-4 border-b border-[#C5D6CC] pb-3">
+                  <iconify-icon icon="solar:diploma-bold" class="text-xl text-[#4F705D]"></iconify-icon>
+                  <span class="text-sm font-medium text-stone-700">Seniorteam med djup erfarenhet</span>
+                </div>
+                <p class="text-xs text-stone-500 leading-relaxed">Christoffer, Fredrik, Christian, Mats, Carl Christian och Fredrik — välrenommerade rådgivare och förvaltare.</p>
+              </div>
+            </div>
+            <div class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-16 h-16 rounded-full bg-white border-4 border-[#F4F7F5] items-center justify-center z-10 shadow-lg">
+              <iconify-icon icon="solar:users-group-rounded-linear" class="text-2xl text-[#2D4438]"></iconify-icon>
+            </div>
+            <div class="md:w-1/2 text-left md:text-right">
+              <h3 class="text-xl font-medium text-[#1F3027] mb-3">Erfarna rådgivare</h3>
+              <p class="text-stone-500">Vårt team består av välrenommerade och hängivna rådgivare med lång erfarenhet från finansbranschen.</p>
+            </div>
+          </div>
+          <div class="relative flex flex-col md:flex-row items-center gap-12 md:gap-24 reveal">
+            <div class="md:w-1/2 flex justify-end">
+              <div class="bg-[#F4F7F5] p-6 rounded-2xl border border-[#E3EBE6] max-w-md w-full shadow-sm flex items-center justify-center h-32 hover:scale-105 transition-all duration-500">
+                <div class="text-center">
+                  <div class="inline-flex p-3 bg-[#E3EBE6] text-[#4F705D] rounded-full mb-3 shadow-sm">
+                    <iconify-icon icon="solar:handshake-linear" class="text-2xl"></iconify-icon>
+                  </div>
+                  <p class="text-sm font-medium text-[#1F3027]">Partnerskap sedan 2023</p>
+                </div>
+              </div>
+            </div>
+            <div class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-16 h-16 rounded-full bg-white border-4 border-[#F4F7F5] items-center justify-center z-10 shadow-lg">
+              <iconify-icon icon="solar:buildings-linear" class="text-2xl text-[#2D4438]"></iconify-icon>
+            </div>
+            <div class="md:w-1/2">
+              <h3 class="text-xl font-medium text-[#1F3027] mb-3">Grundat 2023</h3>
+              <p class="text-stone-500">Startade verksamheten 2023 genom partnerskap — med den moderna kunden och den moderna marknaden i fokus.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tjänster -->
+  <section id="tjanster" class="overflow-hidden bg-[#F4F7F5] border-[#E3EBE6] border-b py-24 px-6 relative">
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-30 pointer-events-none">
+      <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-emerald-100 rounded-full blur-[100px] animate-blob"></div>
+      <div class="absolute top-[20%] right-[-10%] w-[30%] h-[30%] bg-[#C5D6CC] rounded-full blur-[100px] animate-blob" style="animation-delay: 2s;"></div>
+    </div>
+    <div class="max-w-6xl mx-auto relative z-10">
+      <div class="text-center max-w-2xl mx-auto mb-20 reveal">
+        <span class="text-xs font-medium text-[#2D4438] tracking-wide uppercase mb-4 block">Det vi erbjuder</span>
+        <h2 class="text-4xl md:text-5xl font-cormorant text-[#1F3027] tracking-tight mb-4">
+          <span class="font-normal">Fyra tjänster.</span>
+          <span class="italic text-stone-500"> En helhetslösning.</span>
+        </h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-white/80 backdrop-blur-sm p-8 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 border border-white/50 reveal delay-100">
+          <div class="w-12 h-12 rounded-2xl bg-[#E3EBE6] text-[#4F705D] flex items-center justify-center mb-6 shadow-inner">
+            <span class="font-medium font-cormorant text-xl">01</span>
+          </div>
+          <h3 class="text-xl font-normal font-cormorant text-[#1F3027] mb-3 tracking-tight">Kapitalförvaltning</h3>
+          <p class="text-sm text-stone-500 leading-relaxed mb-4">Du formulerar dina finansiella mål — vi sköter resten med aktiv förvaltning anpassad till dig.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs bg-[#F4F7F5] border border-[#E3EBE6] rounded-full px-3 py-1 text-[#4F705D]">Tryggt</span>
+            <span class="text-xs bg-[#F4F7F5] border border-[#E3EBE6] rounded-full px-3 py-1 text-[#4F705D]">Anpassat</span>
+          </div>
+        </div>
+        <div class="bg-white/80 backdrop-blur-sm p-8 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 border border-white/50 reveal delay-200">
+          <div class="w-12 h-12 rounded-2xl bg-[#E3EBE6] text-[#4F705D] flex items-center justify-center mb-6 shadow-inner">
+            <span class="font-medium font-cormorant text-xl">02</span>
+          </div>
+          <h3 class="text-xl font-normal font-cormorant text-[#1F3027] mb-3 tracking-tight">Förmögenhets&shy;rådgivning</h3>
+          <p class="text-sm text-stone-500 leading-relaxed mb-4">Vi lyssnar. Vi förstår din situation. Sedan ger vi råd som verkligen tar hänsyn till din riskprofil och dina mål.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs bg-[#F4F7F5] border border-[#E3EBE6] rounded-full px-3 py-1 text-[#4F705D]">Hållbart</span>
+            <span class="text-xs bg-[#F4F7F5] border border-[#E3EBE6] rounded-full px-3 py-1 text-[#4F705D]">Smidigt</span>
+          </div>
+        </div>
+        <div class="bg-white/80 backdrop-blur-sm p-8 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 border border-white/50 reveal delay-300">
+          <div class="w-12 h-12 rounded-2xl bg-[#E3EBE6] text-[#4F705D] flex items-center justify-center mb-6 shadow-inner">
+            <span class="font-medium font-cormorant text-xl">03</span>
+          </div>
+          <h3 class="text-xl font-normal font-cormorant text-[#1F3027] mb-3 tracking-tight">Private Banking</h3>
+          <p class="text-sm text-stone-500 leading-relaxed mb-4">Heltäckande hjälp med det mesta som rör din ekonomi. Vi sätter dina behov i fokus och löser dina problem.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="text-xs bg-[#F4F7F5] border border-[#E3EBE6] rounded-full px-3 py-1 text-[#4F705D]">Heltäckande</span>
+            <span class="text-xs bg-[#F4F7F5] border border-[#E3EBE6] rounded-full px-3 py-1 text-[#4F705D]">Tryggt</span>
+          </div>
+        </div>
+        <div class="bg-[#2D4438] p-8 rounded-3xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group cursor-pointer flex flex-col justify-center reveal delay-300 relative overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-tr from-[#1F3027] to-transparent opacity-50"></div>
+          <div class="relative z-10">
+            <div class="w-12 h-12 rounded-2xl bg-white/10 text-white flex items-center justify-center mb-6">
+              <span class="font-medium font-cormorant text-xl">04</span>
+            </div>
+            <h3 class="text-xl font-normal font-cormorant text-white mb-3 tracking-tight">Samarbeten</h3>
+            <p class="text-sm text-[#C5D6CC] leading-relaxed mb-6">Vi samarbetar bl.a. med Nordnet för att erbjuda dig stabilitet, mervärde och trygghet.</p>
+            <a href="#kontakt" class="inline-flex items-center gap-2 text-sm text-white/80 hover:text-white transition-colors">
+              Kontakta oss <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kalkylator -->
+  <section id="kalkylator" class="py-20 px-6 bg-[#1F3027] text-[#F4F7F5]">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16 reveal">
+        <span class="text-xs font-medium text-[#87A995] tracking-wide uppercase mb-4 block">Räkna på din framtid</span>
+        <h2 class="text-4xl md:text-5xl font-cormorant tracking-tight mb-4">
+          <span class="font-normal">Ditt sparande</span>
+          <span class="italic text-[#87A995]"> om 10 år?</span>
+        </h2>
+        <p class="text-[#C5D6CC] max-w-lg mx-auto">Ange dina förutsättningar och se hur ditt kapital kan växa. Uträkningen är ett exempel och inget löfte om framtida avkastning.</p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-12 items-center reveal delay-100">
+        <div class="space-y-8">
+          <div>
+            <div class="flex justify-between mb-2">
+              <label class="text-sm font-medium text-[#C5D6CC]">Startbelopp</label>
+              <span class="text-sm font-medium text-white" id="startLabel">500 000 kr</span>
+            </div>
+            <input type="range" id="startkapital" min="0" max="5000000" step="50000" value="500000" oninput="updateCalc()">
+          </div>
+          <div>
+            <div class="flex justify-between mb-2">
+              <label class="text-sm font-medium text-[#C5D6CC]">Månadssparande</label>
+              <span class="text-sm font-medium text-white" id="manadLabel">5 000 kr</span>
+            </div>
+            <input type="range" id="manadsspar" min="0" max="100000" step="500" value="5000" oninput="updateCalc()">
+          </div>
+          <div>
+            <div class="flex justify-between mb-2">
+              <label class="text-sm font-medium text-[#C5D6CC]">Förväntad årlig avkastning</label>
+              <span class="text-sm font-medium text-white" id="avkastningLabel">7%</span>
+            </div>
+            <input type="range" id="avkastning" min="1" max="15" step="0.5" value="7" oninput="updateCalc()">
+          </div>
+          <div>
+            <div class="flex justify-between mb-2">
+              <label class="text-sm font-medium text-[#C5D6CC]">Antal år</label>
+              <span class="text-sm font-medium text-white" id="arLabel">10 år</span>
+            </div>
+            <input type="range" id="antal-ar" min="1" max="40" step="1" value="10" oninput="updateCalc()">
+          </div>
+        </div>
+        <div class="bg-[#2D4438]/60 rounded-3xl border border-[#3E5A4A] p-10 text-center">
+          <p class="text-sm text-[#87A995] uppercase tracking-wide mb-3">Totalt värde vid periodens slut</p>
+          <p class="text-5xl md:text-6xl font-cormorant font-normal text-white mb-2 tracking-tight" id="totalVarde">1 364 000 kr</p>
+          <div class="grid grid-cols-2 gap-4 mt-8">
+            <div class="bg-[#1F3027]/60 rounded-2xl p-4">
+              <p class="text-xs text-[#87A995] mb-1">Varav avkastning</p>
+              <p class="text-xl font-cormorant text-white" id="avkastningVarde">264 000 kr</p>
+            </div>
+            <div class="bg-[#1F3027]/60 rounded-2xl p-4">
+              <p class="text-xs text-[#87A995] mb-1">Varav insättningar</p>
+              <p class="text-xl font-cormorant text-white" id="insattningVarde">1 100 000 kr</p>
+            </div>
+          </div>
+          <a href="#kontakt" class="mt-8 inline-block px-8 py-3 rounded-full bg-[#6B9078] text-white text-sm font-medium hover:bg-[#4F705D] transition-colors">
+            Prata med en rådgivare →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section id="team" class="py-24 px-6 bg-white text-center relative border-b border-[#E3EBE6]">
+    <div class="max-w-4xl mx-auto space-y-4 mb-16 reveal">
+      <span class="text-xs font-medium text-[#2D4438] tracking-wide uppercase block">Teamet bakom AddEqt</span>
+      <h2 class="text-4xl md:text-5xl font-cormorant text-[#1F3027] tracking-tight leading-tight">
+        <span class="font-normal">Erfarna</span>
+        <span class="italic text-stone-400"> och hängivna</span>
+      </h2>
+    </div>
+    <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-6 reveal delay-100">
+      <div class="bg-[#F4F7F5] rounded-3xl border border-[#E3EBE6] p-8 text-left hover:shadow-xl transition-all duration-500 group">
+        <div class="w-14 h-14 rounded-full bg-[#E3EBE6] flex items-center justify-center mb-4 text-[#2D4438] font-cormorant text-xl font-medium group-hover:scale-110 transition-transform duration-300">CM</div>
+        <h3 class="text-xl font-normal font-cormorant text-[#1F3027] mb-1">Christoffer Mohammar</h3>
+        <p class="text-sm text-[#4F705D] mb-3">Förvaltare</p>
+      </div>
+      <div class="bg-[#F4F7F5] rounded-3xl border border-[#E3EBE6] p-8 text-left hover:shadow-xl transition-all duration-500 group">
+        <div class="w-14 h-14 rounded-full bg-[#E3EBE6] flex items-center justify-center mb-4 text-[#2D4438] font-cormorant text-xl font-medium group-hover:scale-110 transition-transform duration-300">FL</div>
+        <h3 class="text-xl font-normal font-cormorant text-[#1F3027] mb-1">Fredrik Lidmark</h3>
+        <p class="text-sm text-[#4F705D] mb-3">Rådgivare</p>
+      </div>
+      <div class="bg-[#F4F7F5] rounded-3xl border border-[#E3EBE6] p-8 text-left hover:shadow-xl transition-all duration-500 group">
+        <div class="w-14 h-14 rounded-full bg-[#E3EBE6] flex items-center justify-center mb-4 text-[#2D4438] font-cormorant text-xl font-medium group-hover:scale-110 transition-transform duration-300">CH</div>
+        <h3 class="text-xl font-normal font-cormorant text-[#1F3027] mb-1">Christian Holm Svensson</h3>
+        <p class="text-sm text-[#4F705D] mb-3">Rådgivare</p>
+      </div>
+      <div class="bg-[#F4F7F5] rounded-3xl border border-[#E3EBE6] p-8 text-left hover:shadow-xl transition-all duration-500 group">
+        <div class="w-14 h-14 rounded-full bg-[#E3EBE6] flex items-center justify-center mb-4 text-[#2D4438] font-cormorant text-xl font-medium group-hover:scale-110 transition-transform duration-300">MG</div>
+        <h3 class="text-xl font-normal font-cormorant text-[#1F3027] mb-1">Mats Gunnå</h3>
+        <p class="text-sm text-[#4F705D] mb-3">Förvaltare</p>
+      </div>
+      <div class="bg-[#F4F7F5] rounded-3xl border border-[#E3EBE6] p-8 text-left hover:shadow-xl transition-all duration-500 group">
+        <div class="w-14 h-14 rounded-full bg-[#E3EBE6] flex items-center justify-center mb-4 text-[#2D4438] font-cormorant text-xl font-medium group-hover:scale-110 transition-transform duration-300">CO</div>
+        <h3 class="text-xl font-normal font-cormorant text-[#1F3027] mb-1">Carl Christian Ottander</h3>
+        <p class="text-sm text-[#4F705D] mb-3">Rådgivare</p>
+      </div>
+      <div class="bg-[#F4F7F5] rounded-3xl border border-[#E3EBE6] p-8 text-left hover:shadow-xl transition-all duration-500 group">
+        <div class="w-14 h-14 rounded-full bg-[#E3EBE6] flex items-center justify-center mb-4 text-[#2D4438] font-cormorant text-xl font-medium group-hover:scale-110 transition-transform duration-300">FS</div>
+        <h3 class="text-xl font-normal font-cormorant text-[#1F3027] mb-1">Fredrik Strömberg</h3>
+        <p class="text-sm text-[#4F705D] mb-3">Förvaltare</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA / Kontakt -->
+  <section id="kontakt" class="py-24 px-6">
+    <div class="max-w-5xl mx-auto bg-[#E3EBE6] rounded-[3rem] p-8 md:p-20 text-center relative overflow-hidden reveal shadow-2xl shadow-[#E3EBE6]">
+      <div class="absolute top-0 left-0 w-96 h-96 bg-white/60 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 animate-pulse"></div>
+      <div class="absolute bottom-0 right-0 w-96 h-96 bg-[#A3C2B0]/30 rounded-full blur-3xl translate-x-1/2 translate-y-1/2 animate-pulse"></div>
+      <div class="relative z-10">
+        <h2 class="text-4xl md:text-5xl font-cormorant text-[#1F3027] tracking-tight mb-6">
+          <span class="font-normal">Redo att ta nästa steg</span>
+          <span class="italic text-[#4F705D]"> för din förmögenhet?</span>
+        </h2>
+        <p class="text-[#4F705D] mb-12 max-w-xl mx-auto text-lg">Boka ett förutsättningslöst möte med en av våra rådgivare. Vi lyssnar, vi anpassar och vi agerar alltid i ditt bästa intresse.</p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="mailto:info@addeqt.com" class="w-full sm:w-auto px-10 py-4 rounded-full bg-[#2D4438] text-white text-base font-medium hover:bg-[#1F3027] transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 hover:scale-105 duration-300">
+            Boka möte →
+          </a>
+          <a href="tel:0858006620" class="w-full sm:w-auto px-10 py-4 rounded-full bg-white text-[#1F3027] text-base font-medium hover:bg-stone-50 transition-all border border-transparent hover:border-[#C5D6CC] hover:-translate-y-1 shadow-sm hover:shadow-lg">
+            08-580 066 20
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-stone-100 pt-20 pb-10 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-col md:flex-row justify-between items-start gap-12 mb-16">
+        <div class="reveal">
+          <div class="mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 189 35.32" class="h-6 w-auto" style="fill:#1F3027">
+              <g><path d="M22.73,8.64h5.08l12,31.17H35.58L33,33H17.57L15,39.81H10.73ZM31.58,29.3,25.29,12.73,19,29.3Z" transform="translate(-10.73 -8.17)"/><path d="M45.39,39.81V8.64H56.33a18.58,18.58,0,0,1,6.58,1.11A14.64,14.64,0,0,1,68,12.92a13.72,13.72,0,0,1,3.26,4.91,17.13,17.13,0,0,1,1.14,6.4,17.38,17.38,0,0,1-1.14,6.42A13.42,13.42,0,0,1,68,35.55a14.89,14.89,0,0,1-5.07,3.15,18.58,18.58,0,0,1-6.58,1.11Zm4-3.72h7a13.91,13.91,0,0,0,4.88-.81A10.62,10.62,0,0,0,65,32.93a10.42,10.42,0,0,0,2.4-3.75,14,14,0,0,0,.83-4.95,14.1,14.1,0,0,0-.83-5A10.42,10.42,0,0,0,65,15.52a10.62,10.62,0,0,0-3.75-2.35,13.91,13.91,0,0,0-4.88-.81h-7Z" transform="translate(-10.73 -8.17)"/><path d="M79.36,39.81V8.64H90.3a18.58,18.58,0,0,1,6.58,1.11A14.64,14.64,0,0,1,102,12.92a13.85,13.85,0,0,1,3.26,4.91,17.13,17.13,0,0,1,1.14,6.4,17.38,17.38,0,0,1-1.14,6.42,13.55,13.55,0,0,1-3.26,4.9,14.89,14.89,0,0,1-5.07,3.15,18.58,18.58,0,0,1-6.58,1.11Zm4-3.72h7a14,14,0,0,0,4.88-.81,10.62,10.62,0,0,0,3.75-2.35,10.4,10.4,0,0,0,2.39-3.75,13.82,13.82,0,0,0,.84-4.95,13.87,13.87,0,0,0-.84-5,10.4,10.4,0,0,0-2.39-3.75,10.62,10.62,0,0,0-3.75-2.35,14,14,0,0,0-4.88-.81h-7Z" transform="translate(-10.73 -8.17)"/><path d="M113.33,8.64h21.4v3.72H117.28V22.55h14.85V26H117.28V36.09h17.45v3.72h-21.4Z" transform="translate(-10.73 -8.17)"/><path d="M143.57,24.23a11.92,11.92,0,0,1,.93-4.68,12.16,12.16,0,0,1,6.35-6.47,11.36,11.36,0,0,1,4.59-.95,11.24,11.24,0,0,1,4.6.95c.26.11.5.24.74.37.95-1,1.94-2,2.95-2.95a16.33,16.33,0,0,0-2-1.07,16.13,16.13,0,0,0-12.5,0,16.24,16.24,0,0,0-5.12,3.44A16.41,16.41,0,0,0,140.64,18a16.11,16.11,0,0,0,0,12.49,16.69,16.69,0,0,0,1.22,2.29c.5-.43,1-.87,1.51-1.28s1.16-.9,1.74-1.35a13,13,0,0,1-.61-1.24A11.91,11.91,0,0,1,143.57,24.23Z" transform="translate(-10.73 -8.17)"/><path d="M169.79,31.46a15.53,15.53,0,0,0,1.7-7.23A15.6,15.6,0,0,0,170.23,18a17.18,17.18,0,0,0-1.46-2.71c-1.05,1-2.09,1.94-3.05,3a11.4,11.4,0,0,1,.65,1.31,12.17,12.17,0,0,1-2.56,13.21A12.25,12.25,0,0,1,160,35.37a11.24,11.24,0,0,1-4.6,1,11.36,11.36,0,0,1-4.59-1l-.7-.35c-.65.52-1.33,1-2,1.54-.47.38-.93.78-1.39,1.17A17.49,17.49,0,0,0,149.2,39a16,16,0,0,0,9.56.91,16.5,16.5,0,0,0,3.1-1l3.91,4.56h4.93L165.21,37A16.32,16.32,0,0,0,169.79,31.46Z" transform="translate(-10.73 -8.17)"/><path d="M184.57,12.36H173.35V8.64h26.38v3.72H188.52V39.81h-4Z" transform="translate(-10.73 -8.17)"/><path d="M148.55,22.93h5.89V17h2.74v5.89h5.89v2.74h-5.89v5.89h-2.74V25.67h-5.89Z" transform="translate(-10.73 -8.17)"/></g>
+            </svg>
+          </div>
+          <p class="text-sm text-stone-500 max-w-xs leading-relaxed">Oberoende förmögenhetsrådgivning och kapitalförvaltning. Grundat 2023.</p>
+          <p class="text-sm text-stone-400 mt-4">Artillerigatan 45, 114 45 Stockholm</p>
+          <p class="text-sm text-stone-400">08-580 066 20 · info@addeqt.com</p>
+        </div>
+        <div class="flex gap-20 reveal delay-100">
+          <div>
+            <h4 class="font-medium text-stone-900 mb-6 text-sm">Tjänster</h4>
+            <ul class="space-y-4 text-sm text-stone-500">
+              <li><a href="#tjanster" class="hover:text-[#4F705D] transition-colors">Kapitalförvaltning</a></li>
+              <li><a href="#tjanster" class="hover:text-[#4F705D] transition-colors">Förmögenhetsrådgivning</a></li>
+              <li><a href="#tjanster" class="hover:text-[#4F705D] transition-colors">Private Banking</a></li>
+              <li><a href="#tjanster" class="hover:text-[#4F705D] transition-colors">Samarbeten</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-medium text-stone-900 mb-6 text-sm">Information</h4>
+            <ul class="space-y-4 text-sm text-stone-500">
+              <li><a href="#om-oss" class="hover:text-[#4F705D] transition-colors">Om oss</a></li>
+              <li><a href="#team" class="hover:text-[#4F705D] transition-colors">Team</a></li>
+              <li><a href="#kontakt" class="hover:text-[#4F705D] transition-colors">Kontakt</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-stone-100 pt-10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-stone-400 reveal delay-200">
+        <p>© AddEqt AB 2023. Alla rättigheter förbehållna.</p>
+        <div class="flex gap-8">
+          <a href="https://www.addeqt.com/GDPR.html" class="hover:text-stone-600 transition-colors">GDPR</a>
+          <a href="https://www.addeqt.com/juridik.html" class="hover:text-stone-600 transition-colors">Juridisk information</a>
+          <a href="https://www.addeqt.com/cookies.html" class="hover:text-stone-600 transition-colors">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Calculator
+    function fmt(n) {
+      return Math.round(n / 1000) * 1000;
+    }
+    function fmtSEK(n) {
+      return n.toLocaleString('sv-SE') + ' kr';
+    }
+    function updateCalc() {
+      const start = +document.getElementById('startkapital').value;
+      const manad = +document.getElementById('manadsspar').value;
+      const rate = +document.getElementById('avkastning').value / 100;
+      const ar = +document.getElementById('antal-ar').value;
+
+      document.getElementById('startLabel').textContent = start.toLocaleString('sv-SE') + ' kr';
+      document.getElementById('manadLabel').textContent = manad.toLocaleString('sv-SE') + ' kr';
+      document.getElementById('avkastningLabel').textContent = document.getElementById('avkastning').value + '%';
+      document.getElementById('arLabel').textContent = ar + ' år';
+
+      const monthlyRate = rate / 12;
+      const months = ar * 12;
+      let total = start * Math.pow(1 + monthlyRate, months);
+      if (monthlyRate > 0) {
+        total += manad * (Math.pow(1 + monthlyRate, months) - 1) / monthlyRate;
+      } else {
+        total += manad * months;
+      }
+      const insattningar = start + manad * months;
+      const avk = total - insattningar;
+
+      document.getElementById('totalVarde').textContent = fmtSEK(fmt(total));
+      document.getElementById('avkastningVarde').textContent = fmtSEK(fmt(avk));
+      document.getElementById('insattningVarde').textContent = fmtSEK(fmt(insattningar));
+    }
+    updateCalc();
+  </script>
+</body>
+</html>

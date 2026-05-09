@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="sv" class="scroll-smooth">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AddEqt — Rätt rådgivning. På dina villkor.</title>
+<meta name="description" content="AddEqt erbjuder oberoende förmögenhetsrådgivning, kapitalförvaltning och private banking i Stockholm.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+<style>
+body { font-family: 'Geist', sans-serif; -webkit-font-smoothing: antialiased; }
+.font-display { font-family: 'Manrope', sans-serif; }
+@keyframes fadeSlideIn {
+  0% { opacity: 0; transform: translateY(24px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+.ticker-track { animation: ticker 40s linear infinite; }
+.ticker-track:hover { animation-play-state: paused; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: #d4d4d8; border-radius: 2px; }
+</style>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        brand: '#242748'
+      }
+    }
+  }
+}
+
+// Scroll-reveal
+document.addEventListener('DOMContentLoaded', () => {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.style.animationPlayState = 'running'; io.unobserve(e.target); } });
+  }, { threshold: 0.15, rootMargin: '0px 0px -5% 0px' });
+  document.querySelectorAll('.reveal').forEach(el => {
+    el.style.animationPlayState = 'paused';
+    io.observe(el);
+  });
+});
+</script>
+</head>
+
+<body class="bg-white text-zinc-900 antialiased">
+
+<!-- ───────────── HERO ───────────── -->
+<div class="relative h-screen overflow-hidden">
+
+  <!-- Background: Stockholm aerial photo -->
+  <img
+    src="images/aerial-view-shot-stockholm-city-center-summer-vacation-travel-concept.jpg"
+    alt="Stockholm"
+    class="pointer-events-none w-full h-full object-cover absolute inset-0"
+  >
+  <!-- Overlay -->
+  <div class="absolute inset-0 bg-gradient-to-b from-[#0d0f1e]/70 via-[#0d0f1e]/50 to-[#0d0f1e]/80"></div>
+
+  <!-- Subtle grid lines -->
+  <div class="pointer-events-none absolute inset-0 z-0">
+    <div class="absolute inset-y-0 left-[25%] w-px bg-gradient-to-b from-transparent via-white/5 to-transparent"></div>
+    <div class="absolute inset-y-0 left-[50%] w-px bg-gradient-to-b from-transparent via-white/8 to-transparent"></div>
+    <div class="absolute inset-y-0 left-[75%] w-px bg-gradient-to-b from-transparent via-white/5 to-transparent"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="relative z-20 border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-6 md:px-8 py-5 flex items-center justify-between">
+
+      <!-- Logo + Nav pill -->
+      <div class="flex items-center gap-1 bg-white/8 ring-1 ring-white/10 rounded-full px-1 py-1 backdrop-blur-sm">
+        <!-- AddEqt logo -->
+        <a href="addeqt-v2.html" class="flex items-center px-3">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 189 35.32" class="h-5 w-auto" style="fill:white">
+            <g><path d="M22.73,8.64h5.08l12,31.17H35.58L33,33H17.57L15,39.81H10.73ZM31.58,29.3,25.29,12.73,19,29.3Z" transform="translate(-10.73 -8.17)"/><path d="M45.39,39.81V8.64H56.33a18.58,18.58,0,0,1,6.58,1.11A14.64,14.64,0,0,1,68,12.92a13.72,13.72,0,0,1,3.26,4.91,17.13,17.13,0,0,1,1.14,6.4,17.38,17.38,0,0,1-1.14,6.42A13.42,13.42,0,0,1,68,35.55a14.89,14.89,0,0,1-5.07,3.15,18.58,18.58,0,0,1-6.58,1.11Zm4-3.72h7a13.91,13.91,0,0,0,4.88-.81A10.62,10.62,0,0,0,65,32.93a10.42,10.42,0,0,0,2.4-3.75,14,14,0,0,0,.83-4.95,14.1,14.1,0,0,0-.83-5A10.42,10.42,0,0,0,65,15.52a10.62,10.62,0,0,0-3.75-2.35,13.91,13.91,0,0,0-4.88-.81h-7Z" transform="translate(-10.73 -8.17)"/><path d="M79.36,39.81V8.64H90.3a18.58,18.58,0,0,1,6.58,1.11A14.64,14.64,0,0,1,102,12.92a13.85,13.85,0,0,1,3.26,4.91,17.13,17.13,0,0,1,1.14,6.4,17.38,17.38,0,0,1-1.14,6.42,13.55,13.55,0,0,1-3.26,4.9,14.89,14.89,0,0,1-5.07,3.15,18.58,18.58,0,0,1-6.58,1.11Zm4-3.72h7a14,14,0,0,0,4.88-.81,10.62,10.62,0,0,0,3.75-2.35,10.4,10.4,0,0,0,2.39-3.75,13.82,13.82,0,0,0,.84-4.95,13.87,13.87,0,0,0-.84-5,10.4,10.4,0,0,0-2.39-3.75,10.62,10.62,0,0,0-3.75-2.35,14,14,0,0,0-4.88-.81h-7Z" transform="translate(-10.73 -8.17)"/><path d="M113.33,8.64h21.4v3.72H117.28V22.55h14.85V26H117.28V36.09h17.45v3.72h-21.4Z" transform="translate(-10.73 -8.17)"/><path d="M143.57,24.23a11.92,11.92,0,0,1,.93-4.68,12.16,12.16,0,0,1,6.35-6.47,11.36,11.36,0,0,1,4.59-.95,11.24,11.24,0,0,1,4.6.95c.26.11.5.24.74.37.95-1,1.94-2,2.95-2.95a16.33,16.33,0,0,0-2-1.07,16.13,16.13,0,0,0-12.5,0,16.24,16.24,0,0,0-5.12,3.44A16.41,16.41,0,0,0,140.64,18a16.11,16.11,0,0,0,0,12.49,16.69,16.69,0,0,0,1.22,2.29c.5-.43,1-.87,1.51-1.28s1.16-.9,1.74-1.35a13,13,0,0,1-.61-1.24A11.91,11.91,0,0,1,143.57,24.23Z" transform="translate(-10.73 -8.17)"/><path d="M169.79,31.46a15.53,15.53,0,0,0,1.7-7.23A15.6,15.6,0,0,0,170.23,18a17.18,17.18,0,0,0-1.46-2.71c-1.05,1-2.09,1.94-3.05,3a11.4,11.4,0,0,1,.65,1.31,12.17,12.17,0,0,1-2.56,13.21A12.25,12.25,0,0,1,160,35.37a11.24,11.24,0,0,1-4.6,1,11.36,11.36,0,0,1-4.59-1l-.7-.35c-.65.52-1.33,1-2,1.54-.47.38-.93.78-1.39,1.17A17.49,17.49,0,0,0,149.2,39a16,16,0,0,0,9.56.91,16.5,16.5,0,0,0,3.1-1l3.91,4.56h4.93L165.21,37A16.32,16.32,0,0,0,169.79,31.46Z" transform="translate(-10.73 -8.17)"/><path d="M184.57,12.36H173.35V8.64h26.38v3.72H188.52V39.81h-4Z" transform="translate(-10.73 -8.17)"/><path d="M148.55,22.93h5.89V17h2.74v5.89h5.89v2.74h-5.89v5.89h-2.74V25.67h-5.89Z" transform="translate(-10.73 -8.17)"/></g>
+          </svg>
+        </a>
+        <nav class="hidden md:flex gap-1">
+          <a href="#om-oss" class="text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 rounded-full px-4 py-2 transition">Om oss</a>
+          <a href="#tjanster" class="text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 rounded-full px-4 py-2 transition">Tjänster</a>
+          <a href="#kontakt" class="text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 rounded-full px-4 py-2 transition">Kontakt</a>
+        </nav>
+      </div>
+
+      <div class="flex items-center gap-2 bg-white/8 ring-1 ring-white/10 backdrop-blur-sm rounded-full px-1 py-1">
+        <a href="mailto:info@addeqt.com" class="hidden sm:inline-flex items-center gap-2 text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 rounded-full px-4 py-2 transition">
+          info@addeqt.com
+        </a>
+        <a href="#kontakt" class="inline-flex items-center gap-2 text-sm font-medium text-zinc-900 bg-white hover:bg-zinc-100 rounded-full px-4 py-2 transition">
+          Boka möte
+          <iconify-icon icon="lucide:arrow-right" width="14"></iconify-icon>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero content -->
+  <main class="relative z-20 flex h-[calc(100vh-73px)] items-end">
+    <section class="max-w-7xl mx-auto px-6 md:px-8 pb-16 md:pb-20 w-full">
+      <div class="mb-10 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent"></div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
+
+        <!-- Left: Headline -->
+        <div class="md:col-span-5 lg:col-span-5">
+          <div class="inline-flex items-center gap-2 text-xs font-medium text-white/80 bg-white/8 ring-1 ring-white/10 rounded-full px-3 py-1.5 mb-6 backdrop-blur-sm">
+            <iconify-icon icon="lucide:shield-check" width="14"></iconify-icon>
+            <span>Oberoende · Stockholm · Grundat 2021</span>
+          </div>
+          <h1 class="text-5xl md:text-5xl lg:text-6xl font-medium tracking-tighter text-white leading-[1.05] font-display">
+            Rätt rådgivning.<br>
+            <span class="text-white/60">På dina villkor.</span>
+          </h1>
+        </div>
+
+        <!-- Divider -->
+        <div class="hidden md:block md:col-span-1">
+          <div class="w-px h-24 bg-gradient-to-b from-white/20 to-white/5 mx-auto"></div>
+        </div>
+
+        <!-- Center: Description -->
+        <div class="md:col-span-4 lg:col-span-3">
+          <p class="text-lg text-white/70 leading-relaxed">
+            Vi erbjuder helt oberoende förmögenhetsrådgivning, kapitalförvaltning och private banking — utan egna fonder och utan oönskade incitament.
+          </p>
+          <div class="border-t border-white/10 mt-6 pt-6 flex items-center gap-6 text-sm text-white/50">
+            <div class="flex items-center gap-2">
+              <iconify-icon icon="lucide:map-pin" width="14"></iconify-icon>
+              <span>Artillerigatan 45, Stockholm</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="hidden lg:block lg:col-span-1">
+          <div class="w-px h-24 bg-gradient-to-b from-white/20 to-white/5 mx-auto"></div>
+        </div>
+
+        <!-- Right: CTAs -->
+        <div class="md:col-span-12 lg:col-span-2">
+          <div class="flex flex-row lg:flex-col gap-3">
+            <a href="#kontakt" class="inline-flex items-center justify-center gap-2 text-sm font-medium text-zinc-900 bg-white hover:bg-zinc-100 rounded-full px-4 py-2.5 transition whitespace-nowrap">
+              Boka möte
+              <iconify-icon icon="lucide:calendar" width="14"></iconify-icon>
+            </a>
+            <a href="#tjanster" class="inline-flex items-center justify-center gap-2 text-sm font-medium text-white bg-white/10 ring-1 ring-white/15 hover:bg-white/15 rounded-full px-4 py-2.5 transition whitespace-nowrap">
+              Våra tjänster
+              <iconify-icon icon="lucide:arrow-right" width="14"></iconify-icon>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- ───────────── OM OSS — 4 CARDS ───────────── -->
+<section id="om-oss" class="relative py-28 px-6 lg:px-8 bg-white">
+  <div class="max-w-7xl mx-auto">
+
+    <div class="flex flex-col lg:flex-row justify-between items-start mb-16 gap-12">
+      <div>
+        <span class="text-[10px] font-semibold text-zinc-400 uppercase tracking-widest border-b border-zinc-200 pb-1 inline-block mb-4">Det här är det vi står för</span>
+        <h2 class="text-5xl md:text-6xl font-medium tracking-tighter text-zinc-900 leading-[1.0] font-display max-w-xl">
+          Vår kompetens.
+        </h2>
+      </div>
+      <div class="max-w-md">
+        <p class="text-lg text-zinc-500 font-light leading-relaxed">
+          Vi bygger inte produkter — vi bygger relationer. Vår approach kombinerar djup finansiell kompetens med ett genuint oberoende perspektiv.
+        </p>
+        <a href="#tjanster" class="group inline-flex items-center text-zinc-900 font-medium hover:text-zinc-600 transition mt-6 text-sm">
+          Se alla tjänster
+          <iconify-icon icon="lucide:chevron-right" width="16" class="ml-1 group-hover:translate-x-1 transition-transform"></iconify-icon>
+        </a>
+      </div>
+    </div>
+
+    <!-- 4 dark cards — preserved from Corporate Techy Template -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <!-- Card 1 -->
+      <div class="group relative h-80 rounded-[2rem] bg-[#0D0F1E] overflow-hidden border border-white/5 hover:border-[#242748]/40 transition-colors duration-500">
+        <div class="absolute inset-0 flex items-center justify-center opacity-60">
+          <div class="relative w-28 h-28 transform transition-transform duration-700 ease-out group-hover:scale-105 group-hover:-translate-y-2">
+            <div class="absolute inset-0 bg-gradient-to-br from-white/8 to-transparent border border-white/15 rounded-2xl -rotate-[15deg] group-hover:-rotate-[20deg] transition-transform duration-500"></div>
+            <div class="absolute inset-0 bg-gradient-to-br from-white/12 to-transparent border border-white/20 rounded-2xl -rotate-[5deg] group-hover:rotate-0 transition-transform duration-500 delay-75"></div>
+            <div class="absolute inset-0 bg-gradient-to-br from-white/15 to-transparent border border-white/25 rounded-2xl rotate-[5deg] group-hover:rotate-[15deg] transition-transform duration-500 delay-150 flex items-center justify-center">
+              <div class="w-10 h-10 rounded-full bg-white/10 blur-xl"></div>
+            </div>
+          </div>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 p-7 flex items-end justify-between z-10">
+          <div>
+            <h3 class="text-lg font-medium text-white tracking-tight group-hover:text-blue-200 transition-colors">Fullständigt oberoende</h3>
+            <p class="text-xs text-zinc-300 mt-1 leading-relaxed">Inga egna fonder. Inga oönskade incitament. Alltid ditt bästa.</p>
+          </div>
+          <button class="w-10 h-10 shrink-0 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-neutral-400 group-hover:bg-white group-hover:text-black transition-all">
+            <iconify-icon icon="lucide:plus" width="16"></iconify-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="group relative h-80 rounded-[2rem] bg-[#0D0F1E] overflow-hidden border border-white/5 hover:border-[#242748]/40 transition-colors duration-500">
+        <div class="absolute inset-0 overflow-hidden flex items-center justify-center">
+          <div class="relative w-full h-full opacity-30 group-hover:opacity-50 transition-opacity duration-500">
+            <div class="absolute top-1/4 left-[-20%] w-[140%] h-px bg-gradient-to-r from-transparent via-white/25 to-transparent -rotate-12 group-hover:translate-x-[8%] transition-transform duration-[2s]"></div>
+            <div class="absolute top-1/2 left-[-20%] w-[140%] h-px bg-gradient-to-r from-transparent via-white/50 to-transparent -rotate-12 -translate-x-[15%] group-hover:translate-x-[12%] transition-transform duration-[1.8s]"></div>
+            <div class="absolute top-2/3 left-[-20%] w-[140%] h-px bg-gradient-to-r from-transparent via-white/20 to-transparent -rotate-12 group-hover:translate-x-[20%] transition-transform duration-[2.2s]"></div>
+            <div class="absolute top-1/2 left-1/2 w-40 h-40 bg-white/5 rounded-full blur-[60px] -translate-x-1/2 -translate-y-1/2 group-hover:bg-white/10 transition-colors duration-500"></div>
+          </div>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 p-7 flex items-end justify-between z-10">
+          <div>
+            <h3 class="text-lg font-medium text-white tracking-tight group-hover:text-blue-200 transition-colors">Djup marknadserfarenhet</h3>
+            <p class="text-xs text-zinc-300 mt-1 leading-relaxed">25+ år på de svenska och globala finansmarknaderna.</p>
+          </div>
+          <button class="w-10 h-10 shrink-0 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-neutral-400 group-hover:bg-white group-hover:text-black transition-all">
+            <iconify-icon icon="lucide:plus" width="16"></iconify-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="group relative h-80 rounded-[2rem] bg-[#0D0F1E] overflow-hidden border border-white/5 hover:border-[#242748]/40 transition-colors duration-500">
+        <div class="absolute inset-0 flex items-center justify-center" style="perspective:800px">
+          <div class="relative transform rotate-x-[55deg] rotate-z-[45deg] scale-75 group-hover:scale-90 transition-transform duration-700">
+            <div class="w-44 h-44 border border-white/10 bg-white/5 grid grid-cols-4 grid-rows-4 rounded-lg">
+              <div class="border-r border-b border-white/5"></div><div class="border-r border-b border-white/5"></div><div class="border-r border-b border-white/5"></div><div class="border-b border-white/5"></div>
+              <div class="border-r border-b border-white/5"></div><div class="border-r border-b border-white/5 bg-white/15 group-hover:bg-white/25 transition-colors"></div><div class="border-r border-b border-white/5"></div><div class="border-b border-white/5"></div>
+              <div class="border-r border-b border-white/5"></div><div class="border-r border-b border-white/5"></div><div class="border-r border-b border-white/5"></div><div class="border-b border-white/5"></div>
+              <div class="border-r border-white/5"></div><div class="border-r border-white/5"></div><div class="border-r border-white/5"></div><div></div>
+            </div>
+          </div>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 p-7 flex items-end justify-between z-10">
+          <div>
+            <h3 class="text-lg font-medium text-white tracking-tight group-hover:text-blue-200 transition-colors">Strukturerad rådgivning</h3>
+            <p class="text-xs text-zinc-300 mt-1 leading-relaxed">Systematisk process — alltid med din situation i centrum.</p>
+          </div>
+          <button class="w-10 h-10 shrink-0 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-neutral-400 group-hover:bg-white group-hover:text-black transition-all">
+            <iconify-icon icon="lucide:plus" width="16"></iconify-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="group relative h-80 rounded-[2rem] bg-[#0D0F1E] overflow-hidden border border-white/5 hover:border-[#242748]/40 transition-colors duration-500">
+        <div class="absolute inset-0 flex items-center justify-center">
+          <div class="relative w-36 h-36 flex items-center justify-center">
+            <div class="absolute inset-0 rounded-full border border-white/5 scale-100 group-hover:scale-125 transition-transform duration-700 ease-out"></div>
+            <div class="absolute inset-4 rounded-full border border-white/5 scale-100 group-hover:scale-110 transition-transform duration-700 delay-75"></div>
+            <div class="absolute inset-8 rounded-full border border-white/10 opacity-50 border-dashed group-hover:scale-105 transition-transform duration-700 delay-150 scale-100"></div>
+            <div class="absolute inset-0 animate-[spin_14s_linear_infinite] opacity-30">
+              <div class="absolute top-0 left-1/2 w-0.5 h-2 bg-white -translate-x-1/2"></div>
+              <div class="absolute bottom-0 left-1/2 w-0.5 h-2 bg-white -translate-x-1/2"></div>
+            </div>
+            <div class="w-3 h-3 rounded-full bg-white shadow-[0_0_20px_rgba(255,255,255,0.6)] z-10"></div>
+          </div>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 p-7 flex items-end justify-between z-10">
+          <div>
+            <h3 class="text-lg font-medium text-white tracking-tight group-hover:text-blue-200 transition-colors">Din partner, inte din bank</h3>
+            <p class="text-xs text-zinc-300 mt-1 leading-relaxed">Vi anpassar oss efter dig — inte tvärtom.</p>
+          </div>
+          <button class="w-10 h-10 shrink-0 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-neutral-400 group-hover:bg-white group-hover:text-black transition-all">
+            <iconify-icon icon="lucide:plus" width="16"></iconify-icon>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── PARTNERS MARQUEE ───────────── -->
+<section class="py-12 border-y border-zinc-100 bg-white overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6 mb-8">
+    <p class="text-[10px] font-semibold text-zinc-400 uppercase tracking-widest border-b border-zinc-200 pb-3 inline-block">Samarbetar med</p>
+  </div>
+  <div class="overflow-hidden" style="mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);">
+    <div class="ticker-track flex gap-20 items-center" style="width:200%">
+      <div class="flex gap-20 shrink-0 items-center">
+        <span class="text-lg font-semibold text-zinc-800 tracking-tighter">Nordnet</span>
+        <span class="text-lg font-normal text-zinc-500 tracking-tighter">Finansinspektionen</span>
+        <span class="text-lg font-semibold text-zinc-800 tracking-tighter">SEB</span>
+        <span class="text-lg font-normal text-zinc-500 tracking-tighter">Avanza</span>
+        <span class="text-lg font-semibold text-zinc-800 tracking-tighter">Carnegie</span>
+        <span class="text-lg font-normal text-zinc-500 tracking-tighter">Swedbank</span>
+        <span class="text-lg font-semibold text-zinc-800 tracking-tighter">Handelsbanken</span>
+      </div>
+      <div class="flex gap-20 shrink-0 items-center" aria-hidden>
+        <span class="text-lg font-semibold text-zinc-800 tracking-tighter">Nordnet</span>
+        <span class="text-lg font-normal text-zinc-500 tracking-tighter">Finansinspektionen</span>
+        <span class="text-lg font-semibold text-zinc-800 tracking-tighter">SEB</span>
+        <span class="text-lg font-normal text-zinc-500 tracking-tighter">Avanza</span>
+        <span class="text-lg font-semibold text-zinc-800 tracking-tighter">Carnegie</span>
+        <span class="text-lg font-normal text-zinc-500 tracking-tighter">Swedbank</span>
+        <span class="text-lg font-semibold text-zinc-800 tracking-tighter">Handelsbanken</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── FULLSCREEN: STOCKHOLM IMMERSIVE ───────────── -->
+<section
+  id="tjanster"
+  class="relative overflow-hidden bg-cover bg-center py-24 lg:py-36"
+  style="background-image: url('images/panoramic-view-stockholm-city.jpg');"
+>
+  <!-- Dark overlay -->
+  <div class="absolute inset-0 bg-gradient-to-r from-[#0d0f1e]/85 via-[#0d0f1e]/60 to-[#0d0f1e]/30"></div>
+
+  <!-- Subtle grid lines (like original template) -->
+  <div class="pointer-events-none absolute inset-0 z-0">
+    <div class="absolute inset-y-0 left-[25%] w-px bg-gradient-to-b from-transparent via-white/5 to-transparent"></div>
+    <div class="absolute inset-y-0 left-[50%] w-px bg-gradient-to-b from-transparent via-white/8 to-transparent"></div>
+    <div class="absolute inset-y-0 left-[75%] w-px bg-gradient-to-b from-transparent via-white/5 to-transparent"></div>
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+
+      <div class="lg:col-span-7"></div>
+
+      <div class="lg:col-span-5">
+        <div class="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1.5 text-xs font-medium text-white/80 ring-1 ring-white/10 mb-6">
+          <span class="uppercase tracking-widest text-[10px]">Vår plattform</span>
+        </div>
+
+        <h2 class="text-4xl sm:text-5xl font-medium tracking-tighter text-white font-display leading-[1.05]">
+          Oberoende rådgivning i världsklass
+        </h2>
+
+        <p class="mt-6 text-base text-white/70 font-light leading-relaxed">
+          Vi är ett oberoende värdepappersbolag under tillsyn av Finansinspektionen. Det innebär att vi aldrig styrs av provisioner eller egna intressen — bara av din ekonomiska framgång.
+        </p>
+
+        <a href="#kontakt" class="group inline-flex items-center gap-2 mt-8 text-sm font-medium text-white underline decoration-white/30 underline-offset-4 hover:decoration-white/60 transition">
+          Kontakta en rådgivare
+          <iconify-icon icon="lucide:arrow-right" width="14" class="group-hover:translate-x-0.5 transition-transform"></iconify-icon>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ───────────── SERVICES DARK SECTION ───────────── -->
+<section class="py-20 lg:py-28 bg-[#0D0F1E] relative overflow-hidden">
+  <!-- Subtle grid -->
+  <div class="pointer-events-none absolute inset-0">
+    <div class="absolute inset-y-0 left-1/4 w-px bg-gradient-to-b from-transparent via-white/5 to-transparent"></div>
+    <div class="absolute inset-y-0 left-1/2 w-px bg-gradient-to-b from-transparent via-white/8 to-transparent"></div>
+    <div class="absolute inset-y-0 left-3/4 w-px bg-gradient-to-b from-transparent via-white/5 to-transparent"></div>
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-8">
+    <div class="max-w-3xl mb-16">
+      <div class="inline-flex text-[11px] ring-1 ring-white/10 font-medium text-white/70 bg-white/5 rounded-full px-3 py-1.5 gap-2 items-center mb-4">
+        <iconify-icon icon="lucide:layers" width="12"></iconify-icon>
+        <span>Våra tjänster</span>
+      </div>
+      <h2 class="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tighter text-white font-display">
+        Finansiella tjänster för privatpersoner
+      </h2>
+      <p class="mt-5 text-lg text-white/60 font-light leading-relaxed">
+        Tre kärnområden — alla levererade med samma oberoende perspektiv och djupa marknadskännedom.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+
+      <!-- Service 1 -->
+      <div class="bg-white/5 ring-1 ring-white/10 rounded-3xl p-6 md:p-8 backdrop-blur-sm hover:bg-white/8 transition-colors">
+        <div class="w-10 h-10 rounded-xl bg-[#242748]/60 ring-1 ring-[#3d4a8a]/30 flex items-center justify-center text-white/80 mb-6">
+          <iconify-icon icon="lucide:bar-chart-2" width="18"></iconify-icon>
+        </div>
+        <h3 class="text-xl font-normal tracking-tight text-white">Kapitalförvaltning</h3>
+        <p class="mt-3 text-sm text-slate-400 leading-relaxed">Aktiv portföljförvaltning anpassad efter din riskaptit, tidshorisont och mål. Vi väljer bland marknadens bästa produkter utan begränsningar.</p>
+        <ul class="mt-6 space-y-3">
+          <li class="flex items-start gap-3 text-sm text-slate-300">
+            <iconify-icon icon="lucide:check-circle" width="16" class="text-[#a5b4fc] shrink-0 mt-0.5"></iconify-icon>
+            <span>Aktier, fonder, ETF:er</span>
+          </li>
+          <li class="flex items-start gap-3 text-sm text-slate-300">
+            <iconify-icon icon="lucide:check-circle" width="16" class="text-[#a5b4fc] shrink-0 mt-0.5"></iconify-icon>
+            <span>ISK, tjänstepension, kapitalförsäkring</span>
+          </li>
+          <li class="flex items-start gap-3 text-sm text-slate-300">
+            <iconify-icon icon="lucide:check-circle" width="16" class="text-[#a5b4fc] shrink-0 mt-0.5"></iconify-icon>
+            <span>Löpande riskhantering</span>
+          </li>
+        </ul>
+        <a href="#kontakt" class="mt-8 inline-flex items-center justify-center gap-2 rounded-full bg-white/10 text-white ring-1 ring-white/15 px-4 py-2.5 text-sm font-medium hover:bg-white/15 transition w-full">
+          Kontakta oss
+        </a>
+      </div>
+
+      <!-- Service 2 — Highlighted -->
+      <div class="relative rounded-3xl overflow-hidden ring-2 ring-[#3d4a8a]/60 bg-gradient-to-b from-[#1a1f4e]/80 to-[#0d0f1e]/90 backdrop-blur-sm p-6 md:p-8 flex flex-col">
+        <div class="absolute top-4 right-4">
+          <span class="inline-flex items-center gap-1 rounded-full bg-[#242748]/60 ring-1 ring-[#3d4a8a]/50 px-2.5 py-1 text-[10px] font-medium text-blue-200">
+            PRIMÄRT
+          </span>
+        </div>
+        <div class="w-10 h-10 rounded-xl bg-[#242748] ring-1 ring-[#3d4a8a]/50 flex items-center justify-center text-white/80 mb-6">
+          <iconify-icon icon="lucide:trending-up" width="18"></iconify-icon>
+        </div>
+        <h3 class="text-xl font-normal tracking-tight text-white">Förmögenhetsrådgivning</h3>
+        <p class="mt-3 text-sm text-slate-200/80 leading-relaxed">Heltäckande rådgivning med din unika livssituation som utgångspunkt. Vi kartlägger, analyserar och skapar en personlig plan.</p>
+        <ul class="mt-6 space-y-3 flex-1">
+          <li class="flex items-start gap-3 text-sm text-slate-200">
+            <iconify-icon icon="lucide:check-circle" width="16" class="text-[#a5b4fc] shrink-0 mt-0.5"></iconify-icon>
+            <span>Personlig ekonomisk analys</span>
+          </li>
+          <li class="flex items-start gap-3 text-sm text-slate-200">
+            <iconify-icon icon="lucide:check-circle" width="16" class="text-[#a5b4fc] shrink-0 mt-0.5"></iconify-icon>
+            <span>Skatteoptimering</span>
+          </li>
+          <li class="flex items-start gap-3 text-sm text-slate-200">
+            <iconify-icon icon="lucide:check-circle" width="16" class="text-[#a5b4fc] shrink-0 mt-0.5"></iconify-icon>
+            <span>Löpande uppföljning</span>
+          </li>
+          <li class="flex items-start gap-3 text-sm text-slate-200">
+            <iconify-icon icon="lucide:check-circle" width="16" class="text-[#a5b4fc] shrink-0 mt-0.5"></iconify-icon>
+            <span>Generationsskiften &amp; arv</span>
+          </li>
+        </ul>
+        <a href="#kontakt" class="mt-8 inline-flex items-center justify-center gap-2 rounded-full bg-white text-zinc-900 ring-1 ring-white/20 px-4 py-2.5 text-sm font-medium hover:bg-zinc-100 transition w-full">
+          Boka kostnadsfri konsultation
+        </a>
+      </div>
+
+      <!-- Service 3 -->
+      <div class="bg-white/5 ring-1 ring-white/10 rounded-3xl p-6 md:p-8 backdrop-blur-sm hover:bg-white/8 transition-colors">
+        <div class="w-10 h-10 rounded-xl bg-[#242748]/60 ring-1 ring-[#3d4a8a]/30 flex items-center justify-center text-white/80 mb-6">
+          <iconify-icon icon="lucide:briefcase" width="18"></iconify-icon>
+        </div>
+        <h3 class="text-xl font-normal tracking-tight text-white">Private Banking</h3>
+        <p class="mt-3 text-sm text-slate-400 leading-relaxed">Heltäckande och problemlösande tjänst för allt som rör din privatekonomi. Vi är din koordinator och rådgivare i varje fråga.</p>
+        <ul class="mt-6 space-y-3">
+          <li class="flex items-start gap-3 text-sm text-slate-300">
+            <iconify-icon icon="lucide:check-circle" width="16" class="text-[#a5b4fc] shrink-0 mt-0.5"></iconify-icon>
+            <span>Bolån &amp; finansiering</span>
+          </li>
+          <li class="flex items-start gap-3 text-sm text-slate-300">
+            <iconify-icon icon="lucide:check-circle" width="16" class="text-[#a5b4fc] shrink-0 mt-0.5"></iconify-icon>
+            <span>Försäkringslösningar</span>
+          </li>
+          <li class="flex items-start gap-3 text-sm text-slate-300">
+            <iconify-icon icon="lucide:check-circle" width="16" class="text-[#a5b4fc] shrink-0 mt-0.5"></iconify-icon>
+            <span>Pensionsplanering</span>
+          </li>
+        </ul>
+        <a href="#kontakt" class="mt-8 inline-flex items-center justify-center gap-2 rounded-full bg-white/10 text-white ring-1 ring-white/15 px-4 py-2.5 text-sm font-medium hover:bg-white/15 transition w-full">
+          Kontakta oss
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── CLOSING CTA ───────────── -->
+<section class="py-20 lg:py-28 bg-white overflow-hidden relative" id="kontakt">
+  <div class="absolute inset-0 pointer-events-none">
+    <img src="images/aerial-view-shot-stockholm-city-center-summer-vacation-travel-concept.jpg" alt="" class="w-full h-full object-cover opacity-[0.04]">
+  </div>
+  <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-8">
+    <div class="relative overflow-hidden rounded-3xl bg-[#0D0F1E] ring-1 ring-white/10">
+      <div class="absolute inset-0 opacity-20">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-[#242748] rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 w-80 h-80 bg-[#3d4a8a] rounded-full blur-3xl"></div>
+      </div>
+
+      <div class="relative px-8 py-16 md:px-16 md:py-20 lg:py-24 text-center max-w-3xl mx-auto">
+        <div class="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1.5 text-xs font-medium text-white/80 ring-1 ring-white/10 mb-6">
+          <iconify-icon icon="lucide:calendar" width="14"></iconify-icon>
+          <span>Boka ett kostnadsfritt samtal</span>
+        </div>
+
+        <h2 class="text-4xl sm:text-5xl md:text-6xl font-normal tracking-tighter text-white font-display">
+          Redo att ta nästa steg?
+        </h2>
+        <p class="mt-6 text-lg text-slate-300 font-light leading-relaxed">
+          Boka ett kostnadsfritt och förutsättningslöst möte med oss. Vi lyssnar, ställer rätt frågor och ger dig en tydlig bild av vad vi kan göra för dig.
+        </p>
+
+        <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="mailto:info@addeqt.com" class="inline-flex items-center justify-center gap-2 rounded-full bg-white text-zinc-900 ring-1 ring-white/20 px-6 py-3 text-base font-medium hover:bg-zinc-100 transition">
+            Skicka e-post
+            <iconify-icon icon="lucide:arrow-right" width="18"></iconify-icon>
+          </a>
+          <a href="tel:+46858006620" class="inline-flex items-center justify-center gap-2 rounded-full bg-white/10 text-white ring-1 ring-white/15 px-6 py-3 text-base font-medium hover:bg-white/15 transition">
+            08-580 066 20
+            <iconify-icon icon="lucide:phone" width="18"></iconify-icon>
+          </a>
+        </div>
+
+        <div class="mt-10 flex items-center justify-center gap-8 text-sm text-slate-400">
+          <div class="flex items-center gap-2">
+            <iconify-icon icon="lucide:check-circle" width="14" class="text-[#a5b4fc]"></iconify-icon>
+            <span>Kostnadsfritt första möte</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <iconify-icon icon="lucide:check-circle" width="14" class="text-[#a5b4fc]"></iconify-icon>
+            <span>Inga bindningar</span>
+          </div>
+          <div class="hidden sm:flex items-center gap-2">
+            <iconify-icon icon="lucide:check-circle" width="14" class="text-[#a5b4fc]"></iconify-icon>
+            <span>Tillståndspliktigt bolag</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────── FOOTER ───────────── -->
+<footer class="bg-white border-t border-zinc-100 py-16 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-10 lg:gap-16">
+
+      <div class="col-span-2">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 189 35.32" class="h-5 w-auto mb-4" style="fill:#1a1a1a">
+          <g><path d="M22.73,8.64h5.08l12,31.17H35.58L33,33H17.57L15,39.81H10.73ZM31.58,29.3,25.29,12.73,19,29.3Z" transform="translate(-10.73 -8.17)"/><path d="M45.39,39.81V8.64H56.33a18.58,18.58,0,0,1,6.58,1.11A14.64,14.64,0,0,1,68,12.92a13.72,13.72,0,0,1,3.26,4.91,17.13,17.13,0,0,1,1.14,6.4,17.38,17.38,0,0,1-1.14,6.42A13.42,13.42,0,0,1,68,35.55a14.89,14.89,0,0,1-5.07,3.15,18.58,18.58,0,0,1-6.58,1.11Zm4-3.72h7a13.91,13.91,0,0,0,4.88-.81A10.62,10.62,0,0,0,65,32.93a10.42,10.42,0,0,0,2.4-3.75,14,14,0,0,0,.83-4.95,14.1,14.1,0,0,0-.83-5A10.42,10.42,0,0,0,65,15.52a10.62,10.62,0,0,0-3.75-2.35,13.91,13.91,0,0,0-4.88-.81h-7Z" transform="translate(-10.73 -8.17)"/><path d="M79.36,39.81V8.64H90.3a18.58,18.58,0,0,1,6.58,1.11A14.64,14.64,0,0,1,102,12.92a13.85,13.85,0,0,1,3.26,4.91,17.13,17.13,0,0,1,1.14,6.4,17.38,17.38,0,0,1-1.14,6.42,13.55,13.55,0,0,1-3.26,4.9,14.89,14.89,0,0,1-5.07,3.15,18.58,18.58,0,0,1-6.58,1.11Zm4-3.72h7a14,14,0,0,0,4.88-.81,10.62,10.62,0,0,0,3.75-2.35,10.4,10.4,0,0,0,2.39-3.75,13.82,13.82,0,0,0,.84-4.95,13.87,13.87,0,0,0-.84-5,10.4,10.4,0,0,0-2.39-3.75,10.62,10.62,0,0,0-3.75-2.35,14,14,0,0,0-4.88-.81h-7Z" transform="translate(-10.73 -8.17)"/><path d="M113.33,8.64h21.4v3.72H117.28V22.55h14.85V26H117.28V36.09h17.45v3.72h-21.4Z" transform="translate(-10.73 -8.17)"/><path d="M143.57,24.23a11.92,11.92,0,0,1,.93-4.68,12.16,12.16,0,0,1,6.35-6.47,11.36,11.36,0,0,1,4.59-.95,11.24,11.24,0,0,1,4.6.95c.26.11.5.24.74.37.95-1,1.94-2,2.95-2.95a16.33,16.33,0,0,0-2-1.07,16.13,16.13,0,0,0-12.5,0,16.24,16.24,0,0,0-5.12,3.44A16.41,16.41,0,0,0,140.64,18a16.11,16.11,0,0,0,0,12.49,16.69,16.69,0,0,0,1.22,2.29c.5-.43,1-.87,1.51-1.28s1.16-.9,1.74-1.35a13,13,0,0,1-.61-1.24A11.91,11.91,0,0,1,143.57,24.23Z" transform="translate(-10.73 -8.17)"/><path d="M169.79,31.46a15.53,15.53,0,0,0,1.7-7.23A15.6,15.6,0,0,0,170.23,18a17.18,17.18,0,0,0-1.46-2.71c-1.05,1-2.09,1.94-3.05,3a11.4,11.4,0,0,1,.65,1.31,12.17,12.17,0,0,1-2.56,13.21A12.25,12.25,0,0,1,160,35.37a11.24,11.24,0,0,1-4.6,1,11.36,11.36,0,0,1-4.59-1l-.7-.35c-.65.52-1.33,1-2,1.54-.47.38-.93.78-1.39,1.17A17.49,17.49,0,0,0,149.2,39a16,16,0,0,0,9.56.91,16.5,16.5,0,0,0,3.1-1l3.91,4.56h4.93L165.21,37A16.32,16.32,0,0,0,169.79,31.46Z" transform="translate(-10.73 -8.17)"/><path d="M184.57,12.36H173.35V8.64h26.38v3.72H188.52V39.81h-4Z" transform="translate(-10.73 -8.17)"/><path d="M148.55,22.93h5.89V17h2.74v5.89h5.89v2.74h-5.89v5.89h-2.74V25.67h-5.89Z" transform="translate(-10.73 -8.17)"/></g>
+        </svg>
+        <p class="text-sm text-zinc-400 leading-relaxed font-light max-w-xs">
+          Oberoende förmögenhetsrådgivning och kapitalförvaltning. Tillståndspliktigt värdepappersbolag under Finansinspektionens tillsyn.
+        </p>
+        <div class="mt-6 flex gap-3">
+          <a href="https://www.linkedin.com/" class="w-9 h-9 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-400 hover:bg-[#242748] hover:text-white transition">
+            <iconify-icon icon="lucide:linkedin" width="16"></iconify-icon>
+          </a>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <h4 class="text-[10px] font-semibold text-zinc-900 uppercase tracking-widest">Tjänster</h4>
+        <ul class="space-y-3 text-sm text-zinc-500 font-light">
+          <li><a href="#tjanster" class="hover:text-zinc-900 transition-colors">Kapitalförvaltning</a></li>
+          <li><a href="#tjanster" class="hover:text-zinc-900 transition-colors">Förmögenhetsrådgivning</a></li>
+          <li><a href="#tjanster" class="hover:text-zinc-900 transition-colors">Private Banking</a></li>
+        </ul>
+      </div>
+
+      <div class="space-y-4">
+        <h4 class="text-[10px] font-semibold text-zinc-900 uppercase tracking-widest">Kontakt</h4>
+        <ul class="space-y-3 text-sm text-zinc-500 font-light">
+          <li><a href="mailto:info@addeqt.com" class="hover:text-zinc-900 transition-colors">info@addeqt.com</a></li>
+          <li><a href="tel:+46858006620" class="hover:text-zinc-900 transition-colors">08-580 066 20</a></li>
+          <li class="text-xs leading-relaxed">Artillerigatan 45<br>114 45 Stockholm</li>
+        </ul>
+      </div>
+
+      <div class="space-y-4">
+        <h4 class="text-[10px] font-semibold text-zinc-900 uppercase tracking-widest">Information</h4>
+        <ul class="space-y-3 text-sm text-zinc-500 font-light">
+          <li><a href="https://www.addeqt.com/GDPR.html" class="hover:text-zinc-900 transition-colors">GDPR &amp; Integritet</a></li>
+          <li><a href="https://www.addeqt.com/juridik.html" class="hover:text-zinc-900 transition-colors">Juridisk information</a></li>
+          <li><span class="text-zinc-300 text-xs">© AddEqt AB 2023</span></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
