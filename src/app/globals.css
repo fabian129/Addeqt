@@ -1,1 +1,170 @@
 @import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════
+   ADDEQT — Design Tokens
+   Brand Bible v3: "Schweizisk privatbank möter fintech"
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  /* Primary accent */
+  --navy: #242748;
+  --navy-dim: rgba(36, 39, 72, 0.07);
+  --navy-glow: rgba(36, 39, 72, 0.13);
+  --navy-light: #4a5296;
+
+  /* Companion colors (NEVER in same section) */
+  --sage: #7A8C6E;
+  --sage-dim: rgba(122, 140, 110, 0.08);
+  --gold: #C4A882;
+  --gold-dim: rgba(196, 168, 130, 0.08);
+
+  /* Backgrounds */
+  --bg-white: #FFFFFF;
+  --bg-snow: #F5F5F7;
+  --bg-coal: #111827;
+  --bg-dark: #0F0F10;
+
+  /* Text */
+  --fg: #1d1d1f;
+  --fg-dim: #374151;
+  --fg-muted: #86868b;
+  --fg-light: #9ca3af;
+
+  /* Functional */
+  --green: #059669;
+  --green-dim: rgba(5, 150, 105, 0.06);
+  --border: rgba(0, 0, 0, 0.06);
+  --border-light: rgba(0, 0, 0, 0.04);
+
+  /* Radius */
+  --radius-xl: 40px;
+  --radius-lg: 32px;
+  --radius-md: 20px;
+  --radius-sm: 12px;
+
+  /* Fonts — set via Next.js font system */
+  --font-display: var(--font-manrope), -apple-system, sans-serif;
+  --font-body: var(--font-inter), -apple-system, sans-serif;
+}
+
+/* ═══ Global Reset ═══ */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-snow);
+  color: var(--fg);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--navy-dim);
+  color: var(--fg);
+}
+
+/* ═══ Typography — Dual Tone System ═══
+   300 = Genève (hero, statements, editorial)
+   600 = Fintech (cards, stats, tech sections) */
+
+.heading-geneve {
+  font-family: var(--font-display);
+  font-weight: 300;
+  letter-spacing: -0.05em;
+  line-height: 1.05;
+}
+
+.heading-fintech {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+/* ═══ Animations ═══ */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes grow-bar {
+  from { height: 0; }
+  to { height: var(--h); }
+}
+
+@keyframes pulse-glow {
+  0% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1.15); }
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+.anim-hero {
+  animation: fade-up 1.2s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+  opacity: 0;
+}
+
+.anim-hero-delay-1 {
+  animation-delay: 0.15s;
+}
+
+.anim-hero-delay-2 {
+  animation-delay: 0.3s;
+}
+
+.anim-hero-delay-3 {
+  animation-delay: 0.45s;
+}
+
+.animate-marquee {
+  animation: marquee 50s linear infinite;
+}
+
+.anim-bar {
+  animation: grow-bar 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  height: 0;
+}
+
+.animate-breathe {
+  animation: breathe 3s ease-in-out infinite;
+}
+
+/* ═══ Gradient Text ═══ */
+.gradient-text {
+  background: linear-gradient(135deg, #6b7fd4, #a5b4fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ═══ Grid Lines (decorative) ═══ */
+.grid-lines {
+  mask-image: linear-gradient(to bottom, transparent, black 5%, black 95%, transparent);
+}
+
+/* ═══ Smooth Scroll Sections ═══ */
+section[id] {
+  scroll-margin-top: 80px;
+}
