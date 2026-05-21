@@ -1,38 +1,52 @@
-const partners = [
-  "Nordnet",
-  "Finansinspektionen",
-  "SEB",
-  "Avanza",
-  "Carnegie",
-  "Handelsbanken",
-];
+"use client";
 
 export default function TrustMarquee() {
+  const items = [
+    "FI-tillstånd feb 2023",
+    "Nordnet som depå",
+    "Fast avgift",
+    "100% oberoende",
+    "Inga egna fonder",
+    "Artillerigatan 45, Stockholm",
+  ];
+
+  // Double the items for seamless loop
+  const track = [...items, ...items];
+
   return (
     <div
-      className="w-full overflow-hidden py-8"
+      className="w-full overflow-hidden"
       style={{
-        maskImage:
-          "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+        borderTop: "1px solid var(--hairline)",
+        borderBottom: "1px solid var(--hairline)",
+        paddingBlock: "20px",
       }}
     >
-      <div className="flex w-max animate-marquee items-center gap-4 opacity-60 hover:opacity-100 transition-opacity">
-        {/* Double the items for seamless loop */}
-        {[...partners, ...partners].map((name, i) => (
-          <div
-            key={`${name}-${i}`}
-            className="h-14 flex items-center gap-2 px-6 border border-gray-200 rounded-full bg-white shrink-0"
-          >
+      <div className="ticker-track flex items-center gap-0 whitespace-nowrap">
+        {track.map((item, i) => (
+          <span key={i} className="flex items-center">
             <span
-              className={`text-lg ${
-                i % 2 === 0
-                  ? "font-semibold tracking-tight"
-                  : "font-medium"
-              }`}
+              className="font-mono"
+              style={{
+                fontSize: "11px",
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                color: "var(--fg-muted)",
+              }}
             >
-              {name}
+              {item}
             </span>
-          </div>
+            <span
+              className="mx-8"
+              style={{
+                color: "var(--fg-muted)",
+                opacity: 0.4,
+                fontSize: "11px",
+              }}
+            >
+              —
+            </span>
+          </span>
         ))}
       </div>
     </div>

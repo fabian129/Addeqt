@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Manrope, Inter } from "next/font/google";
+import { Manrope, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import SmoothScroll from "./components/SmoothScroll";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -16,22 +17,29 @@ const inter = Inter({
   weight: ["300", "400", "500", "600"],
 });
 
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
+  display: "swap",
+  weight: ["400", "500"],
+});
+
 export const metadata: Metadata = {
-  title: "Addeqt — Oberoende förmögenhetsrådgivning",
+  title: "Addeqt -- Oberoende formogenhetsradgivning",
   description:
-    "Modern, trygg och hållbar förmögenhetsförvaltning — byggd på transparens, excellens och genuint oberoende. Kapitalförvaltning och private banking i Stockholm.",
+    "Modern, trygg och hallbar formogenhetsforvaltning -- byggd pa transparens, excellens och genuint oberoende. Kapitalforvaltning och private banking i Stockholm.",
   keywords: [
-    "förmögenhetsrådgivning",
-    "kapitalförvaltning",
+    "formogenhetsradgivning",
+    "kapitalforvaltning",
     "private banking",
     "Stockholm",
-    "oberoende rådgivning",
+    "oberoende radgivning",
     "Addeqt",
   ],
   openGraph: {
-    title: "Addeqt — Oberoende förmögenhetsrådgivning",
+    title: "Addeqt -- Oberoende formogenhetsradgivning",
     description:
-      "Modern, trygg och hållbar förmögenhetsförvaltning i Stockholm.",
+      "Modern, trygg och hallbar formogenhetsforvaltning i Stockholm.",
     type: "website",
     locale: "sv_SE",
   },
@@ -43,8 +51,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="sv" className={`${manrope.variable} ${inter.variable}`}>
-      <body>{children}</body>
+    <html lang="sv" data-scroll-behavior="smooth" className={`${manrope.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
+      <body>
+        <SmoothScroll>{children}</SmoothScroll>
+      </body>
     </html>
   );
 }

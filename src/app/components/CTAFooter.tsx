@@ -1,73 +1,73 @@
+"use client";
+
 import Link from "next/link";
+import { useScrollReveal } from "../hooks/useScrollReveal";
 
 export default function CTAFooter() {
+  const sectionRef = useScrollReveal();
+
   return (
-    <footer className="max-w-6xl mx-auto px-6 md:px-8 mt-20 pb-40" id="kontakt">
+    <footer ref={sectionRef} className="max-w-6xl mx-auto px-6 md:px-8 mt-20 pb-40" id="kontakt">
       {/* CTA Block */}
-      <div className="relative bg-[#0F0F10] rounded-[40px] p-10 md:p-20 overflow-hidden text-white shadow-2xl ring-1 ring-white/10">
+      <div className="reveal relative bg-[#0F0F10] rounded-[40px] p-10 md:p-20 overflow-hidden text-white shadow-2xl ring-1 ring-white/10">
         <div className="absolute -top-[20%] -right-[10%] w-[500px] h-[500px] rounded-full blur-[100px] pointer-events-none bg-[#242748]/30 animate-pulse" />
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full blur-[80px] pointer-events-none bg-[#3d4a8a]/15" />
 
-        <div className="relative z-10 flex flex-col md:flex-row items-start md:items-end justify-between gap-12">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/10 text-white/90 text-[11px] font-medium mb-8 backdrop-blur-md">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400" />
-              </span>
-              Tar emot nya klienter
-            </div>
-
-            <h2 className="font-[family-name:var(--font-manrope)] text-5xl md:text-7xl font-semibold tracking-tighter leading-[0.95] mb-6 text-white">
-              Redo att ta
-              <br />
-              <span className="gradient-text">nästa steg?</span>
-            </h2>
-
-            <p className="text-lg text-gray-400 max-w-md leading-relaxed mb-10 font-medium">
-              Boka ett kostnadsfritt och förutsättningslöst samtal. Vi lyssnar,
-              ställer rätt frågor och ger dig en tydlig bild av vad vi kan göra
-              för dig.
-            </p>
-
-            <div className="flex flex-wrap gap-4">
-              <Link
-                href="mailto:info@addeqt.com"
-                className="group inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full text-base font-semibold hover:bg-gray-100 transition-all hover:scale-105"
-              >
-                Skicka e-post →
-              </Link>
-              <Link
-                href="tel:+46858006620"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-base font-medium text-white border border-white/15 hover:bg-white/10 transition-colors"
-              >
-                08-580 066 20
-              </Link>
-            </div>
+        <div className="relative z-10 flex flex-col items-center text-center">
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/10 text-white/90 text-[11px] font-medium mb-8 backdrop-blur-md">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400" />
+            </span>
+            Tar emot nya klienter
           </div>
 
-          {/* Floating card (desktop) */}
-          <div className="hidden md:block">
-            <div className="flex flex-col overflow-hidden text-center bg-white/5 w-64 h-64 rounded-3xl px-8 py-8 relative shadow-2xl backdrop-blur-xl rotate-3 items-center justify-center ring-1 ring-white/10">
-              <div className="w-14 h-14 rounded-2xl bg-[#242748] border border-white/10 flex items-center justify-center mb-5 shadow-xl">
-                <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
-                </svg>
-              </div>
-              <div className="font-[family-name:var(--font-manrope)] font-bold text-2xl text-white mb-1">
-                Boka möte
-              </div>
-              <div className="text-gray-500 text-xs mt-1 uppercase tracking-widest font-semibold">
-                Kostnadsfritt
-              </div>
-            </div>
+          {/* Heading */}
+          <h2 className="font-[family-name:var(--font-manrope)] text-5xl md:text-7xl font-semibold tracking-tighter leading-[0.95] mb-6 text-white">
+            Redo att ta
+            <br />
+            <span className="gradient-text">nästa steg?</span>
+          </h2>
+
+          {/* Body */}
+          <p className="text-lg text-gray-400 max-w-md mx-auto leading-relaxed mb-10 font-medium">
+            Boka ett kostnadsfritt och förutsättningslöst samtal. Vi lyssnar,
+            ställer rätt frågor och ger dig en tydlig bild av vad vi kan göra
+            för dig.
+          </p>
+
+          {/* Buttons */}
+          <div className="flex flex-wrap justify-center gap-4 mb-10">
+            <Link
+              href="mailto:info@addeqt.com"
+              className="group inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full text-base font-semibold hover:bg-gray-100 transition-all hover:scale-105"
+            >
+              Skicka e-post
+            </Link>
+            <Link
+              href="tel:+46858006620"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-base font-medium text-white border border-white/15 hover:bg-white/10 transition-colors"
+            >
+              08-580 066 20
+            </Link>
+          </div>
+
+          {/* Trust badges */}
+          <div className="flex flex-wrap justify-center gap-6 text-[11px] font-[family-name:var(--font-mono)] text-gray-500 uppercase tracking-wider">
+            <span>Kostnadsfritt första möte</span>
+            <span className="text-gray-600">/</span>
+            <span>Inga bindningar</span>
+            <span className="text-gray-600">/</span>
+            <span>Tillståndspliktigt bolag</span>
           </div>
         </div>
       </div>
 
       {/* Footer links */}
-      <div className="mt-20 px-4 md:px-6">
+      <div className="reveal reveal-d2 mt-20 px-4 md:px-6">
         <div className="grid grid-cols-2 md:grid-cols-12 gap-8 border-b border-gray-200 pb-12">
+          {/* Logo + description */}
           <div className="col-span-2 md:col-span-4 pr-0 md:pr-12">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 189 35.32" className="h-5 w-auto mb-5" style={{ fill: "#1d1d1f" }}>
               <g>
@@ -81,12 +81,23 @@ export default function CTAFooter() {
                 <path d="M148.55,22.93h5.89V17h2.74v5.89h5.89v2.74h-5.89v5.89h-2.74V25.67h-5.89Z" transform="translate(-10.73 -8.17)" />
               </g>
             </svg>
-            <p className="text-sm text-gray-500 leading-relaxed max-w-xs">
+            <p className="text-sm text-gray-500 leading-relaxed max-w-xs font-medium">
               Oberoende förmögenhetsrådgivning och kapitalförvaltning.
               Tillståndspliktigt värdepappersbolag under Finansinspektionens tillsyn.
             </p>
+            {/* LinkedIn */}
+            <Link
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-gray-100 text-gray-500 hover:bg-[#242748] hover:text-white transition-all mt-5"
+              aria-label="LinkedIn"
+            >
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </Link>
           </div>
 
+          {/* Tjanster */}
           <div className="col-span-1 md:col-span-2 md:col-start-6">
             <h4 className="font-semibold text-sm mb-5 text-[#1d1d1f]">Tjänster</h4>
             <ul className="space-y-3 text-sm text-gray-500 font-medium">
@@ -96,6 +107,7 @@ export default function CTAFooter() {
             </ul>
           </div>
 
+          {/* Kontakt */}
           <div className="col-span-1 md:col-span-2">
             <h4 className="font-semibold text-sm mb-5 text-[#1d1d1f]">Kontakt</h4>
             <ul className="space-y-3 text-sm text-gray-500 font-medium">
@@ -105,6 +117,7 @@ export default function CTAFooter() {
             </ul>
           </div>
 
+          {/* Information */}
           <div className="col-span-2 md:col-span-3">
             <h4 className="font-semibold text-sm mb-5 text-[#1d1d1f]">Information</h4>
             <ul className="space-y-3 text-sm text-gray-500 font-medium">
@@ -114,11 +127,12 @@ export default function CTAFooter() {
           </div>
         </div>
 
+        {/* Bottom bar */}
         <div className="pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-400 font-medium">
-          <p>© 2026 AddEqt AB. All rights reserved.</p>
+          <p>&copy; 2026 AddEqt AB. All rights reserved.</p>
           <div className="flex items-center gap-2 mt-4 md:mt-0 px-3 py-1.5 rounded-full bg-green-50 text-green-700 border border-green-100">
             <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-            Tillståndspliktigt bolag · Finansinspektionen
+            Tillståndspliktigt bolag &middot; Finansinspektionen
           </div>
         </div>
       </div>

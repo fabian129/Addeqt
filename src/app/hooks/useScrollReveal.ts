@@ -1,34 +1,29 @@
 "use client";
-
 import { useEffect, useRef } from "react";
 
-/**
- * Hook that observes child elements with `.reveal` class
- * and adds `.visible` when they enter the viewport.
- */
-export function useScrollReveal() {
+export function useScrollReveal(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!ref.current) return;
+    const el = ref.current;
+    if (!el) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.15, rootMargin: "0px 0px -5% 0px" }
+      { threshold }
     );
 
-    const elements = ref.current.querySelectorAll(".reveal");
-    elements.forEach((el) => observer.observe(el));
+    const reveals = el.querySelectorAll(".reveal");
+    reveals.forEach((r) => observer.observe(r));
 
     return () => observer.disconnect();
-  }, []);
+  }, [threshold]);
 
   return ref;
 }
