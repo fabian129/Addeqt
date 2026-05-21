@@ -233,14 +233,14 @@ export default function ServicesScroll() {
                 style={{
                   left: "clamp(1.5rem, 6vw, 6rem)",
                   bottom: "clamp(1.5rem, 6vw, 6rem)",
-                  maxWidth: "240px",
+                  maxWidth: "320px",
                 }}
               >
                 <p
                   style={{
-                    fontSize: "14px",
+                    fontSize: "16px",
                     color: "rgba(255,255,255,0.92)",
-                    lineHeight: 1.6,
+                    lineHeight: 1.65,
                     marginBottom: "1.25rem",
                     textShadow: "0 1px 8px rgba(0,0,0,0.25)",
                   }}
@@ -251,7 +251,7 @@ export default function ServicesScroll() {
                   href={service.link}
                   className="font-mono inline-flex items-center gap-2 group/link"
                   style={{
-                    fontSize: "10px",
+                    fontSize: "11px",
                     letterSpacing: "0.12em",
                     textTransform: "uppercase",
                     color: "#ffffff",
@@ -281,8 +281,8 @@ export default function ServicesScroll() {
                     <span
                       className="font-mono block"
                       style={{
-                        fontSize: "9px",
-                        letterSpacing: "0.15em",
+                        fontSize: "11px",
+                        letterSpacing: "0.14em",
                         textTransform: "uppercase",
                         color: "rgba(255,255,255,0.75)",
                         marginBottom: "2px",
@@ -294,7 +294,7 @@ export default function ServicesScroll() {
                     <span
                       className="font-display block"
                       style={{
-                        fontSize: "clamp(1rem, 1.5vw, 1.25rem)",
+                        fontSize: "clamp(1.1rem, 1.8vw, 1.4rem)",
                         fontWeight: 400,
                         letterSpacing: "-0.02em",
                         color: "#ffffff",
@@ -337,7 +337,7 @@ export default function ServicesScroll() {
               <span
                 className="font-display block"
                 style={{
-                  fontSize: "13px",
+                  fontSize: "15px",
                   fontWeight: activeIndex === i ? 600 : 400,
                   color: "#ffffff",
                   letterSpacing: "-0.01em",
@@ -364,8 +364,8 @@ export default function ServicesScroll() {
           <span
             className="font-mono"
             style={{
-              fontSize: "10px",
-              letterSpacing: "0.12em",
+              fontSize: "11px",
+              letterSpacing: "0.14em",
               textTransform: "uppercase",
               color: "rgba(255,255,255,0.7)",
               textShadow: "0 1px 4px rgba(0,0,0,0.2)",
@@ -376,8 +376,8 @@ export default function ServicesScroll() {
           <span
             className="font-mono"
             style={{
-              fontSize: "10px",
-              letterSpacing: "0.12em",
+              fontSize: "11px",
+              letterSpacing: "0.14em",
               textTransform: "uppercase",
               color: "rgba(255,255,255,0.7)",
               textShadow: "0 1px 4px rgba(0,0,0,0.2)",
