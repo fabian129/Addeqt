@@ -167,7 +167,7 @@ export default function SkatteoptimeringsPage() {
         </section>
       </main>
 
-      <Footer />
+      <Footer hideCTA />
 
       <style>{`
         /* ═══════════════════════════════════

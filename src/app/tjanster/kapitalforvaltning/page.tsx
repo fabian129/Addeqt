@@ -165,7 +165,7 @@ export default function KapitalforvaltningPage() {
         </section>
       </main>
 
-      <Footer />
+      <Footer hideCTA />
 
       <style>{`
         /* ═══════════════════════════════════

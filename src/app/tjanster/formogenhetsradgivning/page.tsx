@@ -172,7 +172,7 @@ export default function FormogenhetsradgivningPage() {
         </section>
       </main>
 
-      <Footer />
+      <Footer hideCTA />
 
       <style>{`
         /* ═══════════════════════════════════

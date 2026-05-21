@@ -171,7 +171,7 @@ export default function PrivateBankingPage() {
         </section>
       </main>
 
-      <Footer />
+      <Footer hideCTA />
 
       <style>{`
         /* ═══════════════════════════════════

@@ -32,7 +32,7 @@ const contactInfo = [
 
 const trustBadges = ["FI-tillstånd", "100% Oberoende", "Nordea som depåbank"];
 
-export default function Footer() {
+export default function Footer({ hideCTA = false }: { hideCTA?: boolean }) {
   const sectionRef = useScrollReveal();
   const gsapRef = useSectionReveal();
 
@@ -57,6 +57,7 @@ export default function Footer() {
         }}
       >
         {/* ── Top CTA Section ── */}
+        {!hideCTA && (
         <div
           className="reveal gsap-reveal"
           style={{
@@ -119,8 +120,10 @@ export default function Footer() {
             <ArrowRight size={16} />
           </Link>
         </div>
+        )}
 
         {/* ── Hairline divider ── */}
+        {!hideCTA && (
         <div
           className="reveal reveal-d1"
           style={{
@@ -131,6 +134,7 @@ export default function Footer() {
             marginBottom: "clamp(3rem, 6vw, 5rem)",
           }}
         />
+        )}
 
         {/* ── Middle 4-column grid ── */}
         <div

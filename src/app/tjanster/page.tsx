@@ -356,7 +356,7 @@ function TjansterContent() {
         </section>
       </main>
 
-      <Footer />
+      <Footer hideCTA />
 
       <style>{`
         /* ═══════════════════════════════════════
