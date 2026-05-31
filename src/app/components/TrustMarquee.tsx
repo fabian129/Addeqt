@@ -4,7 +4,7 @@ export default function TrustMarquee() {
   const items = [
     "FI-tillstånd feb 2023",
     "Nordnet som depå",
-    "Fast avgift",
+    "Fast procentuell",
     "100% oberoende",
     "Inga egna fonder",
     "Artillerigatan 45, Stockholm",

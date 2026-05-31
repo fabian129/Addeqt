@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
+import { useSectionReveal } from "../../hooks/useSectionReveal";
 
 /* ── KPI data ── */
 const kpis = [
@@ -15,11 +16,13 @@ const kpis = [
 ];
 
 export default function PrivateBankingPage() {
+  const containerRef = useSectionReveal();
+
   return (
     <>
       <Navbar forceScrolled />
 
-      <main className="sd-page">
+      <main className="sd-page" ref={containerRef}>
 
         {/* ── Back link ── */}
         <div className="sd-container">
@@ -67,10 +70,10 @@ export default function PrivateBankingPage() {
 
               {/* Left: Sticky image */}
               <div className="sd-editorial-image-col">
-                <div className="sd-editorial-image">
+                <div className="sd-editorial-image gsap-reveal">
                   <Image
-                    src="/images/service-column-bloom.png"
-                    alt="Private Banking — en dedikerad rådgivare"
+                    src="/images/service-paris-golden.png"
+                    alt="Private Banking"
                     fill
                     className="object-cover"
                     sizes="(max-width: 1024px) 100vw, 45vw"

@@ -6,6 +6,11 @@ import { ArrowRight } from "lucide-react";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 import { useSectionReveal } from "../hooks/useSectionReveal";
 import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 /* ── Editorial Break — Parallax fullbleed ──
    Modeled after the ServicesScroll editorial language:
@@ -17,6 +22,35 @@ export default function EditorialBreak() {
   const sectionRef = useScrollReveal();
   const gsapRef = useSectionReveal();
   const imageRef = useRef<HTMLDivElement>(null);
+  
+  const headingText = "Vi började här.";
+  const headingWords = headingText.split(" ");
+
+  useGSAP(
+    () => {
+      const container = gsapRef.current;
+      if (!container) return;
+
+      const wordEls = container.querySelectorAll(".editorial-word");
+      if (wordEls.length > 0) {
+        gsap.fromTo(
+          wordEls,
+          { opacity: 0.2 },
+          {
+            opacity: 1,
+            stagger: 0.05,
+            scrollTrigger: {
+              trigger: container,
+              start: "top 75%",
+              end: "center 45%",
+              scrub: 1,
+            },
+          }
+        );
+      }
+    },
+    { scope: gsapRef }
+  );
 
   /* ── Parallax effect ── */
   useEffect(() => {
@@ -116,7 +150,7 @@ export default function EditorialBreak() {
           {/* Left — Heading + Description + CTA */}
           <div style={{ maxWidth: "520px" }}>
             <h3
-              className="font-display gsap-reveal-heading"
+              className="font-display"
               style={{
                 fontSize: "clamp(3rem, 6vw, 5.5rem)",
                 fontWeight: 300,
@@ -126,7 +160,19 @@ export default function EditorialBreak() {
                 marginBottom: "clamp(1.5rem, 3vw, 2.5rem)",
               }}
             >
-              Vi började här.
+              {headingWords.map((word, i) => (
+                <span
+                  key={i}
+                  className="editorial-word"
+                  style={{
+                    opacity: 0.2,
+                    display: "inline-block",
+                    marginRight: "0.25em",
+                  }}
+                >
+                  {word}
+                </span>
+              ))}
             </h3>
             <p
               className="gsap-reveal"
@@ -177,7 +223,7 @@ export default function EditorialBreak() {
             {[
               { label: "Kontor", value: "Stockholm" },
               { label: "Grundat", value: "2023" },
-              { label: "Modell", value: "Fast avgift" },
+              { label: "Modell", value: "Fast procentuell" },
               { label: "Depå", value: "Nordnet" },
             ].map((item) => (
               <div key={item.label}>

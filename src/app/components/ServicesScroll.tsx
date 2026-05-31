@@ -2,61 +2,55 @@
 
 import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/* ── Service Data ── */
-const services = [
+/* ── Slide Data ── */
+const slides = [
   {
-    title: "Kapital\u00ADförvaltning",
-    desc: "Aktiv portföljförvaltning anpassad efter din riskaptit, tidshorisont och mål — bland marknadens bästa produkter utan begränsningar.",
-    link: "/tjanster?open=0",
+    title: "Bakgrunden",
+    desc: "Segmentet 5–50 Mkr har historiskt varit kraftigt underservat — storbankernas standardprodukter, dubbla avgifter, och en rådgivare max en gång per år.",
     image: "/images/service-draped-petals.png",
     stats: [
-      { label: "Under förvaltning", value: "3+ mdr" },
-      { label: "Avgift", value: "Fast" },
-      { label: "Bindningstid", value: "Ingen" },
-      { label: "Produkter", value: "100+" },
+      { label: "Grundat", value: "2021" },
+      { label: "Segment", value: "5–50 Mkr" },
+      { label: "Marknad", value: "Underservad" },
+      { label: "Tradition", value: "125+ år" },
     ],
   },
   {
-    title: "Förmögenhets\u00ADrådgivning",
-    desc: "Heltäckande rådgivning med din livssituation som utgångspunkt. Vi kartlägger, analyserar och skapar en personlig finansiell plan.",
-    link: "/tjanster?open=1",
+    title: "Insikten",
+    desc: "Ingen ringde och frågade om jag behövde hjälp. Tre produkter att välja på — inte mer. Manuellt backoffice drev upp kostnaderna och avgifterna.",
     image: "/images/service-marble-dark.png",
     stats: [
-      { label: "Kunder", value: "1 000+" },
-      { label: "Min. belopp", value: "500K" },
-      { label: "Plan", value: "Skräddarsydd" },
-      { label: "Uppföljning", value: "Årlig" },
+      { label: "Teknikskuld", value: "Manuellt" },
+      { label: "Avgifter", value: "Dubbla" },
+      { label: "Rådgivning", value: "1x/år" },
+      { label: "Oberoende", value: "Sällsynt" },
     ],
   },
   {
-    title: "Private Banking",
-    desc: "Heltäckande och problemlösande tjänst för din privatekonomi. Bolån, försäkring, pension — vi är din koordinator i varje fråga.",
-    link: "/tjanster?open=2",
+    title: "Lösningen",
+    desc: "Addeqt byggde tech-first — inga egna fonder, ingen ersättning från tredje part. Varje beslut styrs av en enda funktion: kundnyttan.",
     image: "/images/service-column-bloom.png",
     stats: [
-      { label: "Min. kapital", value: "50M+" },
-      { label: "Kontaktperson", value: "Dedikerad" },
-      { label: "Tjänster", value: "Alla" },
-      { label: "Tillgänglighet", value: "24/7" },
+      { label: "Teknik", value: "First" },
+      { label: "Avgift", value: "Fast %" },
+      { label: "Oberoende", value: "100%" },
+      { label: "Produkter", value: "Öppet universum" },
     ],
   },
   {
-    title: "Skatte\u00ADoptimering",
-    desc: "ISK, kapitalförsäkring, generationsskiften och arv — vi hjälper dig strukturera din förmögenhet på skatteeffektivaste sätt.",
-    link: "/tjanster?open=3",
+    title: "Resultatet",
+    desc: "Modern förmögenhetsförvaltning — en gammal privatbank, men bättre. Samma personliga service som Genève, med transparenta avgifter och genuint oberoende.",
     image: "/images/service-column-petals.png",
     stats: [
-      { label: "Strukturer", value: "ISK · KF" },
-      { label: "Skiften", value: "Generationsplan" },
-      { label: "Rådgivning", value: "Oberoende" },
-      { label: "Uppföljning", value: "Löpande" },
+      { label: "Kunder", value: "1 000+" },
+      { label: "AUM", value: "3+ mdr" },
+      { label: "Depå", value: "Nordnet" },
+      { label: "FI-tillstånd", value: "Feb 2023" },
     ],
   },
 ];
@@ -73,7 +67,7 @@ export default function ServicesScroll() {
     const section = sectionRef.current;
     if (!section) return;
 
-    const numSlides = services.length;
+    const numSlides = slides.length;
 
     const ctx = gsap.context(() => {
       /* ── Main scroll-driven animation ── */
@@ -148,9 +142,9 @@ export default function ServicesScroll() {
   return (
     <section
       ref={sectionRef}
-      id="tjanster"
+      id="varfor-addeqt"
       className="relative"
-      style={{ height: `${services.length * 100 + 100}vh` }}
+      style={{ height: `${slides.length * 100}vh` }}
     >
       {/* ── Sticky viewport container ── */}
       <div
@@ -158,7 +152,7 @@ export default function ServicesScroll() {
         className="sticky top-0 h-screen w-full overflow-hidden"
       >
         {/* ── Slides ── */}
-        {services.map((service, i) => (
+        {slides.map((slide, i) => (
           <div
             key={i}
             ref={(el) => { slideRefs.current[i] = el; }}
@@ -172,8 +166,8 @@ export default function ServicesScroll() {
             {/* Background image */}
             <div className="absolute inset-0">
               <Image
-                src={service.image}
-                alt={service.title}
+                src={slide.image}
+                alt={slide.title}
                 fill
                 className="object-cover"
                 sizes="100vw"
@@ -200,198 +194,147 @@ export default function ServicesScroll() {
             {/* Info layer (parallax) */}
             <div
               ref={(el) => { infoRefs.current[i] = el; }}
-              className="absolute inset-0 flex items-center justify-center"
+              className="absolute inset-0"
               style={{
                 transform: i === 0 ? "translateY(0%)" : "translateY(30%)",
                 willChange: "transform",
               }}
             >
-              {/* Centered title */}
-              <h2
-                ref={(el) => { titleRefs.current[i] = el; }}
-                className="font-display absolute"
+              {/* Title + statement stacked, stats right */}
+              <div
+                ref={(el) => { titleRefs.current[i] = el as HTMLHeadingElement | null; }}
+                className="absolute inset-0"
                 style={{
-                  fontSize: "clamp(3.5rem, 12vw, 12rem)",
-                  fontWeight: 300,
-                  letterSpacing: "-0.04em",
-                  lineHeight: 0.9,
-                  color: "#ffffff",
-                  textShadow: "0 2px 20px rgba(0,0,0,0.3)",
                   opacity: i === 0 ? 1 : 0,
                   willChange: "opacity",
-                  textAlign: "center",
-                  hyphens: "manual",
-                  maxWidth: "90vw",
                 }}
               >
-                {service.title}
-              </h2>
-
-              {/* Bottom-left: description */}
-              <div
-                className="absolute"
-                style={{
-                  left: "clamp(1.5rem, 6vw, 6rem)",
-                  bottom: "clamp(1.5rem, 6vw, 6rem)",
-                  maxWidth: "320px",
-                }}
-              >
-                <p
+                {/* Title + body — stacked, center */}
+                <div
+                  className="absolute"
                   style={{
-                    fontSize: "16px",
-                    color: "rgba(255,255,255,0.92)",
-                    lineHeight: 1.65,
-                    marginBottom: "1.25rem",
-                    textShadow: "0 1px 8px rgba(0,0,0,0.25)",
+                    top: "50%",
+                    left: "clamp(12rem, 25vw, 26rem)",
+                    transform: "translateY(-55%)",
+                    maxWidth: "500px",
                   }}
                 >
-                  {service.desc}
-                </p>
-                <Link
-                  href={service.link}
-                  className="font-mono inline-flex items-center gap-2 group/link"
+                  <h2
+                    className="font-display"
+                    style={{
+                      fontSize: "clamp(3.5rem, 7vw, 6rem)",
+                      fontWeight: 300,
+                      letterSpacing: "-0.05em",
+                      lineHeight: 1,
+                      color: "#ffffff",
+                      textShadow: "0 2px 30px rgba(0,0,0,0.35)",
+                      marginBottom: "1.5rem",
+                    }}
+                  >
+                    {slide.title}
+                  </h2>
+                  <p
+                    style={{
+                      fontSize: "clamp(17px, 1.4vw, 22px)",
+                      color: "#ffffff",
+                      lineHeight: 1.65,
+                      textShadow: "0 1px 12px rgba(0,0,0,0.3)",
+                      fontWeight: 300,
+                      maxWidth: "420px",
+                    }}
+                  >
+                    {slide.desc}
+                  </p>
+                </div>
+
+                {/* Stats — stacked, lower-right */}
+                <div
+                  className="absolute hidden md:flex flex-col gap-5"
                   style={{
-                    fontSize: "11px",
-                    letterSpacing: "0.12em",
-                    textTransform: "uppercase",
-                    color: "#ffffff",
-                    borderBottom: "1px solid rgba(255,255,255,0.5)",
-                    paddingBottom: "4px",
+                    right: "clamp(2rem, 6vw, 6rem)",
+                    bottom: "clamp(3rem, 8vh, 6rem)",
+                    textAlign: "right",
                   }}
                 >
-                  Läs mer
-                  <ArrowRight
-                    className="w-3 h-3 transition-transform duration-300 group-hover/link:translate-x-1"
-                    strokeWidth={1.5}
-                  />
-                </Link>
-              </div>
-
-              {/* Bottom-right: stats */}
-              <div
-                className="absolute hidden md:flex flex-col gap-5"
-                style={{
-                  right: "clamp(1.5rem, 6vw, 6rem)",
-                  bottom: "clamp(1.5rem, 6vw, 6rem)",
-                  textAlign: "right",
-                }}
-              >
-                {service.stats.map((stat, si) => (
-                  <div key={si}>
-                    <span
-                      className="font-mono block"
-                      style={{
-                        fontSize: "11px",
-                        letterSpacing: "0.14em",
-                        textTransform: "uppercase",
-                        color: "rgba(255,255,255,0.75)",
-                        marginBottom: "2px",
-                        textShadow: "0 1px 4px rgba(0,0,0,0.2)",
-                      }}
-                    >
-                      {stat.label}
-                    </span>
-                    <span
-                      className="font-display block"
-                      style={{
-                        fontSize: "clamp(1.1rem, 1.8vw, 1.4rem)",
-                        fontWeight: 400,
-                        letterSpacing: "-0.02em",
-                        color: "#ffffff",
-                        textShadow: "0 1px 6px rgba(0,0,0,0.2)",
-                      }}
-                    >
-                      {stat.value}
-                    </span>
-                  </div>
-                ))}
+                  {slide.stats.map((stat, si) => (
+                    <div key={si}>
+                      <span
+                        className="font-mono block"
+                        style={{
+                          fontSize: "10px",
+                          letterSpacing: "0.12em",
+                          textTransform: "uppercase" as const,
+                          color: "rgba(255,255,255,0.45)",
+                          marginBottom: "3px",
+                          textShadow: "0 1px 4px rgba(0,0,0,0.15)",
+                        }}
+                      >
+                        {stat.label}
+                      </span>
+                      <span
+                        className="font-display block"
+                        style={{
+                          fontSize: "clamp(1rem, 1.4vw, 1.25rem)",
+                          fontWeight: 400,
+                          color: "rgba(255,255,255,0.85)",
+                          letterSpacing: "-0.01em",
+                          textShadow: "0 1px 6px rgba(0,0,0,0.2)",
+                        }}
+                      >
+                        {stat.value}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         ))}
 
-        {/* ── Sidebar nav (top-left) ── */}
+        {/* ── Nav (top-left, above content) ── */}
         <nav
-          className="absolute z-50 hidden lg:flex flex-col gap-3"
+          className="absolute z-50 hidden lg:flex gap-6"
           style={{
-            top: "clamp(1.5rem, 6vw, 6rem)",
+            top: "clamp(5rem, 10vh, 8rem)",
             left: "clamp(1.5rem, 6vw, 6rem)",
           }}
         >
-          {services.map((s, i) => (
+          {slides.map((s, i) => (
             <button
               key={i}
               onClick={() => {
-                // Scroll to the right position
                 const section = sectionRef.current;
                 if (!section) return;
                 const sectionTop = section.offsetTop;
                 const sectionHeight = section.offsetHeight - window.innerHeight;
-                const targetProgress = i / (services.length - 1);
+                const targetProgress = i / (slides.length - 1);
                 const targetScroll = sectionTop + sectionHeight * targetProgress;
                 window.scrollTo({ top: targetScroll, behavior: "smooth" });
               }}
               className="text-left transition-all duration-500"
-              style={{ opacity: activeIndex === i ? 1 : 0.55 }}
+              style={{ opacity: activeIndex === i ? 1 : 0.4 }}
             >
               <span
                 className="font-display block"
                 style={{
-                  fontSize: "15px",
-                  fontWeight: activeIndex === i ? 600 : 400,
+                  fontSize: "13px",
+                  fontWeight: activeIndex === i ? 500 : 300,
                   color: "#ffffff",
                   letterSpacing: "-0.01em",
                   textShadow: "0 1px 6px rgba(0,0,0,0.3)",
                 }}
               >
-                {s.title.replace(/\u00AD/g, "")}
+                {s.title}
               </span>
             </button>
           ))}
         </nav>
 
-        {/* ── Column headers ── */}
-        <div
-          className="absolute z-50 hidden md:flex justify-between w-full"
-          style={{
-            top: "clamp(1.5rem, 6vw, 6rem)",
-            left: 0,
-            right: 0,
-            paddingLeft: "clamp(12rem, 20vw, 20rem)",
-            paddingRight: "clamp(1.5rem, 6vw, 6rem)",
-          }}
-        >
-          <span
-            className="font-mono"
-            style={{
-              fontSize: "11px",
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-              color: "rgba(255,255,255,0.7)",
-              textShadow: "0 1px 4px rgba(0,0,0,0.2)",
-            }}
-          >
-            Tjänster
-          </span>
-          <span
-            className="font-mono"
-            style={{
-              fontSize: "11px",
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-              color: "rgba(255,255,255,0.7)",
-              textShadow: "0 1px 4px rgba(0,0,0,0.2)",
-            }}
-          >
-            Nyckeltal
-          </span>
-        </div>
-
         {/* ── Scroll progress indicator ── */}
         <div
           className="absolute z-50 bottom-8 left-1/2 -translate-x-1/2 flex gap-2"
         >
-          {services.map((_, i) => (
+          {slides.map((_, i) => (
             <div
               key={i}
               className="transition-all duration-500"

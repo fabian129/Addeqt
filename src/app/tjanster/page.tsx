@@ -18,7 +18,7 @@ const services = [
     desc: "Vi bygger och förvaltar portföljer med ett enda mål: maximal avkastning i förhållande till den risk du är beredd att ta. Som oberoende rådgivare har vi tillgång till hela marknadens utbud — fonder, direktinvesteringar, strukturerade produkter — utan att vara bundna till en enskild banks sortiment. Varje portfölj skräddarsys efter din riskaptit, tidshorisont och livssituation, med löpande ombalansering och kvartalsvis genomgång tillsammans med din personliga rådgivare.",
     stats: [
       { label: "Under förvaltning", value: "3+ mdr" },
-      { label: "Avgift", value: "Fast" },
+      { label: "Avgift", value: "Fast %" },
       { label: "Bindningstid", value: "Ingen" },
       { label: "Produkter", value: "100+" },
     ],

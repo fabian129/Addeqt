@@ -21,30 +21,35 @@ const team = [
     role: "Partner",
     image: "/images/team/fredrik-lidmark.jpg",
     objectPosition: "center 12%",
+    link: "/team/fredrik-lidmark",
   },
   {
     name: "Christian Holm Svensson",
     role: "Partner",
     image: "/images/team/christian.jpg",
     objectPosition: "center 15%",
+    link: "/team/christian",
   },
   {
     name: "Mats Gunnå",
     role: "Senior Rådgivare",
     image: "/images/team/mats.jpg",
     objectPosition: "center 18%",
+    link: "/team/mats",
   },
   {
     name: "Carl Christian Ottander",
     role: "Senior Rådgivare",
     image: "/images/team/carl.jpg",
     objectPosition: "center 12%",
+    link: "/team/carl",
   },
   {
     name: "Fredrik Strömberg",
     role: "Senior Rådgivare",
     image: "/images/team/fredrik.jpg",
     objectPosition: "center 15%",
+    link: "/team/fredrik-stromberg",
   },
 ];
 
@@ -85,6 +90,7 @@ export default function TeamSection() {
 
   return (
     <section
+      id="om-oss"
       ref={sectionRef}
       style={{
         paddingTop: "var(--section-gap)",
@@ -175,17 +181,8 @@ export default function TeamSection() {
         onMouseUp={onMouseUp}
         onMouseLeave={onMouseUp}
       >
-        {team.map((member) => {
-          const CardWrapper = member.link
-            ? ({ children, ...props }: { children: React.ReactNode; [key: string]: unknown }) => (
-                <Link href={member.link!} style={{ textDecoration: 'none', color: 'inherit' }} {...props}>{children}</Link>
-              )
-            : ({ children, ...props }: { children: React.ReactNode; [key: string]: unknown }) => (
-                <div {...props}>{children}</div>
-              );
-
-          return (
-          <CardWrapper key={member.name} className="team-member" style={member.link ? { cursor: 'pointer' } : undefined}>
+        {team.map((member) => (
+          <Link key={member.name} href={member.link} className="team-member" style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
             {/* Name + role above photo */}
             <div className="team-member__meta">
               <span className="font-mono team-member__role">
@@ -209,9 +206,8 @@ export default function TeamSection() {
                 draggable={false}
               />
             </div>
-          </CardWrapper>
-          );
-        })}
+          </Link>
+        ))}
       </div>
 
       {/* ── Styles ── */}

@@ -36,7 +36,7 @@ const steps = [
       "När strategin är godkänd implementerar vi den effektivt. Vi öppnar depåkonton, väljer fonder och instrument, och säkerställer att allt är på plats för optimal förvaltning.",
     metrics: [
       { label: "Implementering", value: "5–10 dagar" },
-      { label: "Depåbank", value: "Nordea" },
+      { label: "Depåbank", value: "Nordnet" },
       { label: "Uppföljning", value: "Omgående" },
     ],
   },

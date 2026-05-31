@@ -4,11 +4,24 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { ArrowRight, Shield, BarChart3, Clock, Building, ChevronDown } from "lucide-react";
 
-const navLinks = [
-  { label: "Om oss", href: "#om-oss" },
-  { label: "Tjänster", href: "/tjanster" },
-  { label: "Process", href: "#process" },
-  { label: "Kontakt", href: "#kontakt" },
+type NavLink = {
+  label: string;
+  href: string;
+  dropdown?: 'tjanster' | 'om-addeqt';
+};
+
+const navLinks: NavLink[] = [
+  { label: "Tjänster", href: "/tjanster", dropdown: 'tjanster' },
+  { label: "Om Addeqt", href: "/om-oss", dropdown: 'om-addeqt' },
+  { label: "Varför Addeqt", href: "/#varfor-addeqt" },
+  { label: "Kontakt", href: "/#kontakt" },
+];
+
+const omAddeqtLinks = [
+  { label: 'Vår historia', href: '/om-oss' },
+  { label: 'Teamet', href: '/#om-oss' },
+  { label: 'Så arbetar vi', href: '/#process' },
+  { label: 'Våra värderingar', href: '/om-oss#varderingar' },
 ];
 
 const services = [
@@ -28,7 +41,8 @@ const iconMap: Record<string, React.ComponentType<{ className?: string; style?: 
 export default function Navbar({ forceScrolled = false }: { forceScrolled?: boolean }) {
   const [scrolled, setScrolled] = useState(forceScrolled);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [tjänsterOpen, setTjänsterOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [mobileOmOpen, setMobileOmOpen] = useState(false);
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -43,67 +57,64 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
 
   // Close dropdown on outside click
   useEffect(() => {
-    if (!tjänsterOpen) return;
+    if (!activeDropdown) return;
     const handleClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      if (!target.closest('[data-tjanster-zone]')) {
-        setTjänsterOpen(false);
+      if (!target.closest('[data-dropdown-zone]')) {
+        setActiveDropdown(null);
       }
     };
     document.addEventListener("click", handleClick);
     return () => document.removeEventListener("click", handleClick);
-  }, [tjänsterOpen]);
+  }, [activeDropdown]);
 
-  const handleMouseEnterZone = useCallback(() => {
+  const handleMouseEnterZone = useCallback((zone: string) => {
     if (closeTimeoutRef.current) {
       clearTimeout(closeTimeoutRef.current);
       closeTimeoutRef.current = null;
     }
-    setTjänsterOpen(true);
+    setActiveDropdown(zone);
   }, []);
 
   const handleMouseLeaveZone = useCallback(() => {
     closeTimeoutRef.current = setTimeout(() => {
-      setTjänsterOpen(false);
+      setActiveDropdown(null);
     }, 100);
   }, []);
 
-  // Pill background based on scroll
-  const pillBg = scrolled
-    ? "rgba(255,255,255,0.75)"
-    : "rgba(255,255,255,0.12)";
-  const pillBorder = scrolled
-    ? "1px solid rgba(0,0,0,0.08)"
-    : "1px solid rgba(255,255,255,0.18)";
-  const pillBlur = "blur(16px)";
-
-  const linkColor = scrolled ? "var(--fg-dim)" : "rgba(255,255,255,0.7)";
-  const linkHover = scrolled ? "var(--fg)" : "#FFFFFF";
-  const logoFill = scrolled ? "var(--navy)" : "#FFFFFF";
+  // Static colors — always white frosted bar
+  const linkColor = "var(--fg-dim)";
+  const linkHover = "var(--fg)";
+  const logoFill = "var(--navy)";
 
   return (
     <header
       className="fixed top-0 left-0 right-0 z-50"
-      style={{ padding: "16px 24px" }}
+      style={{
+        height: '60px',
+        background: 'rgba(255,255,255,0.85)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+        borderBottom: '1px solid rgba(0,0,0,0.06)',
+      }}
     >
-      <div className="max-w-[var(--content-width)] mx-auto flex items-center justify-between">
-        {/* LEFT — Logo pill */}
+      <div
+        className="h-full flex items-center justify-between"
+        style={{
+          maxWidth: 'var(--content-width)',
+          margin: '0 auto',
+          padding: '0 24px',
+        }}
+      >
+        {/* LEFT — Logo (no pill) */}
         <Link
           href="/"
-          className="flex items-center rounded-full transition-all duration-500"
-          style={{
-            background: pillBg,
-            border: pillBorder,
-            backdropFilter: pillBlur,
-            WebkitBackdropFilter: pillBlur,
-            padding: "8px 20px",
-            height: "40px",
-          }}
+          className="flex items-center"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 189 35.32"
-            className="h-[15px] w-auto transition-colors duration-500"
+            className="h-[15px] w-auto"
             style={{ fill: logoFill }}
           >
             <g>
@@ -119,53 +130,45 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
           </svg>
         </Link>
 
-        {/* RIGHT — Nav links + CTA pill (desktop) */}
+        {/* RIGHT — Nav links + CTA (desktop, no pill wrapper) */}
         <nav
-          className="hidden md:flex items-center gap-1 rounded-full transition-all duration-500"
-          style={{
-            background: pillBg,
-            border: pillBorder,
-            backdropFilter: pillBlur,
-            WebkitBackdropFilter: pillBlur,
-            padding: "4px 4px 4px 8px",
-            height: "40px",
-          }}
+          className="hidden md:flex items-center gap-1"
         >
           {navLinks.map((item) =>
-            item.label === "Tjänster" ? (
-              /* Tjänster button with mega-menu trigger */
+            item.dropdown ? (
+              /* Dropdown trigger button */
               <div
-                key={item.href}
-                data-tjanster-zone
+                key={item.label}
+                data-dropdown-zone
                 className="relative"
-                onMouseEnter={handleMouseEnterZone}
+                onMouseEnter={() => handleMouseEnterZone(item.dropdown!)}
                 onMouseLeave={handleMouseLeaveZone}
               >
                 <button
-                  className="text-[13px] font-medium rounded-full px-4 py-1.5 transition-all duration-300 flex items-center gap-1"
-                  style={{ color: tjänsterOpen ? linkHover : linkColor, background: 'none', border: 'none', cursor: 'pointer' }}
+                  className="text-[13px] font-medium px-4 py-1.5 transition-all duration-300 flex items-center gap-1"
+                  style={{ color: activeDropdown === item.dropdown ? linkHover : linkColor, background: 'none', border: 'none', cursor: 'pointer' }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.color = linkHover;
                   }}
                   onMouseLeave={(e) => {
-                    if (!tjänsterOpen) {
+                    if (activeDropdown !== item.dropdown) {
                       e.currentTarget.style.color = linkColor;
                     }
                   }}
-                  onClick={() => setTjänsterOpen((prev) => !prev)}
+                  onClick={() => setActiveDropdown((prev) => prev === item.dropdown ? null : item.dropdown!)}
                 >
                   {item.label}
                   <ChevronDown
                     className="w-3 h-3 transition-transform duration-300"
-                    style={{ transform: tjänsterOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                    style={{ transform: activeDropdown === item.dropdown ? 'rotate(180deg)' : 'rotate(0deg)' }}
                   />
                 </button>
               </div>
             ) : (
               <Link
-                key={item.href}
+                key={item.label}
                 href={item.href}
-                className="text-[13px] font-medium rounded-full px-4 py-1.5 transition-all duration-300"
+                className="text-[13px] font-medium px-4 py-1.5 transition-all duration-300"
                 style={{ color: linkColor }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.color = linkHover;
@@ -179,13 +182,12 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
             )
           )}
 
-          {/* CTA inside pill */}
+          {/* CTA button — navy filled pill */}
           <Link
             href="#kontakt"
-            className="inline-flex items-center gap-1.5 text-[13px] font-medium rounded-full px-5 py-1.5 transition-all duration-300 text-white hover:brightness-110"
+            className="inline-flex items-center gap-1.5 text-[13px] font-medium rounded-full px-5 py-1.5 transition-all duration-300 text-white hover:brightness-110 ml-2"
             style={{
-              background: scrolled ? "var(--navy)" : "rgba(255,255,255,0.15)",
-              border: scrolled ? "none" : "1px solid rgba(255,255,255,0.2)",
+              background: "var(--navy)",
             }}
           >
             Boka möte
@@ -196,12 +198,11 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
         {/* Mobile hamburger */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 rounded-full transition-all duration-500"
+          className="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5"
           style={{
-            background: pillBg,
-            border: pillBorder,
-            backdropFilter: pillBlur,
-            WebkitBackdropFilter: pillBlur,
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
           }}
           aria-label="Meny"
         >
@@ -209,29 +210,29 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
             className={`block w-4 h-[1.5px] transition-all duration-300 ${
               menuOpen ? "rotate-45 translate-y-[4px]" : ""
             }`}
-            style={{ backgroundColor: scrolled ? "var(--fg)" : "#fff" }}
+            style={{ backgroundColor: "var(--fg)" }}
           />
           <span
             className={`block w-4 h-[1.5px] transition-all duration-300 ${
               menuOpen ? "-rotate-45 -translate-y-[2px]" : ""
             }`}
-            style={{ backgroundColor: scrolled ? "var(--fg)" : "#fff" }}
+            style={{ backgroundColor: "var(--fg)" }}
           />
         </button>
       </div>
 
-      {/* ─── Mega Menu Dropdown ─── */}
+      {/* ─── Tjänster Mega Menu Dropdown ─── */}
       <div
-        data-tjanster-zone
+        data-dropdown-zone
         className="hidden md:block"
-        onMouseEnter={handleMouseEnterZone}
+        onMouseEnter={() => handleMouseEnterZone('tjanster')}
         onMouseLeave={handleMouseLeaveZone}
         style={{
           position: 'absolute',
           left: 0,
           right: 0,
           top: '100%',
-          pointerEvents: tjänsterOpen ? 'auto' : 'none',
+          pointerEvents: activeDropdown === 'tjanster' ? 'auto' : 'none',
         }}
       >
         {/* Invisible bridge zone to connect nav button to dropdown */}
@@ -239,12 +240,10 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
 
         <div
           style={{
-            opacity: tjänsterOpen ? 1 : 0,
-            transform: tjänsterOpen ? 'translateY(0)' : 'translateY(-8px)',
+            opacity: activeDropdown === 'tjanster' ? 1 : 0,
+            transform: activeDropdown === 'tjanster' ? 'translateY(0)' : 'translateY(-8px)',
             transition: 'opacity 0.3s ease, transform 0.3s ease',
-            background: scrolled ? '#ffffff' : 'rgba(255,255,255,0.95)',
-            backdropFilter: scrolled ? 'none' : 'blur(24px)',
-            WebkitBackdropFilter: scrolled ? 'none' : 'blur(24px)',
+            background: '#ffffff',
             borderBottom: '1px solid var(--hairline, rgba(0,0,0,0.08))',
             boxShadow: '0 20px 60px rgba(0,0,0,0.08)',
           }}
@@ -269,13 +268,13 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
                   <Link
                     key={service.title}
                     href={service.href}
-                    onClick={() => setTjänsterOpen(false)}
+                    onClick={() => setActiveDropdown(null)}
                     style={{
                       display: 'flex',
                       flexDirection: 'column',
                       gap: '1rem',
                       padding: '1.5rem',
-                      background: scrolled ? 'var(--bg-warm, #f8f7f5)' : 'rgba(255,255,255,0.1)',
+                      background: 'var(--bg-warm, #f8f7f5)',
                       border: '1px solid var(--hairline, rgba(0,0,0,0.08))',
                       borderRadius: '12px',
                       textDecoration: 'none',
@@ -343,37 +342,165 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
         </div>
       </div>
 
+      {/* ─── Om Addeqt Dropdown ─── */}
+      <div
+        data-dropdown-zone
+        className="hidden md:block"
+        onMouseEnter={() => handleMouseEnterZone('om-addeqt')}
+        onMouseLeave={handleMouseLeaveZone}
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          top: '100%',
+          pointerEvents: activeDropdown === 'om-addeqt' ? 'auto' : 'none',
+        }}
+      >
+        {/* Invisible bridge zone */}
+        <div style={{ height: '8px' }} />
+
+        <div
+          style={{
+            opacity: activeDropdown === 'om-addeqt' ? 1 : 0,
+            transform: activeDropdown === 'om-addeqt' ? 'translateY(0)' : 'translateY(-8px)',
+            transition: 'opacity 0.3s ease, transform 0.3s ease',
+            background: 'rgba(255,255,255,0.92)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            borderBottom: '1px solid var(--hairline, rgba(0,0,0,0.08))',
+            boxShadow: '0 20px 60px rgba(0,0,0,0.08)',
+          }}
+        >
+          <div
+            style={{
+              maxWidth: 'var(--content-width)',
+              margin: '0 auto',
+              padding: '1.5rem 2.5rem',
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                gap: '0.25rem',
+                flexDirection: 'column',
+                maxWidth: '260px',
+              }}
+            >
+              {omAddeqtLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setActiveDropdown(null)}
+                  style={{
+                    display: 'block',
+                    padding: '0.65rem 1rem',
+                    borderRadius: '8px',
+                    textDecoration: 'none',
+                    fontSize: '14px',
+                    fontWeight: 450,
+                    color: 'var(--fg-dim, #555)',
+                    transition: 'background 0.2s ease, color 0.2s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'var(--bg-warm, #f8f7f5)';
+                    e.currentTarget.style.color = 'var(--fg, #1a1a1a)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'transparent';
+                    e.currentTarget.style.color = 'var(--fg-dim, #555)';
+                  }}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Mobile menu */}
       <div
         className={`md:hidden overflow-hidden transition-all duration-400 ${
-          menuOpen ? "max-h-80 opacity-100 mt-3" : "max-h-0 opacity-0"
+          menuOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"
         }`}
         style={{
-          marginInline: "auto",
-          maxWidth: "var(--content-width)",
+          background: 'rgba(255,255,255,0.95)',
+          backdropFilter: 'blur(24px)',
+          WebkitBackdropFilter: 'blur(24px)',
+          borderBottom: menuOpen ? '1px solid rgba(0,0,0,0.06)' : 'none',
         }}
       >
         <div
-          className="rounded-2xl overflow-hidden"
           style={{
-            background: "rgba(255,255,255,0.92)",
-            backdropFilter: "blur(24px)",
-            WebkitBackdropFilter: "blur(24px)",
-            border: "1px solid rgba(0,0,0,0.06)",
+            maxWidth: 'var(--content-width)',
+            margin: '0 auto',
+            padding: '16px 24px 24px',
           }}
         >
-          <div className="px-6 py-6 space-y-4">
-            {navLinks.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setMenuOpen(false)}
-                className="block text-sm font-medium transition-colors"
-                style={{ color: "var(--fg-dim)" }}
+          <div className="space-y-1">
+            {/* Tjänster — direct link on mobile */}
+            <Link
+              href="/tjanster"
+              onClick={() => setMenuOpen(false)}
+              className="block text-sm font-medium transition-colors py-2"
+              style={{ color: 'var(--fg-dim)' }}
+            >
+              Tjänster
+            </Link>
+
+            {/* Om Addeqt — collapsible section */}
+            <div>
+              <button
+                onClick={() => setMobileOmOpen((prev) => !prev)}
+                className="flex items-center gap-1 text-sm font-medium transition-colors py-2 w-full"
+                style={{ color: 'var(--fg-dim)', background: 'none', border: 'none', cursor: 'pointer', padding: '0.5rem 0' }}
               >
-                {item.label}
-              </Link>
-            ))}
+                Om Addeqt
+                <ChevronDown
+                  className="w-3 h-3 transition-transform duration-300"
+                  style={{ transform: mobileOmOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                />
+              </button>
+              <div
+                className={`overflow-hidden transition-all duration-300 ${
+                  mobileOmOpen ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0'
+                }`}
+              >
+                <div className="pl-4 space-y-1 pb-1">
+                  {omAddeqtLinks.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => { setMenuOpen(false); setMobileOmOpen(false); }}
+                      className="block text-sm transition-colors py-1.5"
+                      style={{ color: 'var(--fg-muted, #888)' }}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Simple links */}
+            <Link
+              href="/#varfor-addeqt"
+              onClick={() => setMenuOpen(false)}
+              className="block text-sm font-medium transition-colors py-2"
+              style={{ color: 'var(--fg-dim)' }}
+            >
+              Varför Addeqt
+            </Link>
+            <Link
+              href="/#kontakt"
+              onClick={() => setMenuOpen(false)}
+              className="block text-sm font-medium transition-colors py-2"
+              style={{ color: 'var(--fg-dim)' }}
+            >
+              Kontakt
+            </Link>
+
+            {/* CTA */}
             <Link
               href="#kontakt"
               onClick={() => setMenuOpen(false)}

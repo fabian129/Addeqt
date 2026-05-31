@@ -5,6 +5,7 @@ import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { LenisProvider } from './LenisContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -37,5 +38,6 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     };
   }, []);
 
-  return <>{children}</>;
+  return <LenisProvider lenis={lenisRef.current}>{children}</LenisProvider>;
 }
+

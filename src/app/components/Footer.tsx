@@ -18,10 +18,10 @@ const services = [
 ];
 
 const company = [
-  { label: "Om Addeqt", href: "#om" },
-  { label: "Process", href: "#process" },
+  { label: "Om Addeqt", href: "/#om-oss" },
+  { label: "Process", href: "/#process" },
   { label: "Karriär", href: "#karriar" },
-  { label: "Kontakt", href: "#kontakt" },
+  { label: "Kontakt", href: "/#kontakt" },
 ];
 
 const contactInfo = [
@@ -30,7 +30,7 @@ const contactInfo = [
   "08-XXX XX XX",
 ];
 
-const trustBadges = ["FI-tillstånd", "100% Oberoende", "Nordea som depåbank"];
+const trustBadges = ["FI-tillstånd", "100% Oberoende", "Nordnet som depåförvarare"];
 
 export default function Footer({ hideCTA = false }: { hideCTA?: boolean }) {
   const sectionRef = useScrollReveal();
@@ -59,6 +59,7 @@ export default function Footer({ hideCTA = false }: { hideCTA?: boolean }) {
         {/* ── Top CTA Section ── */}
         {!hideCTA && (
         <div
+          id="kontakt"
           className="reveal gsap-reveal"
           style={{
             display: "flex",

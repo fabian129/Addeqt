@@ -4,12 +4,12 @@ import { useScrollReveal } from "../hooks/useScrollReveal";
 
 const logos = [
   "SEB",
-  "Nordea",
+  "Nordnet",
   "Handelsbanken",
   "Avanza",
   "Carnegie",
   "Öhman",
-  "Nordnet",
+  "Euroclear",
   "ABG Sundal Collier",
 ];
 
