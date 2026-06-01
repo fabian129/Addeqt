@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
-import { useState, useRef } from "react";
+import { useState } from "react";
 
 const team = [
   { name: "Christoffer Mohammar", role: "VD & Grundare", href: "/team/christoffer", image: "/images/team/CHM bild 191113 (1).jpg" },
@@ -16,65 +15,49 @@ const team = [
 
 export default function OmTeamList() {
   const [hovered, setHovered] = useState<number | null>(null);
-  const [mouse, setMouse] = useState({ x: 0, y: 0 });
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    setMouse({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
-  };
 
   return (
-    <div
-      ref={containerRef}
-      className="om-team-list-wrapper"
-      onMouseMove={handleMouseMove}
-    >
+    <div className="om-team-list-wrapper">
       <div className="om-team-list">
-        {team.map((t, i) => (
-          <Link
-            key={t.name}
-            href={t.href}
-            className="om-team-member group"
-            onMouseEnter={() => setHovered(i)}
-            onMouseLeave={() => setHovered(null)}
-          >
-            <div>
+        {team.map((t, i) => {
+          const isHovered = hovered === i;
+          return (
+            <Link
+              key={t.name}
+              href={t.href}
+              className={`om-team-member group ${isHovered ? 'active' : ''}`}
+              onMouseEnter={() => setHovered(i)}
+              onMouseLeave={() => setHovered(null)}
+            >
               <span className="om-team-name font-display">{t.name}</span>
-              <span className="om-team-role">{t.role}</span>
-            </div>
-            <ArrowRight className="om-team-arrow" strokeWidth={1.5} />
-          </Link>
-        ))}
+              <span className="om-team-role">
+                <span className="om-team-plus font-mono">+</span>
+                {t.role}
+              </span>
+            </Link>
+          );
+        })}
       </div>
 
-      {/* Floating cursor image */}
-      {hovered !== null && (
-        <div
-          className="om-team-cursor-img"
-          style={{
-            left: mouse.x,
-            top: mouse.y,
-          }}
-        >
+      {/* Fixed Center Image */}
+      <div className={`om-team-center-img ${hovered !== null ? 'visible' : ''}`}>
+        {team.map((t, i) => (
           <Image
-            src={team[hovered].image}
-            alt={team[hovered].name}
-            width={200}
-            height={260}
-            className="object-cover"
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            key={t.name}
+            src={t.image}
+            alt={t.name}
+            fill
+            className={`object-cover transition-opacity duration-500 ${hovered === i ? 'opacity-100' : 'opacity-0'}`}
+            sizes="(max-width: 768px) 80vw, 320px"
+            priority={i < 3}
           />
-        </div>
-      )}
+        ))}
+      </div>
 
       <style>{`
         .om-team-list-wrapper {
           position: relative;
+          padding: 2rem 0;
         }
         .om-team-list {
           display: flex;
@@ -86,54 +69,67 @@ export default function OmTeamList() {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          padding: clamp(1.25rem, 2.5vh, 2rem) 0;
-          border-top: 1px solid rgba(15,15,16,0.08);
+          padding: clamp(1.25rem, 2.5vw, 2rem) 0;
+          border-bottom: 1px solid rgba(15,15,16,0.1);
           text-decoration: none;
-          transition: padding-left 0.3s ease;
+          color: rgba(15,15,16,0.25); /* Default dim state */
+          transition: color 0.3s ease, border-color 0.3s ease;
         }
-        .om-team-member:last-child {
-          border-bottom: 1px solid rgba(15,15,16,0.08);
+        .om-team-member:first-child {
+          border-top: 1px solid rgba(15,15,16,0.1);
         }
-        .om-team-member:hover {
-          padding-left: 1rem;
+        
+        /* Active / Hovered state */
+        .om-team-list-wrapper:hover .om-team-member {
+          color: rgba(15,15,16,0.15); /* Dim others even more when container hovered */
         }
-        .om-team-name {
-          font-size: clamp(1.2rem, 2vw, 1.6rem);
-          font-weight: 400;
-          letter-spacing: -0.02em;
-          color: #0f0f10;
-          display: block;
-          margin-bottom: 0.25rem;
-        }
-        .om-team-role {
-          font-size: 13px;
-          color: rgba(15,15,16,0.4);
-          font-weight: 300;
-        }
-        .om-team-arrow {
-          width: 20px;
-          height: 20px;
-          color: rgba(15,15,16,0.25);
-          transition: color 0.3s ease, transform 0.3s ease;
-          flex-shrink: 0;
-        }
-        .om-team-member:hover .om-team-arrow {
-          color: rgba(15,15,16,0.6);
-          transform: translateX(4px);
+        .om-team-list-wrapper:hover .om-team-member.active {
+          color: rgba(15,15,16,1); /* Highlight current */
+          border-bottom-color: rgba(15,15,16,0.3); /* slightly stronger border under active item */
         }
 
-        /* Floating cursor image */
-        .om-team-cursor-img {
+        .om-team-name {
+          font-size: clamp(1.5rem, 3vw, 2.5rem);
+          font-weight: 300;
+          letter-spacing: -0.02em;
+          transition: inherit;
+        }
+        .om-team-role {
+          font-size: clamp(14px, 1.2vw, 16px);
+          font-weight: 400;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          transition: inherit;
+        }
+        .om-team-plus {
+          opacity: 0;
+          transform: translateX(-10px);
+          transition: opacity 0.3s ease, transform 0.3s ease;
+          font-size: 1.1em;
+        }
+        .om-team-member.active .om-team-plus {
+          opacity: 1;
+          transform: translateX(0);
+        }
+
+        /* Fixed Center Image */
+        .om-team-center-img {
           position: absolute;
-          width: 110px;
-          height: 140px;
-          pointer-events: none;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: clamp(240px, 25vw, 360px);
+          aspect-ratio: 3 / 4;
+          pointer-events: none; /* Let clicks pass through to the list */
           z-index: 10;
+          border-radius: 4px;
           overflow: hidden;
-          border-radius: 3px;
-          box-shadow: 0 8px 30px rgba(0,0,0,0.12);
-          transform: translate(-50%, -70%);
-          transition: opacity 0.2s ease;
+          box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+          opacity: 0;
+          transition: opacity 0.5s ease;
+        }
+        .om-team-center-img.visible {
           opacity: 1;
         }
       `}</style>
