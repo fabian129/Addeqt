@@ -143,8 +143,8 @@ export default function Manifesto() {
     <section
       ref={sectionRef}
       style={{
-        paddingTop: "clamp(10rem, 16vw, 14rem)",
-        paddingBottom: "clamp(10rem, 16vw, 14rem)",
+        paddingTop: "clamp(8rem, 12vw, 10rem)",
+        paddingBottom: "clamp(8rem, 12vw, 10rem)",
         background: "var(--bg)",
         position: "relative",
         overflow: "hidden",

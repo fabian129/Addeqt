@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useScrollReveal } from "../hooks/useScrollReveal";
 import { useSectionReveal } from "../hooks/useSectionReveal";
-import { useRef, useState, useCallback } from "react";
+import BrandDivider from "./BrandDivider";
 
 /* ── Team data ── */
 
@@ -58,35 +58,6 @@ const team = [
 export default function TeamSection() {
   const sectionRef = useScrollReveal();
   const gsapRef = useSectionReveal();
-  const stripRef = useRef<HTMLDivElement>(null);
-
-  /* ── Drag-to-scroll ── */
-  const [isDragging, setIsDragging] = useState(false);
-  const dragState = useRef({ startX: 0, scrollLeft: 0 });
-
-  const onMouseDown = useCallback((e: React.MouseEvent) => {
-    if (!stripRef.current) return;
-    setIsDragging(true);
-    dragState.current.startX = e.pageX - stripRef.current.offsetLeft;
-    dragState.current.scrollLeft = stripRef.current.scrollLeft;
-    stripRef.current.style.cursor = "grabbing";
-  }, []);
-
-  const onMouseMove = useCallback(
-    (e: React.MouseEvent) => {
-      if (!isDragging || !stripRef.current) return;
-      e.preventDefault();
-      const x = e.pageX - stripRef.current.offsetLeft;
-      const walk = (x - dragState.current.startX) * 1.5;
-      stripRef.current.scrollLeft = dragState.current.scrollLeft - walk;
-    },
-    [isDragging]
-  );
-
-  const onMouseUp = useCallback(() => {
-    setIsDragging(false);
-    if (stripRef.current) stripRef.current.style.cursor = "grab";
-  }, []);
 
   return (
     <section
@@ -119,8 +90,6 @@ export default function TeamSection() {
             alignItems: "flex-end",
             gap: "3rem",
             paddingBottom: "2.5rem",
-            borderBottom: "1px solid var(--hairline)",
-            marginBottom: "clamp(3rem, 6vw, 5rem)",
           }}
         >
           <div style={{ flex: "1 1 55%" }}>
@@ -129,7 +98,7 @@ export default function TeamSection() {
               style={{
                 fontSize: "10px",
                 letterSpacing: "0.15em",
-                textTransform: "uppercase" as const,
+                textTransform: "uppercase",
                 color: "var(--fg-muted)",
                 marginBottom: "1rem",
               }}
@@ -170,125 +139,52 @@ export default function TeamSection() {
             </p>
           </div>
         </div>
-      </div>
 
-      {/* ── Draggable team strip ── */}
-      <div
-        ref={stripRef}
-        className="team-strip"
-        onMouseDown={onMouseDown}
-        onMouseMove={onMouseMove}
-        onMouseUp={onMouseUp}
-        onMouseLeave={onMouseUp}
-      >
-        {team.map((member) => (
-          <Link key={member.name} href={member.link} className="team-member" style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
-            {/* Name + role above photo */}
-            <div className="team-member__meta">
-              <span className="font-mono team-member__role">
-                {member.role}
-              </span>
-              <h3 className="font-display team-member__name">
-                {member.name}
-              </h3>
-            </div>
+        <div className="mb-12 md:mb-20">
+          <BrandDivider fullBleed={false} />
+        </div>
 
-            {/* Photo */}
-            <div className="team-member__photo">
-              <Image
-                src={member.image}
-                alt={member.name}
-                fill
-                sizes="(max-width: 768px) 70vw, 28vw"
-                className="team-member__img"
-                style={{ objectPosition: member.objectPosition }}
-                quality={85}
-                draggable={false}
-              />
-            </div>
-          </Link>
-        ))}
+        {/* ── Team Grid ── */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-12 md:gap-x-6 md:gap-y-16">
+          {team.map((member) => (
+            <Link 
+              key={member.name} 
+              href={member.link} 
+              className="group flex flex-col gsap-reveal" 
+              style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}
+            >
+              {/* Photo */}
+              <div 
+                className="relative overflow-hidden bg-[#f5f4f2] w-full aspect-square mb-4"
+              >
+                <Image
+                  src={member.image}
+                  alt={member.name}
+                  fill
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                  className="object-cover grayscale transition-all duration-500 group-hover:grayscale-[20%] group-hover:scale-[1.03]"
+                  style={{ objectPosition: member.objectPosition }}
+                  quality={85}
+                  draggable={false}
+                />
+              </div>
+
+              {/* Meta (below photo) */}
+              <div className="flex flex-col">
+                <h3 className="font-display text-[15px] md:text-[17px] text-[var(--fg)] mb-0.5 font-medium tracking-tight">
+                  {member.name}
+                </h3>
+                <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--fg-muted)] opacity-80">
+                  {member.role}
+                </span>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
 
       {/* ── Styles ── */}
       <style>{`
-        /* ── Strip layout — draggable scroll ── */
-        .team-strip {
-          display: flex;
-          gap: clamp(0.75rem, 1.2vw, 1.25rem);
-          width: 100vw;
-          margin-left: calc(-50vw + 50%);
-          overflow-x: auto;
-          overflow-y: hidden;
-          scrollbar-width: none;
-          -ms-overflow-style: none;
-          cursor: grab;
-          padding: 0 clamp(1.5rem, 4vw, 3rem);
-          box-sizing: border-box;
-          -webkit-user-select: none;
-          user-select: none;
-        }
-        .team-strip::-webkit-scrollbar {
-          display: none;
-        }
-
-        /* ── Member card — wide ── */
-        .team-member {
-          flex: 0 0 clamp(280px, 26vw, 380px);
-          display: flex;
-          flex-direction: column;
-          cursor: grab;
-          position: relative;
-        }
-
-        /* ── Meta (above photo) ── */
-        .team-member__meta {
-          padding: 0 0.25rem 1.25rem;
-          min-height: 60px;
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-end;
-        }
-        .team-member__role {
-          font-size: 9px;
-          letter-spacing: 0.14em;
-          text-transform: uppercase;
-          color: var(--fg-muted);
-          margin-bottom: 0.35rem;
-        }
-        .team-member__name {
-          font-size: clamp(0.95rem, 1.3vw, 1.2rem);
-          font-weight: 400;
-          color: var(--fg);
-          margin: 0;
-          letter-spacing: -0.01em;
-          line-height: 1.2;
-        }
-
-        /* ── Photo area — TALL ── */
-        .team-member__photo {
-          height: clamp(420px, 68vh, 720px);
-          background: #f5f4f2;
-          position: relative;
-          overflow: hidden;
-          border-radius: 4px;
-        }
-
-        /* ── Image styling ── */
-        .team-member__img {
-          object-fit: cover;
-          filter: grayscale(100%);
-          transition: filter 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-                      transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-          pointer-events: none;
-        }
-
-        /* ── Hover — subtle zoom + color hint ── */
-        .team-member:hover .team-member__img {
-          filter: grayscale(20%);
-          transform: scale(1.03);
-        }
-
         /* ── Responsive ── */
         @media (max-width: 768px) {
           .team-header {
@@ -298,12 +194,6 @@ export default function TeamSection() {
           }
           .team-header-right {
             flex: 1 1 100% !important;
-          }
-          .team-member {
-            flex: 0 0 clamp(240px, 65vw, 320px);
-          }
-          .team-member__photo {
-            height: clamp(300px, 55vh, 500px);
           }
         }
       `}</style>

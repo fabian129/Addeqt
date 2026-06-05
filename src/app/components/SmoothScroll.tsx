@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
 import gsap from 'gsap';
@@ -10,7 +11,8 @@ import { LenisProvider } from './LenisContext';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
-  const lenisRef = useRef<Lenis | null>(null);
+  const [lenisInstance, setLenisInstance] = useState<Lenis | null>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -21,7 +23,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       smoothWheel: true,
     });
 
-    lenisRef.current = lenis;
+    setLenisInstance(lenis);
 
     // Integrate with GSAP ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update);
@@ -34,10 +36,17 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
 
     return () => {
       lenis.destroy();
-      lenisRef.current = null;
+      setLenisInstance(null);
     };
   }, []);
 
-  return <LenisProvider lenis={lenisRef.current}>{children}</LenisProvider>;
+  // Force scroll to top on route change
+  useEffect(() => {
+    if (lenisInstance) {
+      lenisInstance.scrollTo(0, { immediate: true });
+    }
+  }, [pathname, lenisInstance]);
+
+  return <LenisProvider lenis={lenisInstance}>{children}</LenisProvider>;
 }
 

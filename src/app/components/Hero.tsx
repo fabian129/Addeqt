@@ -36,9 +36,9 @@ export default function Hero() {
         style={{
           background: `
             linear-gradient(to right, 
-              rgba(15,15,16,0.85) 0%, 
-              rgba(15,15,16,0.4) 50%, 
-              rgba(15,15,16,0.7) 100%
+              rgba(15,15,16,0.65) 0%, 
+              rgba(15,15,16,0.2) 50%, 
+              rgba(15,15,16,0.4) 100%
             )
           `,
         }}
@@ -48,10 +48,10 @@ export default function Hero() {
         style={{
           background: `
             linear-gradient(to bottom, 
-              rgba(15,15,16,0.5) 0%, 
-              rgba(15,15,16,0.1) 40%, 
-              rgba(15,15,16,0.8) 90%,
-              rgba(15,15,16,0.95) 100%
+              rgba(15,15,16,0.3) 0%, 
+              rgba(15,15,16,0.05) 40%, 
+              rgba(15,15,16,0.6) 90%,
+              rgba(15,15,16,0.85) 100%
             )
           `,
         }}
@@ -155,10 +155,11 @@ export default function Hero() {
         /* ── Bottom Line Navigation ── */
         .hero-bottom-nav {
           display: flex;
-          justify-content: space-between;
-          width: 100%;
-          border-top: 1px solid rgba(255,255,255,0.2);
-          padding-top: clamp(1.5rem, 3vh, 2.5rem);
+          justify-content: flex-end;
+          align-self: flex-end;
+          gap: clamp(2.5rem, 5vw, 6rem);
+          border-bottom: 1px solid rgba(255,255,255,0.2);
+          padding-bottom: clamp(1.5rem, 3vh, 2.5rem);
         }
 
         .hero-nav-item {
@@ -166,15 +167,15 @@ export default function Hero() {
           align-items: center;
           gap: 1rem;
           text-decoration: none;
-          transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+          transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
           cursor: pointer;
         }
 
         .hero-nav-title {
-          font-size: clamp(1rem, 1.5vw, 1.5rem);
+          font-size: clamp(0.85rem, 1.1vw, 1rem);
           font-weight: 300;
           color: #ffffff;
-          transition: transform 0.4s ease;
+          transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .hero-nav-item:hover .hero-nav-title {
@@ -182,17 +183,17 @@ export default function Hero() {
         }
 
         .hero-nav-arrow {
-          width: 20px;
-          height: 20px;
+          width: 16px;
+          height: 16px;
           color: #ffffff;
-          opacity: 0;
-          transform: translateX(-12px);
-          transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+          opacity: 0.3;
+          transform: translateX(0);
+          transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .hero-nav-item:hover .hero-nav-arrow {
           opacity: 1;
-          transform: translateX(0);
+          transform: translateX(4px);
         }
 
         /* ── Responsive ── */

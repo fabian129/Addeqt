@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
-import { ArrowRight, Shield, BarChart3, Clock, Building, ChevronDown } from "lucide-react";
+import { ArrowRight, Shield, BarChart3, Clock, Building, ChevronDown, BookOpen, Users, Target, Compass } from "lucide-react";
 
 type NavLink = {
   label: string;
@@ -18,10 +18,10 @@ const navLinks: NavLink[] = [
 ];
 
 const omAddeqtLinks = [
-  { label: 'Vår historia', href: '/om-oss' },
-  { label: 'Teamet', href: '/#om-oss' },
-  { label: 'Så arbetar vi', href: '/#process' },
-  { label: 'Våra värderingar', href: '/om-oss#varderingar' },
+  { label: 'Vår historia', description: 'Från en vision om oberoende till en etablerad aktör.', href: '/om-oss', icon: 'book' },
+  { label: 'Teamet', description: 'Möt experterna som förvaltar och rådger kring din ekonomi.', href: '/#om-oss', icon: 'users' },
+  { label: 'Så arbetar vi', description: 'En inblick i vår strukturerade och trygga process.', href: '/#process', icon: 'target' },
+  { label: 'Våra värderingar', description: 'Transparens, oberoende och kunden i absolut första rummet.', href: '/om-oss#varderingar', icon: 'compass' },
 ];
 
 const services = [
@@ -36,6 +36,10 @@ const iconMap: Record<string, React.ComponentType<{ className?: string; style?: 
   chart: BarChart3,
   clock: Clock,
   building: Building,
+  book: BookOpen,
+  users: Users,
+  target: Target,
+  compass: Compass,
 };
 
 export default function Navbar({ forceScrolled = false }: { forceScrolled?: boolean }) {
@@ -46,12 +50,28 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    if (forceScrolled) {
-      setScrolled(true);
-      return;
-    }
-    const handleScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => {
+      let isOverDark = false;
+      const darkSections = document.querySelectorAll('.dark-section');
+      darkSections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        // Check if the top of the viewport (plus a bit of margin for the navbar) is within this dark section
+        if (rect.top <= 50 && rect.bottom >= 50) {
+          isOverDark = true;
+        }
+      });
+      
+      if (isOverDark) {
+        setScrolled(false); // Transparent/white text over dark sections
+      } else if (forceScrolled) {
+        setScrolled(true); // Solid/dark text by default if forceScrolled is true
+      } else {
+        setScrolled(window.scrollY > 40); // Standard threshold behavior
+      }
+    };
+    
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // Initialize on mount
     return () => window.removeEventListener("scroll", handleScroll);
   }, [forceScrolled]);
 
@@ -82,20 +102,22 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
     }, 100);
   }, []);
 
-  // Static colors — always white frosted bar
-  const linkColor = "var(--fg-dim)";
-  const linkHover = "var(--fg)";
-  const logoFill = "var(--navy)";
+  // Dynamic colors based on scroll state
+  const linkColor = scrolled ? "var(--fg-dim)" : "rgba(255, 255, 255, 0.85)";
+  const linkHover = scrolled ? "var(--fg)" : "#ffffff";
+  const logoFill = scrolled ? "var(--navy)" : "#ffffff";
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        scrolled 
+          ? "bg-white/85 shadow-[0_4px_30px_rgba(0,0,0,0.03)] border-b border-black/[0.04]" 
+          : "bg-transparent border-b border-transparent"
+      }`}
       style={{
-        height: '60px',
-        background: 'rgba(255,255,255,0.85)',
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)',
-        borderBottom: '1px solid rgba(0,0,0,0.06)',
+        height: scrolled ? '70px' : '90px',
+        backdropFilter: scrolled ? 'blur(20px) saturate(150%)' : 'none',
+        WebkitBackdropFilter: scrolled ? 'blur(20px) saturate(150%)' : 'none',
       }}
     >
       <div
@@ -132,7 +154,7 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
 
         {/* RIGHT — Nav links + CTA (desktop, no pill wrapper) */}
         <nav
-          className="hidden md:flex items-center gap-1"
+          className="hidden md:flex items-center gap-10"
         >
           {navLinks.map((item) =>
             item.dropdown ? (
@@ -145,8 +167,8 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
                 onMouseLeave={handleMouseLeaveZone}
               >
                 <button
-                  className="text-[13px] font-medium px-4 py-1.5 transition-all duration-300 flex items-center gap-1"
-                  style={{ color: activeDropdown === item.dropdown ? linkHover : linkColor, background: 'none', border: 'none', cursor: 'pointer' }}
+                  className="text-[13px] uppercase tracking-[0.08em] font-semibold transition-all duration-300 flex items-center gap-1.5"
+                  style={{ color: activeDropdown === item.dropdown ? linkHover : linkColor, background: 'none', border: 'none', cursor: 'pointer', height: '100%' }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.color = linkHover;
                   }}
@@ -168,8 +190,8 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
               <Link
                 key={item.label}
                 href={item.href}
-                className="text-[13px] font-medium px-4 py-1.5 transition-all duration-300"
-                style={{ color: linkColor }}
+                className="text-[13px] uppercase tracking-[0.08em] font-semibold transition-all duration-300 flex items-center"
+                style={{ color: linkColor, height: '100%' }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.color = linkHover;
                 }}
@@ -182,16 +204,21 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
             )
           )}
 
-          {/* CTA button — navy filled pill */}
           <Link
             href="#kontakt"
-            className="inline-flex items-center gap-1.5 text-[13px] font-medium rounded-full px-5 py-1.5 transition-all duration-300 text-white hover:brightness-110 ml-2"
-            style={{
-              background: "var(--navy)",
+            className="group inline-flex items-center gap-2 font-display uppercase tracking-[0.1em] font-semibold transition-all duration-300 ml-16"
+            style={{ color: linkColor, borderBottom: `1px solid ${linkColor}` }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = linkHover;
+              e.currentTarget.style.borderBottomColor = linkHover;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = linkColor;
+              e.currentTarget.style.borderBottomColor = linkColor;
             }}
           >
-            Boka möte
-            <ArrowRight className="w-3.5 h-3.5" />
+            <span className="text-[13px] pb-1">Boka möte</span>
+            <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
         </nav>
 
@@ -210,13 +237,13 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
             className={`block w-4 h-[1.5px] transition-all duration-300 ${
               menuOpen ? "rotate-45 translate-y-[4px]" : ""
             }`}
-            style={{ backgroundColor: "var(--fg)" }}
+            style={{ backgroundColor: scrolled ? "var(--fg)" : "#ffffff" }}
           />
           <span
             className={`block w-4 h-[1.5px] transition-all duration-300 ${
               menuOpen ? "-rotate-45 -translate-y-[2px]" : ""
             }`}
-            style={{ backgroundColor: "var(--fg)" }}
+            style={{ backgroundColor: scrolled ? "var(--fg)" : "#ffffff" }}
           />
         </button>
       </div>
@@ -259,7 +286,7 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
               style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(4, 1fr)',
-                gap: '1rem',
+                gap: '1.5rem',
               }}
             >
               {services.map((service) => {
@@ -364,9 +391,7 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
             opacity: activeDropdown === 'om-addeqt' ? 1 : 0,
             transform: activeDropdown === 'om-addeqt' ? 'translateY(0)' : 'translateY(-8px)',
             transition: 'opacity 0.3s ease, transform 0.3s ease',
-            background: 'rgba(255,255,255,0.92)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
+            background: '#ffffff',
             borderBottom: '1px solid var(--hairline, rgba(0,0,0,0.08))',
             boxShadow: '0 20px 60px rgba(0,0,0,0.08)',
           }}
@@ -375,44 +400,91 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
             style={{
               maxWidth: 'var(--content-width)',
               margin: '0 auto',
-              padding: '1.5rem 2.5rem',
+              padding: '2.5rem',
             }}
           >
             <div
               style={{
-                display: 'flex',
-                gap: '0.25rem',
-                flexDirection: 'column',
-                maxWidth: '260px',
+                display: 'grid',
+                gridTemplateColumns: 'repeat(4, 1fr)',
+                gap: '1.5rem',
               }}
             >
-              {omAddeqtLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setActiveDropdown(null)}
-                  style={{
-                    display: 'block',
-                    padding: '0.65rem 1rem',
-                    borderRadius: '8px',
-                    textDecoration: 'none',
-                    fontSize: '14px',
-                    fontWeight: 450,
-                    color: 'var(--fg-dim, #555)',
-                    transition: 'background 0.2s ease, color 0.2s ease',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'var(--bg-warm, #f8f7f5)';
-                    e.currentTarget.style.color = 'var(--fg, #1a1a1a)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'transparent';
-                    e.currentTarget.style.color = 'var(--fg-dim, #555)';
-                  }}
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {omAddeqtLinks.map((link) => {
+                const IconComponent = iconMap[link.icon];
+                return (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    onClick={() => setActiveDropdown(null)}
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '1rem',
+                      padding: '1.5rem',
+                      background: 'var(--bg-warm, #f8f7f5)',
+                      border: '1px solid var(--hairline, rgba(0,0,0,0.08))',
+                      borderRadius: '12px',
+                      textDecoration: 'none',
+                      transition: 'transform 0.25s ease, box-shadow 0.25s ease',
+                      minHeight: '160px',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                      e.currentTarget.style.boxShadow = '0 8px 30px rgba(0,0,0,0.1)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = 'none';
+                    }}
+                  >
+                    {/* Icon */}
+                    <div
+                      style={{
+                        width: '40px',
+                        height: '40px',
+                        borderRadius: '10px',
+                        background: 'var(--navy, #0f1d3a)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                      }}
+                    >
+                      {IconComponent && (
+                        <IconComponent
+                          className="w-5 h-5"
+                          style={{ color: '#ffffff' }}
+                        />
+                      )}
+                    </div>
+
+                    {/* Text */}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                      <span
+                        style={{
+                          fontFamily: 'var(--font-display, inherit)',
+                          fontSize: '15px',
+                          fontWeight: 500,
+                          color: 'var(--fg, #1a1a1a)',
+                          lineHeight: 1.3,
+                        }}
+                      >
+                        {link.label}
+                      </span>
+                      <span
+                        style={{
+                          fontSize: '13px',
+                          color: 'var(--fg-muted, #888)',
+                          lineHeight: 1.5,
+                        }}
+                      >
+                        {link.description}
+                      </span>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </div>

@@ -4,8 +4,8 @@ import TrustMarquee from "./components/TrustMarquee";
 import Manifesto from "./components/Manifesto";
 import VarforAddeqt from "./components/VarforAddeqt";
 import HomepageServices from "./components/HomepageServices";
-import TrustSection from "./components/TrustSection";
-import EditorialBreak from "./components/EditorialBreak";
+import StorySection from "./components/StorySection";
+import LightsOutWrapper from "./components/LightsOutWrapper";
 import AppBento from "./components/AppBento";
 import ProcessSteps from "./components/ProcessSteps";
 import TeamSection from "./components/TeamSection";
@@ -22,9 +22,10 @@ export default function Home() {
         <Manifesto />
         <VarforAddeqt />
         <HomepageServices />
-        <TrustSection />
-        <EditorialBreak />
-        <AppBento />
+        <LightsOutWrapper>
+          <StorySection />
+          <AppBento />
+        </LightsOutWrapper>
         <div id="process">
           <ProcessSteps />
         </div>

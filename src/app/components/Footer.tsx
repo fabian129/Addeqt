@@ -50,9 +50,9 @@ export default function Footer({ hideCTA = false }: { hideCTA?: boolean }) {
       <div
         ref={gsapRef}
         style={{
-          maxWidth: "1100px",
+          maxWidth: "none",
           margin: "0 auto",
-          padding: "0 2.5rem",
+          padding: "0 clamp(2rem, 6vw, 8rem)",
           width: "100%",
         }}
       >
@@ -73,7 +73,7 @@ export default function Footer({ hideCTA = false }: { hideCTA?: boolean }) {
           <h2
             className="font-display gsap-reveal-heading"
             style={{
-              fontSize: "clamp(2.5rem, 5vw, 4rem)",
+              fontSize: "clamp(3rem, 6vw, 5rem)",
               fontWeight: 300,
               lineHeight: 1.15,
               letterSpacing: "-0.03em",
@@ -142,31 +142,32 @@ export default function Footer({ hideCTA = false }: { hideCTA?: boolean }) {
           className="reveal reveal-d2 gsap-reveal"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gap: "2rem",
-            paddingBottom: "clamp(3rem, 6vw, 5rem)",
+            gridTemplateColumns: "2fr 1fr 1fr 1fr",
+            gap: "clamp(3rem, 5vw, 6rem)",
+            paddingBottom: "clamp(4rem, 8vw, 8rem)",
           }}
         >
           {/* Column 1 — Brand */}
-          <div>
+          <div style={{ paddingRight: "2rem" }}>
             <div
               className="font-display"
               style={{
-                fontSize: "1.1rem",
+                fontSize: "1.2rem",
                 fontWeight: 600,
                 letterSpacing: "-0.03em",
                 color: "#ffffff",
-                marginBottom: "0.75rem",
+                marginBottom: "1rem",
               }}
             >
               ADDEQT
             </div>
             <p
               style={{
-                fontSize: "13px",
-                lineHeight: 1.6,
+                fontSize: "15px",
+                lineHeight: 1.65,
                 color: "rgba(255,255,255,0.5)",
                 margin: 0,
+                maxWidth: "280px",
               }}
             >
               Oberoende
@@ -180,23 +181,24 @@ export default function Footer({ hideCTA = false }: { hideCTA?: boolean }) {
             <div
               className="font-mono"
               style={{
-                fontSize: "10px",
+                fontSize: "11px",
                 fontWeight: 500,
                 textTransform: "uppercase",
-                letterSpacing: "0.12em",
+                letterSpacing: "0.14em",
                 color: "rgba(255,255,255,0.4)",
-                marginBottom: "1.25rem",
+                marginBottom: "1.5rem",
               }}
             >
               Tjänster
             </div>
             <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
               {services.map((s) => (
-                <li key={s.label} style={{ marginBottom: "0.65rem" }}>
+                <li key={s.label} style={{ marginBottom: "0.85rem" }}>
                   <Link
                     href={s.href}
                     style={{
-                      fontSize: "14px",
+                      fontSize: "16px",
+                      fontWeight: 300,
                       color: "rgba(255,255,255,0.6)",
                       textDecoration: "none",
                       transition: "color 0.3s ease",
@@ -220,23 +222,24 @@ export default function Footer({ hideCTA = false }: { hideCTA?: boolean }) {
             <div
               className="font-mono"
               style={{
-                fontSize: "10px",
+                fontSize: "11px",
                 fontWeight: 500,
                 textTransform: "uppercase",
-                letterSpacing: "0.12em",
+                letterSpacing: "0.14em",
                 color: "rgba(255,255,255,0.4)",
-                marginBottom: "1.25rem",
+                marginBottom: "1.5rem",
               }}
             >
               Företaget
             </div>
             <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
               {company.map((c) => (
-                <li key={c.label} style={{ marginBottom: "0.65rem" }}>
+                <li key={c.label} style={{ marginBottom: "0.85rem" }}>
                   <Link
                     href={c.href}
                     style={{
-                      fontSize: "14px",
+                      fontSize: "16px",
+                      fontWeight: 300,
                       color: "rgba(255,255,255,0.6)",
                       textDecoration: "none",
                       transition: "color 0.3s ease",
@@ -260,12 +263,12 @@ export default function Footer({ hideCTA = false }: { hideCTA?: boolean }) {
             <div
               className="font-mono"
               style={{
-                fontSize: "10px",
+                fontSize: "11px",
                 fontWeight: 500,
                 textTransform: "uppercase",
-                letterSpacing: "0.12em",
+                letterSpacing: "0.14em",
                 color: "rgba(255,255,255,0.4)",
-                marginBottom: "1.25rem",
+                marginBottom: "1.5rem",
               }}
             >
               Kontakt
@@ -275,10 +278,11 @@ export default function Footer({ hideCTA = false }: { hideCTA?: boolean }) {
                 <li
                   key={info}
                   style={{
-                    fontSize: "14px",
+                    fontSize: "16px",
+                    fontWeight: 300,
                     lineHeight: 1.6,
                     color: "rgba(255,255,255,0.6)",
-                    marginBottom: "0.5rem",
+                    marginBottom: "0.75rem",
                   }}
                 >
                   {info}

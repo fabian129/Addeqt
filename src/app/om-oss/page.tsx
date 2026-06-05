@@ -2,438 +2,185 @@
 
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import Image from "next/image";
 import OmTeamList from "../components/OmTeamList";
 import { useSectionReveal } from "../hooks/useSectionReveal";
-// Metadata moved to layout or handled differently in Next.js when using 'use client'
-// Or we can just omit it here for the sake of the client component.
-
-const milestones = [
-  { value: "2021", label: "Grundat" },
-  { value: "Feb 2023", label: "FI-tillstånd" },
-  { value: "Jul 2023", label: "Första kunden" },
-  { value: "1 000+", label: "Kunder idag" },
-];
-
-const values = [
-  {
-    num: "01",
-    title: "Transparens",
-    desc: "Öppenhet i avgifter, strategi och förvaltning. Kunden ska aldrig behöva undra.",
-  },
-  {
-    num: "02",
-    title: "Kundnytta",
-    desc: "Alla beslut utgår från kundens bästa — inte bolagets vinst.",
-  },
-  {
-    num: "03",
-    title: "Excellens",
-    desc: "Varje beslut, varje rapport, varje kontakt — på högsta nivå.",
-  },
-  {
-    num: "04",
-    title: "Trygghet",
-    desc: "Tillgångar förvaras hos Nordnet. Kunden ska känna sig förstådd och säker.",
-  },
-];
-
-
+import OmOssScroll from "../components/OmOssScroll";
+import Link from "next/link";
+import { ArrowDown } from "lucide-react";
+import OmOssLightsOut from "../components/OmOssLightsOut";
+import { useLenis } from "../components/LenisContext";
 
 export default function OmOssPage() {
   const containerRef = useSectionReveal();
+  const lenis = useLenis();
 
   return (
     <>
-      <Navbar />
+      <Navbar forceScrolled />
 
       <main className="om-page" ref={containerRef}>
+        <OmOssLightsOut>
+          {/* ═══ SECTION 1: Cinematic Hero ═══ */}
+          <section 
+            id="om-hero"
+            className="relative w-full h-[150vh] flex flex-col justify-start pt-[25vh] px-6 md:px-16 lg:px-32 bg-transparent"
+          >
+            {/* Dark Section Trigger for Navbar: hits the top when the background is fading to black */}
+            <div className="absolute top-[85vh] bottom-0 left-0 right-0 dark-section pointer-events-none" />
 
-        {/* ═══ SECTION 1: Hero — "Din oberoende partner" ═══ */}
-        <section className="om-hero">
-          <div className="om-hero-content">
-            <span className="om-eyebrow font-mono gsap-reveal">Om Addeqt</span>
-            <h1 className="om-hero-title font-display gsap-reveal-heading">
-              Din oberoende
-              <br />
-              partner.
-            </h1>
-            <p className="om-hero-text gsap-reveal">
-              Addeqt grundades 2021 ur en frustration över hur den svenska
-              förmögenhetsmarknaden fungerar. Segmentet 5–50 Mkr har historiskt
-              varit kraftigt underservat — kunderna fick storbankernas
-              standardprodukter, betalade dubbla avgifter och träffade sin
-              rådgivare max en gång per år.
-            </p>
-          </div>
-          <div className="om-hero-image">
-            <Image
-              src="/images/mj/gondola.png"
-              alt="Italiensk arkitektur"
-              fill
-              className="object-cover"
-              style={{ objectPosition: "center 40%" }}
-              sizes="50vw"
-              quality={90}
-            />
-          </div>
-        </section>
-
-        {/* ═══ SECTION 2: Brand quote — full width statement ═══ */}
-        <section className="om-statement">
-          <p className="om-statement-text font-display gsap-reveal-heading">
-            Kundnyttan styr varje beslut vi fattar.
-            <span className="om-statement-dim">
-              {" "}Fast procentuell avgift. Inga dolda kostnader. Full transparens
-              i strategi och tillgångsförvaring.
-            </span>
-          </p>
-        </section>
-
-        {/* ═══ SECTION 3: Story + image ═══ */}
-        <section className="om-story">
-          <div className="om-story-image">
-            <Image
-              src="/images/mj/coastal-village-1.png"
-              alt="Abstrakt konst i mjuka pasteller"
-              fill
-              className="object-cover"
-              sizes="40vw"
-              quality={90}
-            />
-          </div>
-          <div className="om-story-content">
-            <span className="om-eyebrow font-mono gsap-reveal">Tre insikter</span>
-            <div className="om-story-insights">
-              <div className="om-insight gsap-reveal">
-                <span className="om-insight-num font-mono">01</span>
-                <div>
-                  <h3 className="om-insight-title font-display">Marknaden är underservad.</h3>
-                  <p className="om-insight-text">
-                    Aktiv portföljförvaltning med löpande allokering existerar knappt
-                    för privatpersoner under 500 Mkr.
-                  </p>
-                </div>
+            <div id="om-hero-content" className="max-w-7xl w-full mx-auto flex flex-col gsap-reveal h-full relative z-10">
+              
+              {/* TOP: Headline */}
+              <div className="w-full">
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-black/40 mb-10 block">
+                  [ 01 ] Om Addeqt
+                </span>
+                <h1 
+                  className="font-display text-[#0f0f10] leading-[1.05] tracking-tight max-w-5xl"
+                  style={{ fontSize: "clamp(4rem, 9vw, 8.5rem)", fontWeight: 300 }}
+                >
+                  Din oberoende partner.
+                </h1>
               </div>
-              <div className="om-insight gsap-reveal">
-                <span className="om-insight-num font-mono">02</span>
-                <div>
-                  <h3 className="om-insight-title font-display">Branschen lider av teknikskuld.</h3>
-                  <p className="om-insight-text">
-                    Manuellt backoffice → högre kostnader → högre avgifter mot kund.
-                    Addeqt byggde tech-first för minimal overhead.
+              
+              {/* BOTTOM RIGHT: Body text & Button */}
+              <div className="w-full mt-[12vh] md:mt-[20vh] flex justify-end">
+                <div className="max-w-2xl lg:max-w-[800px] flex flex-col">
+                  <p className="text-xl md:text-2xl lg:text-[1.75rem] font-light text-black/70 leading-relaxed mb-16">
+                    Vi har skapat den finansiella partner vi själva saknade – en där dina mål är vår enda kompass. Inga egna produkter, inga dolda avgifter. Bara renodlad och oberoende rådgivning.
                   </p>
-                </div>
-              </div>
-              <div className="om-insight gsap-reveal">
-                <span className="om-insight-num font-mono">03</span>
-                <div>
-                  <h3 className="om-insight-title font-display">Fintech-mentalitet i en finansvärld.</h3>
-                  <p className="om-insight-text">
-                    Inom tech är kunden alltid nummer ett, anställda nummer två,
-                    ägarna nummer tre. Traditionell finans har alltid varit tvärtom.
-                  </p>
+                  
+                  <div className="flex">
+                    <Link 
+                      href="#om-oss-story"
+                      className="group flex flex-col gap-3"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (lenis) {
+                          lenis.scrollTo("#om-oss-story", { 
+                            offset: 100,
+                            duration: 1.8,
+                            easing: (t: number) => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2
+                          });
+                        } else {
+                          const target = document.getElementById("om-oss-story");
+                          if (target) {
+                            window.scrollTo({ top: target.offsetTop, behavior: "smooth" });
+                          }
+                        }
+                      }}
+                    >
+                      <div className="flex items-center gap-6">
+                        <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-[#0f0f10] font-semibold">Läs vår historia</span>
+                        <ArrowDown className="w-4 h-4 text-[#0f0f10] group-hover:translate-y-2 transition-transform duration-500 ease-out" />
+                      </div>
+                      {/* Elegant hover line */}
+                      <div className="w-full h-px bg-black/20 relative overflow-hidden">
+                        <div className="absolute inset-0 bg-[#0f0f10] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out" />
+                      </div>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* ═══ SECTION 4: Milestones ═══ */}
-        <section className="om-milestones">
-          <span className="om-eyebrow font-mono gsap-reveal">Milstolpar</span>
-          <div className="om-milestones-grid">
-            {milestones.map((m) => (
-              <div key={m.label} className="om-milestone gsap-reveal">
-                <span className="om-milestone-value font-display">{m.value}</span>
-                <span className="om-milestone-label">{m.label}</span>
+        {/* ═══ SECTION 2: Sticky Cinematic Scroll ═══ */}
+        <OmOssScroll />
+        </OmOssLightsOut>
+
+        {/* ═══ SECTION 3: Milestones (Clean row) ═══ */}
+        <section className="w-full bg-[#FAFAF8] py-32 md:py-48 px-6">
+          <div className="max-w-[var(--content-width)] mx-auto">
+            <span className="block font-mono text-[10px] uppercase tracking-[0.2em] text-black/40 mb-16 text-center gsap-reveal">
+              Milstolpar
+            </span>
+            
+            {/* The clean 4-column row with hairlines */}
+            <div className="grid grid-cols-2 md:grid-cols-4 border-t border-b border-black/10 gsap-reveal">
+              {/* Item 1 */}
+              <div className="flex flex-col items-center text-center py-12 md:py-16 px-4 border-b md:border-b-0 border-r border-black/10">
+                <span className="font-display text-4xl md:text-5xl text-[#242748] mb-4">2021</span>
+                <span className="font-mono text-[9px] uppercase tracking-widest text-black/40">Grundat</span>
               </div>
-            ))}
-          </div>
-          <p className="om-milestones-note gsap-reveal">
-            3–4 miljarder kronor under förvaltning via egna system och ombudsbolag.
-            All tillgångsförvaring sker via Nordnet som depå — oberoende av Addeqt som bolag.
-          </p>
-        </section>
-
-        {/* ═══ SECTION 5: Värderingar ═══ */}
-        <section className="om-values" id="varderingar">
-          <div className="om-values-header">
-            <span className="om-eyebrow font-mono gsap-reveal">Kärnvärderingar</span>
-            <h2 className="om-section-title font-display gsap-reveal-heading">
-              Det vi aldrig
-              <br />
-              kompromissar med.
-            </h2>
-          </div>
-          <div className="om-values-grid">
-            {values.map((v) => (
-              <div key={v.num} className="om-value-card gsap-reveal">
-                <span className="om-value-num font-mono">{v.num}</span>
-                <h3 className="om-value-title font-display">{v.title}</h3>
-                <p className="om-value-desc">{v.desc}</p>
+              {/* Item 2 */}
+              <div className="flex flex-col items-center text-center py-12 md:py-16 px-4 border-b md:border-b-0 md:border-r border-black/10">
+                <span className="font-display text-4xl md:text-5xl text-[#242748] mb-4">Feb 2023</span>
+                <span className="font-mono text-[9px] uppercase tracking-widest text-black/40">FI-tillstånd</span>
               </div>
-            ))}
+              {/* Item 3 */}
+              <div className="flex flex-col items-center text-center py-12 md:py-16 px-4 border-r border-black/10">
+                <span className="font-display text-4xl md:text-5xl text-[#242748] mb-4">Jul 2023</span>
+                <span className="font-mono text-[9px] uppercase tracking-widest text-black/40">Första kunden</span>
+              </div>
+              {/* Item 4 */}
+              <div className="flex flex-col items-center text-center py-12 md:py-16 px-4">
+                <span className="font-display text-4xl md:text-5xl text-[#242748] mb-4">1000+</span>
+                <span className="font-mono text-[9px] uppercase tracking-widest text-black/40">Kunder idag</span>
+              </div>
+            </div>
+            
+            <p className="text-center text-black/50 text-sm md:text-base font-light max-w-2xl mx-auto mt-12 gsap-reveal leading-relaxed">
+              Med 3–4 miljarder kronor under förvaltning växer vi tillsammans med våra kunder. Din trygghet är fundamental – därför sker all tillgångsförvaring via Nordnet som depå, helt oberoende av Addeqt.
+            </p>
           </div>
         </section>
 
-        <section className="om-team">
-          <div className="om-team-header">
-            <span className="om-eyebrow font-mono gsap-reveal">Teamet</span>
-            <h2 className="om-section-title font-display gsap-reveal-heading">
-              Människorna bakom Addeqt.
-            </h2>
+        {/* ═══ SECTION 4: Team ═══ */}
+        <section className="w-full bg-white py-32 md:py-48 px-6">
+          <div className="max-w-[var(--content-width)] mx-auto">
+            <div className="mb-20 md:mb-32 text-center">
+              <span className="block font-mono text-[10px] uppercase tracking-[0.2em] text-black/40 mb-6 gsap-reveal">
+                Teamet
+              </span>
+              <h2 className="font-display text-4xl md:text-5xl text-[#0f0f10] font-light tracking-tight gsap-reveal-heading">
+                Människorna bakom Addeqt.
+              </h2>
+            </div>
+            <OmTeamList />
           </div>
-          <OmTeamList />
+        </section>
+
+        {/* ═══ SECTION 5: Subtle Map / Contact Wrap-up ═══ */}
+        <section className="w-full bg-[#FAFAF8] relative overflow-hidden py-32 md:py-48 px-6 flex flex-col items-center text-center">
+          {/* Abstract Map Watermark (Very faint background lines to simulate a map) */}
+          <div className="absolute inset-0 flex items-center justify-center opacity-[0.05] pointer-events-none">
+            <svg viewBox="0 0 1000 600" className="w-[150%] md:w-full h-auto" preserveAspectRatio="none">
+              <path d="M 0,200 C 150,220 300,100 450,250 C 600,400 750,300 1000,350" fill="none" stroke="currentColor" strokeWidth="1" />
+              <path d="M 0,400 C 200,450 400,200 600,350 C 800,500 900,450 1000,400" fill="none" stroke="currentColor" strokeWidth="1" />
+              <path d="M 300,0 C 350,150 200,300 400,600" fill="none" stroke="currentColor" strokeWidth="1" />
+              <path d="M 700,0 C 650,200 800,400 650,600" fill="none" stroke="currentColor" strokeWidth="1" />
+              {/* Central roads/grid */}
+              <line x1="450" y1="250" x2="600" y2="350" stroke="currentColor" strokeWidth="2" strokeDasharray="4 4" />
+              <line x1="400" y1="600" x2="600" y2="350" stroke="currentColor" strokeWidth="1" />
+            </svg>
+          </div>
+          
+          <div className="relative z-10 max-w-2xl mx-auto gsap-reveal">
+            <div className="relative inline-block mb-10">
+              {/* Red pulsing dot */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-red-600/20 rounded-full animate-ping"></div>
+              <div className="relative w-3 h-3 bg-red-600 rounded-full shadow-[0_0_15px_rgba(220,38,38,0.5)]"></div>
+            </div>
+            <h3 className="font-display text-3xl md:text-4xl text-[#0f0f10] mb-6 tracking-tight">
+              Huvudkontor i Stockholm
+            </h3>
+            <p className="text-black/50 font-light text-lg mb-8 leading-relaxed">
+              Artillerigatan 45<br/>114 45 Stockholm
+            </p>
+            <Link 
+              href="mailto:info@addeqt.se"
+              className="inline-flex items-center gap-3 font-mono text-[10px] uppercase tracking-widest text-[#242748] hover:text-black transition-colors"
+            >
+              <span>Kontakta oss</span>
+              <ArrowDown className="w-3 h-3 -rotate-45" />
+            </Link>
+          </div>
         </section>
 
       </main>
 
       <Footer />
-
-      <style>{`
-        .om-page {
-          padding-top: 5rem;
-        }
-
-        .om-eyebrow {
-          font-size: 11px;
-          letter-spacing: 0.14em;
-          text-transform: uppercase;
-          color: rgba(15,15,16,0.4);
-          display: block;
-          margin-bottom: 1.5rem;
-        }
-
-        /* ═══ HERO ═══ */
-        .om-hero {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          min-height: 85vh;
-          gap: 0;
-        }
-        .om-hero-content {
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-end;
-          padding: clamp(3rem, 8vh, 6rem) clamp(2rem, 6vw, 6rem);
-          padding-left: clamp(2rem, 8vw, 8rem);
-        }
-        .om-hero-title {
-          font-size: clamp(3rem, 6vw, 5.5rem);
-          font-weight: 300;
-          letter-spacing: -0.04em;
-          line-height: 0.95;
-          color: #0f0f10;
-          margin: 0 0 clamp(2rem, 4vh, 3rem);
-        }
-        .om-hero-text {
-          font-size: clamp(15px, 1.2vw, 17px);
-          line-height: 1.8;
-          color: rgba(15,15,16,0.55);
-          font-weight: 300;
-          max-width: 480px;
-          margin: 0;
-        }
-        .om-hero-image {
-          position: relative;
-          overflow: hidden;
-        }
-
-        /* ═══ STATEMENT ═══ */
-        .om-statement {
-          padding: clamp(6rem, 14vh, 10rem) clamp(2rem, 8vw, 8rem);
-          border-top: 1px solid rgba(15,15,16,0.08);
-          border-bottom: 1px solid rgba(15,15,16,0.08);
-        }
-        .om-statement-text {
-          font-size: clamp(2rem, 3.5vw, 3.5rem);
-          font-weight: 300;
-          letter-spacing: -0.03em;
-          line-height: 1.25;
-          color: #0f0f10;
-          margin: 0;
-          max-width: 900px;
-        }
-        .om-statement-dim {
-          color: rgba(15,15,16,0.3);
-        }
-
-        /* ═══ STORY ═══ */
-        .om-story {
-          display: grid;
-          grid-template-columns: 1fr 1.2fr;
-          min-height: 80vh;
-          gap: 0;
-        }
-        .om-story-image {
-          position: relative;
-          overflow: hidden;
-        }
-        .om-story-content {
-          padding: clamp(4rem, 8vh, 7rem) clamp(3rem, 6vw, 6rem);
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-        }
-        .om-story-insights {
-          display: flex;
-          flex-direction: column;
-          gap: 2.5rem;
-        }
-        .om-insight {
-          display: flex;
-          gap: 1.5rem;
-          align-items: flex-start;
-        }
-        .om-insight-num {
-          font-size: 11px;
-          letter-spacing: 0.1em;
-          color: var(--sage, #7A8C6E);
-          flex-shrink: 0;
-          padding-top: 4px;
-        }
-        .om-insight-title {
-          font-size: clamp(1.1rem, 1.5vw, 1.3rem);
-          font-weight: 500;
-          letter-spacing: -0.02em;
-          color: #0f0f10;
-          margin: 0 0 0.5rem;
-        }
-        .om-insight-text {
-          font-size: clamp(14px, 1.1vw, 15px);
-          line-height: 1.75;
-          color: rgba(15,15,16,0.5);
-          font-weight: 300;
-          margin: 0;
-        }
-
-        /* ═══ MILESTONES ═══ */
-        .om-milestones {
-          padding: clamp(6rem, 12vh, 9rem) clamp(2rem, 8vw, 8rem);
-          background: #FAFAF8;
-        }
-        .om-milestones-grid {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 1px;
-          background: rgba(15,15,16,0.08);
-          border: 1px solid rgba(15,15,16,0.08);
-          margin-bottom: 2.5rem;
-        }
-        .om-milestone {
-          background: #FAFAF8;
-          padding: clamp(1.5rem, 3vh, 2.5rem) clamp(1rem, 2vw, 2rem);
-          text-align: center;
-        }
-        .om-milestone-value {
-          font-size: clamp(1.5rem, 2.5vw, 2.2rem);
-          font-weight: 600;
-          letter-spacing: -0.03em;
-          color: var(--navy, #242748);
-          display: block;
-          margin-bottom: 0.5rem;
-        }
-        .om-milestone-label {
-          font-size: 11px;
-          letter-spacing: 0.1em;
-          text-transform: uppercase;
-          color: rgba(15,15,16,0.4);
-        }
-        .om-milestones-note {
-          font-size: clamp(14px, 1.1vw, 15px);
-          line-height: 1.75;
-          color: rgba(15,15,16,0.45);
-          font-weight: 300;
-          max-width: 600px;
-          margin: 0;
-        }
-
-        /* ═══ VALUES ═══ */
-        .om-values {
-          padding: clamp(6rem, 12vh, 9rem) clamp(2rem, 8vw, 8rem);
-        }
-        .om-values-header {
-          margin-bottom: clamp(3rem, 6vh, 5rem);
-        }
-        .om-section-title {
-          font-size: clamp(2.2rem, 4vw, 3.5rem);
-          font-weight: 300;
-          letter-spacing: -0.03em;
-          line-height: 1.1;
-          color: #0f0f10;
-          margin: 0;
-        }
-        .om-values-grid {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 1px;
-          background: rgba(15,15,16,0.08);
-          border-top: 1px solid rgba(15,15,16,0.08);
-          border-bottom: 1px solid rgba(15,15,16,0.08);
-        }
-        .om-value-card {
-          background: #fff;
-          padding: clamp(2rem, 4vh, 3rem) clamp(1.5rem, 2vw, 2rem);
-        }
-        .om-value-num {
-          font-size: 11px;
-          letter-spacing: 0.1em;
-          color: var(--sage, #7A8C6E);
-          display: block;
-          margin-bottom: 1.25rem;
-        }
-        .om-value-title {
-          font-size: clamp(1.2rem, 1.5vw, 1.4rem);
-          font-weight: 500;
-          letter-spacing: -0.02em;
-          color: #0f0f10;
-          margin: 0 0 0.75rem;
-        }
-        .om-value-desc {
-          font-size: 14px;
-          line-height: 1.75;
-          color: rgba(15,15,16,0.5);
-          font-weight: 300;
-          margin: 0;
-        }
-
-        /* ═══ TEAM ═══ */
-        .om-team {
-          padding: clamp(6rem, 12vh, 9rem) clamp(2rem, 8vw, 8rem);
-          background: #FAFAF8;
-        }
-        .om-team-header {
-          margin-bottom: clamp(3rem, 6vh, 5rem);
-        }
-
-        /* ═══ RESPONSIVE ═══ */
-        @media (max-width: 768px) {
-          .om-hero {
-            grid-template-columns: 1fr;
-            min-height: auto;
-          }
-          .om-hero-image {
-            height: 50vh;
-          }
-          .om-hero-content {
-            padding: 3rem 1.5rem;
-          }
-          .om-story {
-            grid-template-columns: 1fr;
-            min-height: auto;
-          }
-          .om-story-image {
-            height: 40vh;
-          }
-          .om-milestones-grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
-          .om-values-grid {
-            grid-template-columns: 1fr 1fr;
-          }
-        }
-      `}</style>
     </>
   );
 }

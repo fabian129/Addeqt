@@ -6,6 +6,7 @@ import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLenis } from "./LenisContext";
+import { useSectionReveal } from "../hooks/useSectionReveal";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -66,6 +67,7 @@ export default function HomepageServices() {
   const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
   const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const lenis = useLenis();
+  const sectionRef = useSectionReveal();
 
   const toggle = useCallback((i: number) => {
     setOpenIndex((prev) => (prev === i ? null : i));
@@ -93,95 +95,116 @@ export default function HomepageServices() {
 
     // Lenis smooth scroll to opened header
     if (openIndex !== null && lenis && buttonRefs.current[openIndex]) {
-      lenis.scrollTo(buttonRefs.current[openIndex]! as HTMLElement, {
-        offset: -100,
-        duration: 0.8,
-      });
+      setTimeout(() => {
+        lenis.scrollTo(buttonRefs.current[openIndex]! as HTMLElement, {
+          offset: -120,
+          duration: 0.8,
+        });
+      }, 460); // Wait for the close animation of the previous item to finish so layout is stable
     }
   }, [openIndex, lenis]);
 
   return (
     <section
       id="tjanster"
+      ref={sectionRef}
       style={{
         background: "var(--bg, #FAFAF8)",
         paddingTop: "clamp(6rem, 14vh, 10rem)",
         paddingBottom: "clamp(4rem, 10vh, 8rem)",
       }}
     >
-      {/* Section header — Waterfall layout */}
+      {/* Section header — Premium Typographic Layout with Side-by-Side Image */}
       <div
         style={{
           padding: "0 clamp(1.5rem, 4vw, 4rem)",
           marginBottom: "clamp(6rem, 12vh, 10rem)",
         }}
       >
-        <span
-          className="font-mono gsap-reveal"
-          style={{
-            fontSize: "11px",
-            letterSpacing: "0.14em",
-            textTransform: "uppercase",
-            color: "var(--fg-muted, rgba(15,15,16,0.4))",
-            display: "block",
-            marginBottom: "1.5rem",
-          }}
+        <div 
+          style={{ paddingLeft: "clamp(1rem, 4vw, 4rem)" }}
+          className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 items-start"
         >
-          Tjänster
-        </span>
-        <h2
-          className="font-display gsap-reveal-heading"
-          style={{
-            fontSize: "clamp(3.5rem, 8vw, 7rem)",
-            fontWeight: 300,
-            letterSpacing: "-0.03em",
-            lineHeight: 1.05,
-            color: "var(--fg, #0f0f10)",
-            margin: "0 0 clamp(3rem, 6vh, 5rem)",
-            maxWidth: "1200px",
-          }}
-        >
-          Våra lösningar.
-        </h2>
+          
+          {/* Left Column: Eyebrow + Headline */}
+          <div className="md:col-span-7">
+            {/* Eyebrow */}
+            <div
+              className="gsap-reveal-heading"
+              style={{
+                fontFamily: "var(--font-mono, monospace)",
+                fontSize: "11px",
+                textTransform: "uppercase",
+                letterSpacing: "0.15em",
+                color: "var(--fg-muted, rgba(15,15,16,0.4))",
+                marginBottom: "clamp(1.5rem, 3vh, 2.5rem)",
+              }}
+            >
+              Våra lösningar
+            </div>
 
-        {/* Text and Quote in a Waterfall / staggered layout */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "clamp(3rem, 6vh, 5rem)" }}>
-          {/* Intro text - Left aligned */}
-          <p
-            className="gsap-reveal"
-            style={{
-              fontSize: "clamp(1.25rem, 1.8vw, 1.5rem)",
-              lineHeight: 1.7,
-              color: "var(--fg-dim, rgba(15,15,16,0.6))",
-              margin: 0,
-              fontWeight: 300,
-              maxWidth: "600px",
-            }}
-          >
-            Allt vi gör utgår från att ge dig full kontroll,
-            oberoende rådgivning och en avgiftsmodell helt utan överraskningar.
-          </p>
+            {/* Main Statement */}
+            <h2
+              className="font-display gsap-text-scrub"
+              style={{
+                fontSize: "clamp(2.2rem, 4vw, 4.2rem)",
+                fontWeight: 300,
+                letterSpacing: "-0.02em",
+                lineHeight: 1.15,
+                color: "var(--fg, #0f0f10)",
+                margin: "0",
+                maxWidth: "1100px",
+              }}
+            >
+              Allt vi gör utgår från att ge dig full kontroll,{" "}
+              <span style={{ fontStyle: "italic", color: "var(--navy)" }}>
+                oberoende
+              </span>{" "}
+              rådgivning och en avgiftsmodell helt utan överraskningar.
+            </h2>
+          </div>
 
-          {/* Quote - Right aligned, pushed down */}
-          <p
-            className="font-display gsap-reveal"
-            style={{
-              fontSize: "clamp(1.1rem, 1.4vw, 1.25rem)",
-              fontWeight: 300,
-              lineHeight: 1.5,
-              letterSpacing: "-0.01em",
-              color: "var(--sage, #7A8C6E)",
-              margin: 0,
-              fontStyle: "italic",
-              textAlign: "right",
-              alignSelf: "flex-end",
-              maxWidth: "400px",
-            }}
+          {/* Right Column: Image + Quote */}
+          <div 
+            className="md:col-span-4 md:col-start-9 flex flex-col items-end gap-6 pt-8 md:pt-24"
+            style={{ paddingRight: "5vw", marginTop: "5vh" }}
           >
-            &ldquo;Transparens är inte en feature —
-            <br />
-            det är en grundförutsättning.&rdquo;
-          </p>
+            <div 
+              className="gsap-reveal overflow-hidden relative" 
+              style={{ 
+                width: "100%",
+                maxWidth: "260px",
+                aspectRatio: "4/5", 
+                borderRadius: "3px" 
+              }}
+            >
+              <Image 
+                src="/images/look-from-afar-church-somewhere-italian-dolomites.jpg" 
+                alt="Addeqt vision" 
+                fill 
+                quality={100}
+                className="object-cover object-bottom"
+                sizes="(max-width: 768px) 100vw, 400px"
+              />
+            </div>
+            <p
+              className="font-display gsap-reveal"
+              style={{
+                fontSize: "clamp(1rem, 1.1vw, 1.1rem)",
+                fontWeight: 400,
+                lineHeight: 1.6,
+                color: "var(--gold)",
+                fontStyle: "italic",
+                borderLeft: "1px solid var(--gold)",
+                paddingLeft: "1.25rem",
+                margin: 0,
+                maxWidth: "320px",
+              }}
+            >
+              &ldquo;Transparens är inte en feature —<br />det är en grundförutsättning.&rdquo;
+            </p>
+          </div>
+
         </div>
       </div>
 

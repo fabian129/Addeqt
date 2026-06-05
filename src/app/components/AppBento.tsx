@@ -1,1238 +1,281 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { useSectionReveal } from "../hooks/useSectionReveal";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/* ── Card 1: Premium App Mockup with Device Frame ── */
-
-function AppMockup() {
+function GlassCard({ 
+  children, 
+  delay = 0,
+  maxWidth = "240px",
+  padding = "1rem"
+}: { 
+  children: React.ReactNode; 
+  delay?: number;
+  maxWidth?: string;
+  padding?: string;
+}) {
   return (
     <div
+      className="glass-card-float flex flex-col justify-between relative overflow-hidden"
+      data-delay={delay}
       style={{
         width: "100%",
-        height: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "clamp(1.5rem, 3vw, 2.5rem)",
-        background: "linear-gradient(165deg, #0f1023 0%, #1a1f3d 40%, #242748 100%)",
-        position: "relative",
-        overflow: "hidden",
+        maxWidth: maxWidth, 
+        background: "rgba(15, 16, 25, 0.85)", 
+        backdropFilter: "blur(40px) saturate(150%)",
+        WebkitBackdropFilter: "blur(40px) saturate(150%)",
+        border: "1px solid rgba(255, 255, 255, 0.15)",
+        borderRadius: "12px", 
+        padding: padding, 
+        boxShadow: "0 15px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2)",
       }}
     >
-      {/* Ambient glow behind phone */}
-      <div
-        style={{
-          position: "absolute",
-          top: "30%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: "200px",
-          height: "200px",
-          background: "radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%)",
-          filter: "blur(40px)",
-          pointerEvents: "none",
-        }}
-      />
-
-      {/* Phone device frame */}
-      <div
-        style={{
-          width: "100%",
-          maxWidth: "240px",
-          aspectRatio: "9 / 19.5",
-          borderRadius: "28px",
-          border: "2px solid rgba(255,255,255,0.12)",
-          background: "linear-gradient(180deg, #12152e 0%, #1a1f3d 100%)",
-          boxShadow:
-            "0 0 0 1px rgba(255,255,255,0.04), 0 25px 60px -12px rgba(0,0,0,0.7), 0 0 40px rgba(99,102,241,0.08)",
-          position: "relative",
-          overflow: "hidden",
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        {/* Dynamic island */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            paddingTop: "10px",
-            paddingBottom: "6px",
-            position: "relative",
-            zIndex: 5,
-          }}
-        >
-          <div
-            style={{
-              width: "80px",
-              height: "22px",
-              borderRadius: "20px",
-              backgroundColor: "#000",
-              boxShadow: "0 0 8px rgba(0,0,0,0.5)",
-            }}
-          />
-        </div>
-
-        {/* Status bar */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: "2px 18px 8px",
-          }}
-        >
-          <span style={{ fontSize: "9px", fontWeight: 600, color: "rgba(255,255,255,0.7)" }}>
-            9:41
-          </span>
-          <div style={{ display: "flex", gap: "4px", alignItems: "center" }}>
-            {/* Signal bars */}
-            <svg width="12" height="10" viewBox="0 0 16 12">
-              <rect x="0" y="8" width="3" height="4" rx="0.5" fill="rgba(255,255,255,0.7)" />
-              <rect x="4" y="5" width="3" height="7" rx="0.5" fill="rgba(255,255,255,0.7)" />
-              <rect x="8" y="2" width="3" height="10" rx="0.5" fill="rgba(255,255,255,0.7)" />
-              <rect x="12" y="0" width="3" height="12" rx="0.5" fill="rgba(255,255,255,0.25)" />
-            </svg>
-            {/* Battery */}
-            <svg width="18" height="9" viewBox="0 0 25 12">
-              <rect x="0" y="0" width="22" height="12" rx="3" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="1" />
-              <rect x="2" y="2" width="14" height="8" rx="1.5" fill="rgba(255,255,255,0.7)" />
-              <rect x="23" y="3.5" width="2" height="5" rx="1" fill="rgba(255,255,255,0.25)" />
-            </svg>
-          </div>
-        </div>
-
-        {/* App content */}
-        <div
-          style={{
-            flex: 1,
-            display: "flex",
-            flexDirection: "column",
-            padding: "0 14px",
-            overflow: "hidden",
-          }}
-        >
-          {/* Top bar */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginBottom: "12px",
-            }}
-          >
-            <span
-              className="font-mono"
-              style={{ fontSize: "8px", color: "rgba(255,255,255,0.35)", letterSpacing: "0.1em" }}
-            >
-              ADDEQT
-            </span>
-            <div
-              style={{
-                width: "24px",
-                height: "24px",
-                borderRadius: "50%",
-                background: "linear-gradient(135deg, rgba(99,102,241,0.3), rgba(99,102,241,0.1))",
-                border: "1px solid rgba(255,255,255,0.1)",
-              }}
-            />
-          </div>
-
-          {/* Greeting */}
-          <div style={{ marginBottom: "4px" }}>
-            <div style={{ fontSize: "9px", color: "rgba(255,255,255,0.4)" }}>
-              Välkommen tillbaka
-            </div>
-            <div
-              className="font-display"
-              style={{ fontSize: "1rem", fontWeight: 400, color: "#fff", marginTop: "2px" }}
-            >
-              Anna
-            </div>
-          </div>
-
-          {/* Frosted stat card */}
-          <div
-            style={{
-              margin: "10px 0",
-              padding: "12px",
-              background: "rgba(255,255,255,0.05)",
-              border: "1px solid rgba(255,255,255,0.07)",
-              borderRadius: "10px",
-              backdropFilter: "blur(10px)",
-            }}
-          >
-            <div
-              className="font-mono"
-              style={{
-                fontSize: "7px",
-                letterSpacing: "0.15em",
-                textTransform: "uppercase" as const,
-                color: "rgba(255,255,255,0.35)",
-                marginBottom: "4px",
-              }}
-            >
-              Total avkastning
-            </div>
-            <div
-              className="font-display"
-              style={{ fontSize: "1.4rem", fontWeight: 300, color: "#4ade80", lineHeight: 1 }}
-            >
-              +8.2%
-            </div>
-            <div style={{ fontSize: "8px", color: "rgba(255,255,255,0.25)", marginTop: "3px" }}>
-              vs föregående år
-            </div>
-          </div>
-
-          {/* Sparkline */}
-          <svg viewBox="0 0 200 50" width="100%" height="40" style={{ display: "block", margin: "4px 0" }}>
-            <defs>
-              <linearGradient id="spark-fill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="rgba(74,222,128,0.15)" />
-                <stop offset="100%" stopColor="rgba(74,222,128,0)" />
-              </linearGradient>
-            </defs>
-            <polygon
-              points="0,40 25,36 50,33 75,35 100,28 125,24 150,18 175,14 200,8 200,50 0,50"
-              fill="url(#spark-fill)"
-            />
-            <polyline
-              points="0,40 25,36 50,33 75,35 100,28 125,24 150,18 175,14 200,8"
-              fill="none"
-              stroke="#4ade80"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <circle cx="200" cy="8" r="2.5" fill="#4ade80" style={{ animation: "pulse-soft 3s ease-in-out infinite" }} />
-          </svg>
-
-          {/* Quick action buttons */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "6px",
-              margin: "8px 0",
-            }}
-          >
-            {[
-              { label: "Portfölj", icon: "M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3z" },
-              { label: "Rapporter", icon: "M14 14h7v7h-7z" },
-            ].map((item, i) => (
-              <div
-                key={i}
-                style={{
-                  background: "rgba(255,255,255,0.04)",
-                  border: "1px solid rgba(255,255,255,0.05)",
-                  borderRadius: "8px",
-                  padding: "8px",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "6px",
-                }}
-              >
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="1.5">
-                  <path d={item.icon} />
-                </svg>
-                <span style={{ fontSize: "8px", color: "rgba(255,255,255,0.5)" }}>{item.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Bottom nav bar */}
-        <div
-          style={{
-            padding: "8px 14px 14px",
-            display: "flex",
-            justifyContent: "space-around",
-            alignItems: "center",
-            borderTop: "1px solid rgba(255,255,255,0.04)",
-          }}
-        >
-          {[
-            <svg key="home" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-            </svg>,
-            <svg key="chart" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M18 20V10M12 20V4M6 20v-6" />
-            </svg>,
-            <svg key="bell" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-            </svg>,
-            <svg key="user" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-              <circle cx="12" cy="7" r="4" />
-            </svg>,
-          ].map((icon, i) => (
-            <div key={i} style={{ padding: "4px", opacity: i === 0 ? 1 : 0.7 }}>
-              {icon}
-            </div>
-          ))}
-        </div>
-
-        {/* Home indicator */}
-        <div style={{ display: "flex", justifyContent: "center", paddingBottom: "6px" }}>
-          <div
-            style={{
-              width: "80px",
-              height: "4px",
-              borderRadius: "4px",
-              backgroundColor: "rgba(255,255,255,0.2)",
-            }}
-          />
-        </div>
-      </div>
+      {children}
     </div>
   );
 }
-
-/* ── Card 3: Clean Area Chart (white tones on dark) ── */
-
-function PortfolioChart() {
-  const points = "0,140 30,125 60,118 90,110 120,95 150,80 180,68 210,55 240,42 270,35 300,22";
-  const fillPoints = `${points} 300,160 0,160`;
-
-  return (
-    <svg
-      viewBox="0 0 300 160"
-      width="100%"
-      height="180"
-      style={{ display: "block" }}
-    >
-      <defs>
-        <linearGradient id="chart-fill" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="rgba(255,255,255,0.06)" />
-          <stop offset="100%" stopColor="rgba(255,255,255,0)" />
-        </linearGradient>
-      </defs>
-
-      {/* Subtle grid lines */}
-      {[50, 95, 140].map((y) => (
-        <line
-          key={y}
-          x1="0" y1={y} x2="300" y2={y}
-          stroke="rgba(255,255,255,0.04)"
-          strokeWidth="1"
-        />
-      ))}
-
-      {/* Area fill */}
-      <polygon points={fillPoints} fill="url(#chart-fill)" />
-
-      {/* Main line */}
-      <polyline
-        points={points}
-        fill="none"
-        stroke="rgba(255,255,255,0.6)"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-
-      {/* Pulsing endpoint */}
-      <circle
-        cx="300"
-        cy="22"
-        r="4"
-        fill="#fff"
-        style={{ animation: "pulse-soft 3s ease-in-out infinite" }}
-      />
-    </svg>
-  );
-}
-
-/* ── Card 5: Notification Bell Icon ── */
-
-function BellIcon() {
-  return (
-    <svg
-      width="56"
-      height="56"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="rgba(255,255,255,0.8)"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-      <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-    </svg>
-  );
-}
-
-/* ── LIVE pill badge component ── */
-
-function LiveBadge() {
-  return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: "6px",
-        backgroundColor: "rgba(255,255,255,0.06)",
-        border: "1px solid rgba(255,255,255,0.08)",
-        borderRadius: "999px",
-        padding: "4px 10px",
-      }}
-    >
-      <div
-        style={{
-          width: "6px",
-          height: "6px",
-          borderRadius: "50%",
-          backgroundColor: "#4ade80",
-          boxShadow: "0 0 6px rgba(74,222,128,0.5)",
-          animation: "pulse-soft 3s ease-in-out infinite",
-        }}
-      />
-      <span
-        className="font-mono"
-        style={{
-          fontSize: "9px",
-          letterSpacing: "0.12em",
-          textTransform: "uppercase" as const,
-          color: "rgba(255,255,255,0.6)",
-        }}
-      >
-        Live
-      </span>
-    </div>
-  );
-}
-
-/* ── Shared card style ── */
-
-const cardBase: React.CSSProperties = {
-  borderRadius: "12px",
-  overflow: "hidden",
-  boxSizing: "border-box",
-  transition: "transform 0.4s ease, box-shadow 0.4s ease",
-  cursor: "default",
-};
-
-/* ── Flashlight onMouseMove handler ── */
-
-function handleFlashlight(e: React.MouseEvent<HTMLDivElement>) {
-  const rect = e.currentTarget.getBoundingClientRect();
-  e.currentTarget.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
-  e.currentTarget.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
-}
-
-/* ── Component ── */
 
 export default function AppBento() {
-  const sectionRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLElement>(null);
+  const sectionRef = useSectionReveal();
 
   useGSAP(
     () => {
-      const el = sectionRef.current;
+      const el = containerRef.current;
       if (!el) return;
 
-      const cols = el.querySelectorAll(".parallax-col");
-      cols.forEach((col, i) => {
-        const speed = (i + 1) * 8;
-        gsap.to(col, {
-          y: -speed,
-          ease: "none",
-          scrollTrigger: {
-            trigger: el.querySelector(".masonry-grid"),
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        });
+      const cards = el.querySelectorAll(".glass-card-float");
+      cards.forEach((card, i) => {
+        const delay = parseFloat((card as HTMLElement).dataset.delay || "0");
+        
+        // Fade in snabbt utan scrub
+        gsap.fromTo(
+          card,
+          { opacity: 0 },
+          {
+            opacity: 1,
+            duration: 0.8,
+            delay: delay,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 60%", // Fade:ar in när sektionen kommer in i bild
+            },
+          }
+        );
+
+        // Scrubba enbart y-rörelsen
+        gsap.fromTo(
+          card,
+          { y: 150 },
+          {
+            y: -50,
+            ease: "none",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 80%",
+              end: "bottom 20%",
+              scrub: 1,
+            },
+          }
+        );
       });
     },
-    { scope: sectionRef }
+    { scope: containerRef }
   );
 
   return (
     <section
-      ref={sectionRef}
+      ref={(el) => {
+        containerRef.current = el;
+        if (sectionRef) {
+          (sectionRef as any).current = el;
+        }
+      }}
       id="insikter"
+      className="relative w-full overflow-hidden flex items-center justify-center"
       style={{
-        paddingTop: "var(--section-gap)",
-        paddingBottom: "var(--section-gap)",
+        paddingTop: "clamp(6rem, 12vh, 8rem)",
+        paddingBottom: "clamp(4rem, 8vh, 6rem)",
+        minHeight: "100vh",
       }}
     >
-      {/* ── Section Header ── */}
-      <div
-        style={{
-          maxWidth: "var(--content-width)",
-          margin: "0 auto",
-          padding: "0 clamp(1.5rem, 4vw, 3rem)",
-          boxSizing: "border-box",
-        }}
-      >
-        {/* Split header */}
-        <div
-          className="bento-header"
+      {/* ── 1. Full Bleed Background Image (Med CSS-trolleri) ── */}
+      {/* Genom att begränsa maxbredden till 1400px slipper vi att webbläsaren super-zoomar på breda skärmar.
+          Vi har centrerat bilden för att ge exakt lika mycket utrymme till vänster (text) som höger (widgets). */}
+      <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
+        <div 
+          className="relative w-full h-full max-w-[1400px] md:translate-x-[15%]"
           style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-end",
-            gap: "3rem",
-            paddingBottom: "2.5rem",
-            borderBottom: "1px solid var(--hairline)",
-            marginBottom: "clamp(2rem, 4vw, 4rem)",
+            WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)",
+            maskImage: "linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)",
           }}
         >
-          {/* Left */}
-          <div style={{ flex: "1 1 55%" }}>
-            <div
-              className="font-mono"
-              style={{
-                fontSize: "10px",
-                letterSpacing: "0.15em",
-                textTransform: "uppercase" as const,
-                color: "var(--fg-muted)",
-                marginBottom: "1rem",
-              }}
-            >
-              Digitala verktyg
-            </div>
-            <h2
-              className="font-display"
-              style={{
-                fontSize: "clamp(2.5rem, 4.5vw, 4rem)",
-                fontWeight: 300,
-                letterSpacing: "-0.03em",
-                lineHeight: 1.05,
-                color: "var(--fg)",
-                margin: 0,
-                whiteSpace: "pre-line",
-              }}
-            >
-              {"Full insyn.\nHela tiden."}
+          <Image
+            src="/images/App-mocck/Smartphone mockup with real reflection.png"
+            alt="Addeqt App Overview"
+            fill
+            className="object-cover" 
+            sizes="100vw"
+            priority
+            style={{
+              objectPosition: "center center",
+            }}
+          />
+        </div>
+      </div>
+
+      {/* ── 2. Subtle overlay to ensure text legibility at edges ── */}
+      <div 
+        className="absolute inset-0"
+        style={{
+          background: "radial-gradient(circle at center, transparent 30%, rgba(26,29,54,0.4) 100%)",
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* ── 3. Content Container for Glass Cards ── */}
+      <div
+        style={{
+          position: "relative",
+          zIndex: 10,
+          width: "100%",
+          maxWidth: "var(--content-width)",
+          padding: "clamp(2rem, 5vh, 6rem) clamp(1.5rem, 4vw, 3rem)",
+          display: "grid",
+          gridTemplateColumns: "repeat(12, 1fr)",
+          gap: "2rem",
+          minHeight: "100vh",
+        }}
+      >
+        {/* Left Column (Text + Premium CTA Button) */}
+        <div 
+          className="col-span-12 md:col-span-5 flex flex-col justify-center md:-translate-x-8 lg:-translate-x-12 md:-translate-y-12"
+          style={{ minHeight: "100%", paddingBottom: "clamp(2rem, 5vh, 4rem)" }}
+        >
+          {/* Main Section Text */}
+          <div className="text-left">
+            <span className="font-mono text-xs tracking-widest uppercase text-[#3B82F6] mb-4 block">Digitala verktyg</span>
+            <h2 className="font-display text-4xl md:text-5xl font-light text-white leading-tight mb-6">
+              Din förmögenhet, <br/>direkt i fickan.
             </h2>
+            <p className="text-sm text-white/60 leading-relaxed max-w-sm">
+              Följ marknaden i realtid, signera viktiga dokument med BankID och kommunicera säkert med ditt rådgivningsteam.
+            </p>
           </div>
 
-          {/* Right — description */}
-          <div
-            className="bento-header-right"
-            style={{
-              flex: "0 1 38%",
-              alignSelf: "flex-end",
-            }}
-          >
-            <p
-              style={{
-                fontSize: "15px",
-                lineHeight: 1.65,
-                color: "var(--fg-dim)",
-                margin: 0,
-                maxWidth: "420px",
-              }}
-            >
-              Vår app och digitala plattform ger dig total kontroll över din
-              förmögenhet — med realtidsdata, veckorapporter och personlig
-              rådgivning i fickan.
-            </p>
+          {/* Premium CTA Button */}
+          <div className="mt-12">
+            <button className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-white/5 border border-white/10 rounded-full text-white font-medium hover:bg-white/10 hover:border-white/20 hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] transition-all duration-300 overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-[#3B82F6]/20 to-[#06B6D4]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <svg className="w-5 h-5 relative z-10 text-[#3B82F6]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
+              <span className="relative z-10 tracking-wide text-sm">Ladda ner Addeqt</span>
+            </button>
           </div>
         </div>
 
-        {/* ── Masonry Grid ── */}
-        <div
-          className="masonry-grid"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "clamp(1rem, 2vw, 2rem)",
-            minHeight: "120vh",
-          }}
+        {/* Right Column (3 Data Widgets Stacked) */}
+        <div 
+          className="col-span-12 md:col-span-5 md:col-start-8 flex flex-col gap-3 items-end md:translate-x-12 lg:translate-x-24 md:-translate-y-8"
+          style={{ marginTop: "clamp(2rem, 5vh, 4rem)", paddingBottom: "clamp(2rem, 5vh, 4rem)" }}
         >
-          {/* ══════════════════════════════════════════════
-              COLUMN 1 — slowest parallax
-              ══════════════════════════════════════════════ */}
-          <div
-            className="parallax-col"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "clamp(1rem, 2vw, 2rem)",
-              paddingTop: "5rem",
-            }}
-          >
-            {/* ── Card 1: App Mockup ── */}
-            <div
-              className="glass-card bento-card"
-              style={{
-                ...cardBase,
-                aspectRatio: "9 / 16",
-                padding: 0,
-                display: "flex",
-                flexDirection: "column",
-                position: "relative",
-              }}
-              onMouseMove={handleFlashlight}
-            >
-              <AppMockup />
-            </div>
-
-            {/* ── Card 2: Editorial Image Placeholder ── */}
-            <div
-              className="bento-card"
-              style={{
-                ...cardBase,
-                aspectRatio: "4 / 3",
-                background:
-                  "linear-gradient(135deg, #f5f0eb 0%, #e8e2db 100%)",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                padding: "2rem",
-                position: "relative",
-                border: "1px solid var(--hairline)",
-              }}
-            >
-              {/* Grid pattern overlay */}
-              <div
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  backgroundImage:
-                    "radial-gradient(circle at 1px 1px, rgba(0,0,0,0.03) 1px, transparent 0)",
-                  backgroundSize: "24px 24px",
-                  borderRadius: "inherit",
-                  pointerEvents: "none",
-                }}
-              />
-              <span
-                className="font-display"
-                style={{
-                  fontSize: "1.1rem",
-                  fontWeight: 300,
-                  fontStyle: "italic",
-                  color: "var(--fg-dim)",
-                  textAlign: "center",
-                  lineHeight: 1.5,
-                  position: "relative",
-                  zIndex: 1,
-                }}
-              >
-                Din framtid, visualiserad.
-              </span>
-              {/* Corner index label */}
-              <span
-                className="font-mono"
-                style={{
-                  position: "absolute",
-                  bottom: "1rem",
-                  left: "1.25rem",
-                  fontSize: "9px",
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase" as const,
-                  color: "var(--fg-muted)",
-                }}
-              >
-                01 / Vision
-              </span>
-            </div>
-          </div>
-
-          {/* ══════════════════════════════════════════════
-              COLUMN 2 — medium parallax
-              ══════════════════════════════════════════════ */}
-          <div
-            className="parallax-col"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "clamp(1rem, 2vw, 2rem)",
-            }}
-          >
-            {/* ── Card 3: Live Portfolio Chart (Glass Dark) ── */}
-            <div
-              className="glass-card bento-card"
-              style={{
-                ...cardBase,
-                aspectRatio: "3 / 4",
-                padding: "2rem",
-                display: "flex",
-                flexDirection: "column",
-                position: "relative",
-                boxShadow: "0 25px 50px -12px rgba(0,0,0,0.5)",
-              }}
-              onMouseMove={handleFlashlight}
-            >
-              {/* Top row: label + LIVE badge */}
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  marginBottom: "1.5rem",
-                }}
-              >
-                <span
-                  className="font-mono"
-                  style={{
-                    fontSize: "10px",
-                    letterSpacing: "0.15em",
-                    textTransform: "uppercase" as const,
-                    color: "rgba(255,255,255,0.4)",
-                  }}
-                >
-                  Portföljutveckling
-                </span>
-                <LiveBadge />
+          {/* Card 1: Portfolio Analytics */}
+          <GlassCard delay={0.1}>
+            <div className="flex flex-col gap-2 w-full">
+              {/* Header */}
+              <div className="flex items-center gap-1.5 mb-1 text-white/50">
+                <svg className="w-3 h-3 text-[#4ade80]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                <span className="font-mono tracking-widest uppercase text-[8px]">Portföljanalys</span>
               </div>
-
-              {/* Chart */}
-              <PortfolioChart />
-
-              {/* Frosted inner stats card (card-within-card) */}
-              <div
-                style={{
-                  marginTop: "auto",
-                  paddingTop: "1.5rem",
-                }}
-              >
-                <div
-                  style={{
-                    background: "rgba(255,255,255,0.04)",
-                    border: "1px solid rgba(255,255,255,0.06)",
-                    borderRadius: "10px",
-                    padding: "1rem",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "flex-start",
-                  }}
-                >
-                  <div>
-                    <div
-                      className="font-display"
-                      style={{
-                        fontSize: "1.3rem",
-                        fontWeight: 300,
-                        color: "#4ade80",
-                        lineHeight: 1,
-                      }}
-                    >
-                      +12.4%
-                    </div>
-                    <div
-                      className="font-mono"
-                      style={{
-                        fontSize: "9px",
-                        letterSpacing: "0.12em",
-                        textTransform: "uppercase" as const,
-                        color: "rgba(255,255,255,0.35)",
-                        marginTop: "0.35rem",
-                      }}
-                    >
-                      YTD
-                    </div>
-                  </div>
-                  <div style={{ textAlign: "right" }}>
-                    <div
-                      className="font-display"
-                      style={{
-                        fontSize: "1.3rem",
-                        fontWeight: 300,
-                        color: "#fff",
-                        lineHeight: 1,
-                      }}
-                    >
-                      3.2 mdr
-                    </div>
-                    <div
-                      className="font-mono"
-                      style={{
-                        fontSize: "9px",
-                        letterSpacing: "0.12em",
-                        textTransform: "uppercase" as const,
-                        color: "rgba(255,255,255,0.35)",
-                        marginTop: "0.35rem",
-                      }}
-                    >
-                      AUM
-                    </div>
-                  </div>
+              
+              {/* Metric */}
+              <div>
+                <div className="font-display text-2xl md:text-3xl text-white font-light tracking-tighter">
+                  +14.2<span className="text-lg text-white/40">%</span>
                 </div>
-              </div>
-            </div>
-
-            {/* ── Card 4: Quote ── */}
-            <div
-              className="bento-card"
-              style={{
-                ...cardBase,
-                aspectRatio: "1 / 1",
-                backgroundColor: "#faf9f7",
-                border: "1px solid var(--hairline)",
-                padding: "clamp(2rem, 4vw, 3rem)",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                textAlign: "center",
-                position: "relative",
-              }}
-            >
-              <blockquote
-                className="font-display"
-                style={{
-                  fontSize: "1.15rem",
-                  fontWeight: 300,
-                  fontStyle: "italic",
-                  color: "var(--fg)",
-                  lineHeight: 1.5,
-                  margin: 0,
-                  maxWidth: "280px",
-                }}
-              >
-                &ldquo;Transparens är inte en feature — det är vår grundprincip.&rdquo;
-              </blockquote>
-              <div
-                className="font-mono"
-                style={{
-                  fontSize: "10px",
-                  letterSpacing: "0.1em",
-                  color: "var(--fg-muted)",
-                  marginTop: "1.5rem",
-                }}
-              >
-                — Addeqt
-              </div>
-              {/* Corner index */}
-              <span
-                className="font-mono"
-                style={{
-                  position: "absolute",
-                  bottom: "1rem",
-                  right: "1.25rem",
-                  fontSize: "9px",
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase" as const,
-                  color: "var(--fg-muted)",
-                }}
-              >
-                02 / Princip
-              </span>
-            </div>
-          </div>
-
-          {/* ══════════════════════════════════════════════
-              COLUMN 3 — fastest parallax, hidden on tablet
-              ══════════════════════════════════════════════ */}
-          <div
-            className="parallax-col bento-col3"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "clamp(1rem, 2vw, 2rem)",
-              paddingTop: "10rem",
-            }}
-          >
-            {/* ── Card 5: Smart Notifications (Glass Dark) ── */}
-            <div
-              className="glass-card bento-card"
-              style={{
-                ...cardBase,
-                aspectRatio: "3 / 4",
-                padding: "clamp(2rem, 4vw, 3rem)",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                textAlign: "center",
-                position: "relative",
-                boxShadow: "0 25px 50px -12px rgba(0,0,0,0.5)",
-              }}
-              onMouseMove={handleFlashlight}
-            >
-              {/* Top row: index label + LIVE badge */}
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  width: "100%",
-                  marginBottom: "2rem",
-                }}
-              >
-                <span
-                  className="font-mono"
-                  style={{
-                    fontSize: "10px",
-                    letterSpacing: "0.12em",
-                    textTransform: "uppercase" as const,
-                    color: "rgba(255,255,255,0.4)",
-                  }}
-                >
-                  03 / Notiser
-                </span>
-                <LiveBadge />
+                <p className="text-[8px] text-white/40 mt-0.5 font-mono uppercase tracking-wider">Avkastning YTD</p>
               </div>
 
-              {/* Bell icon */}
-              <BellIcon />
-
-              {/* Title */}
-              <div
-                className="font-display"
-                style={{
-                  fontSize: "1.3rem",
-                  fontWeight: 400,
-                  color: "#fff",
-                  marginTop: "1.5rem",
-                }}
-              >
-                Smarta notiser
-              </div>
-
-              {/* Description */}
-              <p
-                style={{
-                  fontSize: "13px",
-                  lineHeight: 1.6,
-                  color: "rgba(255,255,255,0.45)",
-                  margin: 0,
-                  marginTop: "0.75rem",
-                  maxWidth: "220px",
-                }}
-              >
-                Realtidsuppdateringar när det som spelar roll förändras.
-              </p>
-
-              {/* Notification skeleton bars */}
-              <div
-                style={{
-                  marginTop: "auto",
-                  width: "100%",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "8px",
-                }}
-              >
-                {[0.7, 0.85, 0.55].map((w, i) => (
-                  <div
-                    key={i}
-                    className="notification-skeleton"
-                    style={{
-                      background: "rgba(255,255,255,0.04)",
-                      border: "1px solid rgba(255,255,255,0.04)",
-                      borderRadius: "8px",
-                      height: "40px",
-                      display: "flex",
-                      alignItems: "center",
-                      padding: "0 12px",
-                      gap: "10px",
-                    }}
-                  >
-                    {/* Avatar placeholder */}
-                    <div
-                      style={{
-                        width: "24px",
-                        height: "24px",
-                        borderRadius: "50%",
-                        background: "rgba(255,255,255,0.06)",
-                        flexShrink: 0,
-                      }}
-                    />
-                    {/* Text skeleton lines */}
-                    <div
-                      style={{
-                        flex: 1,
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "4px",
-                      }}
-                    >
-                      <div
-                        style={{
-                          height: "6px",
-                          width: `${w * 100}%`,
-                          borderRadius: "3px",
-                          background: "rgba(255,255,255,0.06)",
-                        }}
-                      />
-                      <div
-                        style={{
-                          height: "5px",
-                          width: `${w * 60}%`,
-                          borderRadius: "3px",
-                          background: "rgba(255,255,255,0.03)",
-                        }}
-                      />
-                    </div>
+              {/* Bar Chart */}
+              <div className="mt-1 w-full h-10 flex items-end gap-1">
+                {[40, 55, 30, 80, 50, 90, 75, 100].map((h, i) => (
+                  <div key={i} className="flex-1 bg-white/10 rounded-t-sm relative overflow-hidden" style={{ height: `${h}%` }}>
+                     {i === 7 && <div className="absolute inset-0 bg-[#4ade80]/60"></div>}
                   </div>
                 ))}
               </div>
             </div>
+          </GlassCard>
 
-            {/* ── Card 6: Personal Advisor ── */}
-            <div
-              className="bento-card"
-              style={{
-                ...cardBase,
-                aspectRatio: "4 / 3",
-                backgroundColor: "#fff",
-                border: "1px solid var(--hairline)",
-                padding: "clamp(1.5rem, 3vw, 2rem)",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                textAlign: "center",
-                position: "relative",
-              }}
-            >
-              {/* Grid pattern bg */}
-              <div
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  backgroundImage:
-                    "radial-gradient(circle at 1px 1px, rgba(0,0,0,0.03) 1px, transparent 0)",
-                  backgroundSize: "24px 24px",
-                  borderRadius: "inherit",
-                  pointerEvents: "none",
-                }}
-              />
-
-              {/* Top label */}
-              <span
-                className="font-mono"
-                style={{
-                  position: "absolute",
-                  top: "1rem",
-                  left: "1.25rem",
-                  fontSize: "9px",
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase" as const,
-                  color: "var(--fg-muted)",
-                }}
-              >
-                04 / Rådgivning
-              </span>
-
-              {/* Avatar circle */}
-              <div
-                style={{
-                  width: "48px",
-                  height: "48px",
-                  borderRadius: "50%",
-                  backgroundColor: "var(--hairline)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginBottom: "0.75rem",
-                  position: "relative",
-                  zIndex: 1,
-                }}
-              >
-                <span
-                  className="font-display"
-                  style={{
-                    fontSize: "1.1rem",
-                    fontWeight: 400,
-                    color: "var(--fg-dim)",
-                  }}
-                >
-                  A
-                </span>
+          {/* Card 2: Security / Vault */}
+          <GlassCard delay={0.2}>
+            <div className="flex flex-col gap-1.5 w-full">
+              <div className="flex items-center gap-1.5 mb-0.5 text-white/50">
+                <svg className="w-3 h-3 text-[#8B5CF6]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                <span className="font-mono tracking-widest uppercase text-[8px]">Krypterat Valv</span>
               </div>
-
-              {/* Title */}
-              <div
-                className="font-display"
-                style={{
-                  fontSize: "1.1rem",
-                  fontWeight: 400,
-                  color: "var(--fg)",
-                  position: "relative",
-                  zIndex: 1,
-                }}
-              >
-                Personlig rådgivare
-              </div>
-
-              {/* Description */}
-              <p
-                style={{
-                  fontSize: "12px",
-                  lineHeight: 1.6,
-                  color: "var(--fg-dim)",
-                  margin: 0,
-                  marginTop: "0.5rem",
-                  maxWidth: "200px",
-                  position: "relative",
-                  zIndex: 1,
-                }}
-              >
-                Din dedikerade rådgivare, alltid tillgänglig.
-              </p>
-
-              {/* Status + arrow row */}
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "6px",
-                  marginTop: "1rem",
-                  position: "relative",
-                  zIndex: 1,
-                }}
-              >
-                <div
-                  style={{
-                    width: "6px",
-                    height: "6px",
-                    borderRadius: "50%",
-                    backgroundColor: "#4ade80",
-                    boxShadow: "0 0 6px rgba(74,222,128,0.4)",
-                  }}
-                />
-                <span
-                  className="font-mono"
-                  style={{
-                    fontSize: "9px",
-                    letterSpacing: "0.1em",
-                    textTransform: "uppercase" as const,
-                    color: "var(--fg-muted)",
-                  }}
-                >
-                  Tillgänglig nu
-                </span>
-              </div>
-
-              {/* Arrow icon bottom-right */}
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: "1rem",
-                  right: "1.25rem",
-                  width: "28px",
-                  height: "28px",
-                  borderRadius: "50%",
-                  border: "1px solid var(--hairline)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="var(--fg-muted)"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M5 12h14" />
-                  <path d="M12 5l7 7-7 7" />
-                </svg>
+              <h3 className="font-display text-sm font-light text-white leading-tight">
+                BankID-skyddad <br/>dokumenthantering.
+              </h3>
+              <div className="mt-1.5 w-full">
+                <div className="flex justify-between text-[7px] text-white/40 mb-1 uppercase tracking-widest">
+                  <span>Säkerhetsnivå</span>
+                  <span className="text-[#8B5CF6]">Maximal</span>
+                </div>
+                <div className="h-0.5 w-full bg-white/10 rounded-full overflow-hidden">
+                  <div className="h-full bg-gradient-to-r from-[#3B82F6] to-[#8B5CF6]" style={{ width: "100%" }}></div>
+                </div>
               </div>
             </div>
-          </div>
+          </GlassCard>
+
+          {/* Card 3: Live Sync */}
+          <GlassCard delay={0.3}>
+            <div className="flex flex-col gap-2 w-full">
+              {/* Header */}
+              <div className="flex items-center justify-between mb-0.5">
+                <span className="font-mono tracking-widest uppercase text-white/50 text-[8px]">Live Sync</span>
+                <div className="w-1 h-1 rounded-full bg-[#06B6D4] animate-pulse" style={{ boxShadow: "0 0 6px #06B6D4" }}></div>
+              </div>
+
+              <h3 className="font-display text-sm font-light text-white leading-tight">
+                Alltid i fas med <br/>din rådgivare.
+              </h3>
+
+              {/* Activity Feed */}
+              <div className="flex flex-col gap-1 mt-1">
+                {/* Item 1 */}
+                <div className="flex items-center gap-2 p-1.5 rounded-md bg-white/5 border border-white/10">
+                  <div className="w-6 h-6 rounded-full bg-[#3B82F6]/20 flex items-center justify-center text-[#3B82F6] shrink-0">
+                    <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" /></svg>
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-[9px] font-medium text-white">Signering krävs</span>
+                    <span className="text-[7px] text-white/50 uppercase tracking-wide">Årsredovisning 2025</span>
+                  </div>
+                </div>
+                
+                {/* Item 2 */}
+                <div className="flex items-center gap-2 p-1.5 rounded-md bg-white/5 border border-white/10">
+                  <div className="w-6 h-6 rounded-full bg-[#8B5CF6]/20 flex items-center justify-center text-[#8B5CF6] shrink-0">
+                    <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-[9px] font-medium text-white">Ny veckorapport</span>
+                    <span className="text-[7px] text-white/50 uppercase tracking-wide">Kvartal 1</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </GlassCard>
         </div>
       </div>
-
-      {/* ── Styles: Glass cards, responsive, keyframes ── */}
-      <style>{`
-        /* ── Glass card: gradient border + flashlight ── */
-        .glass-card {
-          position: relative;
-          background: rgba(15,15,20,0.85);
-          backdrop-filter: blur(30px);
-          -webkit-backdrop-filter: blur(30px);
-        }
-        .glass-card::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          padding: 1px;
-          border-radius: inherit;
-          background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0));
-          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-          -webkit-mask-composite: xor;
-          mask-composite: exclude;
-          pointer-events: none;
-          z-index: 2;
-        }
-        .glass-card::after {
-          content: '';
-          position: absolute;
-          inset: 0;
-          border-radius: inherit;
-          background: radial-gradient(
-            600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-            rgba(255,255,255,0.06),
-            transparent 40%
-          );
-          opacity: 0;
-          transition: opacity 0.5s;
-          pointer-events: none;
-          z-index: 2;
-        }
-        .glass-card:hover::after {
-          opacity: 1;
-        }
-
-        /* ── Light card hover ── */
-        .bento-card:hover {
-          transform: translateY(-3px) !important;
-          box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-        }
-        .glass-card:hover {
-          box-shadow: 0 25px 60px -12px rgba(0,0,0,0.6) !important;
-        }
-
-        /* ── Notification skeleton subtle shimmer ── */
-        .notification-skeleton {
-          transition: background 0.3s ease;
-        }
-        .glass-card:hover .notification-skeleton {
-          background: rgba(255,255,255,0.05) !important;
-        }
-
-        /* ── Keyframes ── */
-        @keyframes pulse-soft {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(1.015); }
-        }
-
-        /* ── Responsive ── */
-        @media (max-width: 1024px) {
-          .masonry-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-          }
-          .bento-col3 {
-            display: none !important;
-          }
-        }
-        @media (max-width: 640px) {
-          .masonry-grid {
-            grid-template-columns: 1fr !important;
-            min-height: auto !important;
-          }
-          .parallax-col {
-            padding-top: 0 !important;
-          }
-          .bento-header {
-            flex-direction: column !important;
-            align-items: flex-start !important;
-            gap: 1.5rem !important;
-          }
-          .bento-header-right {
-            flex: 1 1 100% !important;
-          }
-        }
-      `}</style>
     </section>
   );
 }

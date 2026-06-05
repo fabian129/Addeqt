@@ -88,6 +88,47 @@ export function useSectionReveal() {
           }
         );
       });
+
+      // ── Scrollytelling Text Scrub ──
+      const textScrubEls = container.querySelectorAll('.gsap-text-scrub');
+      textScrubEls.forEach((el) => {
+        gsap.fromTo(
+          el,
+          { opacity: 0.1, y: 40, filter: 'blur(10px)' },
+          {
+            opacity: 1,
+            y: 0,
+            filter: 'blur(0px)',
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 95%',
+              end: 'top 55%',
+              scrub: 1.5,
+            },
+          }
+        );
+      });
+
+      // ── Internal Image Parallax ──
+      const parallaxImages = container.querySelectorAll('.gsap-parallax-image');
+      parallaxImages.forEach((img) => {
+        // Parent MUST have overflow-hidden. Image should be scaled > 1.
+        gsap.fromTo(
+          img,
+          { yPercent: -15 },
+          {
+            yPercent: 15,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: img.parentElement,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: 1,
+            },
+          }
+        );
+      });
     },
     { scope: ref }
   );
