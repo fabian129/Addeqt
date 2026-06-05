@@ -47,7 +47,7 @@ export default function OmOssPage() {
               <div className="w-full mt-[12vh] md:mt-[20vh] flex justify-end">
                 <div className="max-w-2xl lg:max-w-[800px] flex flex-col">
                   <p className="text-xl md:text-2xl lg:text-[1.75rem] font-light text-black/70 leading-relaxed mb-16">
-                    Vi har skapat den finansiella partner vi själva saknade – en där dina mål är vår enda kompass. Inga egna produkter, inga dolda avgifter. Bara renodlad och oberoende rådgivning.
+                    Vi byggde den finansiella partner vi själva saknade. Dina mål är vår enda kompass. Inga egna produkter, inga dolda avgifter. Bara oberoende rådgivning.
                   </p>
                   
                   <div className="flex">
@@ -121,7 +121,7 @@ export default function OmOssPage() {
             </div>
             
             <p className="text-center text-black/50 text-sm md:text-base font-light max-w-2xl mx-auto mt-12 gsap-reveal leading-relaxed">
-              Med 3–4 miljarder kronor under förvaltning växer vi tillsammans med våra kunder. Din trygghet är fundamental – därför sker all tillgångsförvaring via Nordnet som depå, helt oberoende av Addeqt.
+              Med över 3 miljarder kronor under förvaltning växer vi sida vid sida med våra kunder. All tillgångsförvaring sker hos Nordnet, helt separerat från Addeqts verksamhet.
             </p>
           </div>
         </section>

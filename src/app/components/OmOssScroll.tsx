@@ -10,17 +10,17 @@ gsap.registerPlugin(ScrollTrigger);
 const slides = [
   {
     title: "Frustrationen.",
-    desc: "Addeqt föddes ur en djup frustration över finansbranschen. En traditionell marknad präglad av stora institutionella egon, dolda kostnader och en modell där bolagets egen vinst alltid kom före kundens bästa.",
+    desc: "Addeqt grundades ur en tydlig brist i finansbranschen. En marknad präglad av institutionella egon, dolda kostnader och modeller där storbankens vinst går före kundens avkastning.",
     image: "/images/Mj bilder/mountain.png",
   },
   {
     title: "Transparensen.",
-    desc: "Vi byggde den partner vi själva saknade. Helt fristående, utan egna fonder eller provisioner. Resultatet är en renodlad upplevelse där varje enskilt beslut styrs av din unika situation och kundnytta.",
+    desc: "Helt fristående. Inga egna fonder, inga dolda provisioner. Resultatet är en renodlad förvaltning där varje beslut styrs uteslutande av dina mål.",
     image: "/images/Mj bilder/armillary-sphere.png",
   },
   {
     title: "Framkanten.",
-    desc: "Vår vision är att omdefiniera vad en modern finansiell partner kan vara. Genom att kombinera marknadsledande tech med genuint rådgivningshantverk säkerställer vi att ditt kapital får de absolut bästa förutsättningarna att växa.",
+    desc: "Modern förmögenhetsförvaltning. Vi kombinerar teknikdriven precision med traditionellt hantverk. Aktiv allokering och transparenta avgifter – helt utan agendor.",
     image: "/images/Mj bilder/swan.png",
   },
 ];
