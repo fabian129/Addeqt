@@ -97,39 +97,30 @@ export default function ChristofferPage() {
                 </p>
               </blockquote>
 
-              {/* Biography */}
+              {/* Biography — Christoffers egen text (bifogad i mail 8 juni 2026) */}
               <div className="chm-bio">
                 <p>
-                  Christoffer Mohammar har över <strong>25 års yrkeserfarenhet</strong> och
-                  har innehaft flera ledande befattningar på värdepappersbolag — såväl i
-                  FinTech-bolag som i traditionella värdepappersbolag.
-                </p>
-                <p>
-                  Han har dessutom tjänstgjort som styrelseordförande och styrelseledamot i
-                  värdepappersbolag samt styrelseledamot i start-ups och på konsultfirmor.
-                  Med denna bakgrund tillför Christoffer en bred och djup erfarenhet från de
-                  svenska och globala finansmarknaderna, med fokus på{" "}
+                  Christoffer är en av grundarna och delägarna i AddEqt, med visionen att bygga
+                  något verkligen unikt på den svenska marknaden för förmögenhetsförvaltning och
+                  värdepappersrörelse, med utgångspunkt i verklig kundnytta, avsaknad av
+                  intressekonflikter och med tech som bas. Sedan starten 2021 har Christoffer, som
+                  bolagets VD, jobbat hårt för att bygga{" "}
                   <strong>
-                    företagsledning, business management, operations, organisation, governance,
-                    systemfrågor, informationssäkerhet, regulatory &amp; compliance, riskhantering
-                  </strong>{" "}
-                  och juridiska frågor.
-                </p>
-                <p>
-                  Christoffer är en av grundarna och delägarna i AddEqt. Under perioden från det
-                  att bolaget startades 2021 och fram till i början av 2023, har han arbetat med
-                  att förbereda bolaget för sin tillståndspliktiga verksamhet i form av
-                  värdepappersrörelse. Nu tjänstgör han som bolagets VD och ser fram emot att
-                  fortsätta utvecklingen med att bygga{" "}
-                  <strong>
-                    Sveriges mest kundcentrerade, marknadsledande, moderna och hållbara tjänster
+                    verkligt kundcentrerade, marknadsledande, moderna och tillgängliga tjänster
                   </strong>{" "}
                   inom private banking, förmögenhetsrådgivning och kapitalförvaltning.
                 </p>
                 <p>
+                  Christoffer har arbetat i och mot finansmarknaden i{" "}
+                  <strong>snart 30 år</strong>. Han har verkat inom flera ledande befattningar på
+                  värdepappersbolag (såväl i FinTech-bolag som i traditionella värdepappersbolag)
+                  och innehaft styrelseuppdrag och ordförandeposter inom finans och tech.
+                  Christoffer tillför en mycket bred och djup erfarenhet från den svenska och de
+                  globala finansmarknaderna.
+                </p>
+                <p>
                   När Christoffer inte är upptagen i sin roll som VD på bolaget, ägnar han sin
                   fritid åt familjen, med att löpträna och åka skidor, och med att skapa musik.
-                  Och när det behövs, ger råd och stöd i hållbara projekt som behöver det.
                 </p>
               </div>
 

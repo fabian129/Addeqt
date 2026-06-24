@@ -32,6 +32,29 @@ export default function Home() {
         <TeamSection />
       </main>
       <Footer />
+
+      {/* TEMP: kund-preview av alternativ hero (diagonal). Ta bort efter avstämning. */}
+      <a
+        href="/hero-2"
+        style={{
+          position: "fixed",
+          right: "16px",
+          bottom: "16px",
+          zIndex: 60,
+          background: "rgba(15,15,16,0.82)",
+          color: "#fff",
+          fontSize: "12px",
+          letterSpacing: "0.12em",
+          textTransform: "uppercase",
+          padding: "10px 16px",
+          borderRadius: "999px",
+          textDecoration: "none",
+          backdropFilter: "blur(8px)",
+          boxShadow: "0 8px 30px rgba(0,0,0,0.25)",
+        }}
+      >
+        Hero 2 →
+      </a>
     </>
   );
 }
