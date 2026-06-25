@@ -42,7 +42,7 @@ export default function Home() {
           zIndex: 60,
           display: "flex",
           flexDirection: "column",
-          gap: "8px",
+          gap: "6px",
           alignItems: "flex-end",
         }}
       >
@@ -51,10 +51,10 @@ export default function Home() {
           style={{
             background: "rgba(15,15,16,0.82)",
             color: "#fff",
-            fontSize: "12px",
-            letterSpacing: "0.12em",
+            fontSize: "10px",
+            letterSpacing: "0.08em",
             textTransform: "uppercase",
-            padding: "10px 16px",
+            padding: "5px 11px",
             borderRadius: "999px",
             textDecoration: "none",
             backdropFilter: "blur(8px)",
@@ -68,10 +68,10 @@ export default function Home() {
           style={{
             background: "rgba(15,15,16,0.82)",
             color: "#fff",
-            fontSize: "12px",
-            letterSpacing: "0.12em",
+            fontSize: "10px",
+            letterSpacing: "0.08em",
             textTransform: "uppercase",
-            padding: "10px 16px",
+            padding: "5px 11px",
             borderRadius: "999px",
             textDecoration: "none",
             backdropFilter: "blur(8px)",
@@ -79,6 +79,23 @@ export default function Home() {
           }}
         >
           Hero 3 →
+        </a>
+        <a
+          href="/hero-4"
+          style={{
+            background: "rgba(15,15,16,0.82)",
+            color: "#fff",
+            fontSize: "10px",
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
+            padding: "5px 11px",
+            borderRadius: "999px",
+            textDecoration: "none",
+            backdropFilter: "blur(8px)",
+            boxShadow: "0 8px 30px rgba(0,0,0,0.25)",
+          }}
+        >
+          Hero 4 →
         </a>
       </div>
     </>
