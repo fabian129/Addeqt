@@ -69,9 +69,10 @@ export default function Hero3() {
       <div className="h3-grad h3-lr" />
       <div className="h3-grad h3-tb" />
 
-      {/* Mjuk, tunn vit avgränsare längs diagonalen (blurrar ut i bilderna) */}
-      <svg className="h3-streck" preserveAspectRatio="none" viewBox="0 0 100 100" aria-hidden="true">
-        <line x1="100" y1="0" x2="0" y2="100" />
+      {/* Mjuk, tunn vit avgränsare längs diagonalen (blurrar ut i bilderna).
+          Procent-koordinater mot exakta hörn => följer samma diagonal som clip-path. */}
+      <svg className="h3-streck" width="100%" height="100%" aria-hidden="true">
+        <line x1="100%" y1="0" x2="0" y2="100%" />
       </svg>
 
       <div className="h3-layout">
