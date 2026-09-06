@@ -26,10 +26,10 @@ const relatedServices = [
 ];
 
 const expertise = [
-  "Private Banking",
-  "Förmögenhetsrådgivning",
-  "Strukturering",
-  "Generationsskiften",
+  "Kapitalförvaltning",
+  "Diskretionär förvaltning",
+  "Portfolio Management",
+  "Aktiestrategi",
 ];
 
 export default function CarlPage() {
@@ -57,7 +57,7 @@ export default function CarlPage() {
               {/* Header */}
               <div className="chm-header">
                 <span className="chm-eyebrow font-mono">
-                  Senior Rådgivare
+                  Förvaltare
                 </span>
                 <h1 className="font-display chm-name">
                   Carl Christian
@@ -96,30 +96,10 @@ export default function CarlPage() {
               {/* Biography */}
               <div className="chm-bio">
                 <p>
-                  Carl Christian Ottander är <strong>Senior Rådgivare</strong> på AddEqt
-                  med en lång och framgångsrik karriär inom private banking och
-                  förmögenhetsrådgivning. Han har arbetat med några av Sveriges mest
-                  framstående familjer och entreprenörer, där han byggt upp ett
-                  djupt förtroende genom sin förmåga att kombinera <strong>finansiell
-                  expertis med genuin omsorg</strong> om sina kunders långsiktiga väl.
+                  Carl Christian har över 25 års erfarenhet av kapitalförvaltning och analys. Karriären inleddes som aktiemäklare på Nordiska Fondkommission och senare Nordea, innan Carl Christian tog över ansvaret för Asset Management på Valbay Family Office, både i Sverige och Luxemburg, samt verkade som VD för Valbays värdepappersbolag. Carl Christian kommer närmast från Söderberg & Partners där han haft rollerna som chef för Portfolio Management och Chief Equity Strategist.
                 </p>
                 <p>
-                  Carl Christians specialområde är <strong>strukturering och
-                  generationsskiften</strong> — komplexa processer som kräver både
-                  teknisk kompetens och diplomatisk fingertoppskänsla. Han har lett
-                  flertalet framgångsrika generationsövergångar där familjeförmögenheter
-                  bevarats och utvecklats över generationsgränserna. Hans filosofi är
-                  enkel: de bästa finansiella lösningarna uppstår när man förstår
-                  hela familjens dynamik, inte bara balansräkningen.
-                </p>
-                <p>
-                  På AddEqt bidrar Carl Christian med sin breda erfarenhet och sitt
-                  omfattande nätverk till att stärka bolagets erbjudande inom
-                  <strong> helhetsorienterad förmögenhetsrådgivning</strong>. Han
-                  uppskattar den oberoende plattform som AddEqt erbjuder, där
-                  kundens bästa alltid står i centrum. Utanför arbetet är Carl
-                  Christian en engagerad hästsportentusiast och ägnar sig gärna
-                  åt jakt och kulturella upplevelser.
+                  Idag är Carl Christian förvaltare på AddEqt och driver bolagets diskretionära förvaltning tillsammans med övriga i förvaltningsteamet. Förutom sitt dagliga arbete ägnar Carl Christian sin fritid till familj, skogsfastigheterna med relaterade aktiviteter samt träning i olika former, gärna längdskidor.
                 </p>
               </div>
 
@@ -153,7 +133,7 @@ export default function CarlPage() {
               <div className="chm-portrait">
                 <Image
                   src="/images/team/carl.jpg"
-                  alt="Carl Christian Ottander — Senior Rådgivare, AddEqt"
+                  alt="Carl Christian Ottander — Förvaltare, AddEqt"
                   fill
                   className="object-cover object-top"
                   sizes="(max-width: 1024px) 100vw, 40vw"

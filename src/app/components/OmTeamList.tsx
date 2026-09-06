@@ -8,9 +8,9 @@ const team = [
   { name: "Christoffer Mohammar", role: "VD & Grundare", href: "/team/christoffer", image: "/images/team/CHM bild 191113 (1).jpg" },
   { name: "Fredrik Lidmark", role: "Partner", href: "/team/fredrik-lidmark", image: "/images/team/fredrik-lidmark.jpg" },
   { name: "Christian Holm Svensson", role: "Partner", href: "/team/christian", image: "/images/team/christian.jpg" },
-  { name: "Mats Gunnå", role: "Senior Rådgivare", href: "/team/mats", image: "/images/team/mats.jpg" },
-  { name: "Carl Christian Ottander", role: "Senior Rådgivare", href: "/team/carl", image: "/images/team/carl.jpg" },
-  { name: "Fredrik Strömberg", role: "Senior Rådgivare", href: "/team/fredrik-stromberg", image: "/images/team/fredrik.jpg" },
+  { name: "Mats Gunnå", role: "Förvaltare", href: "/team/mats", image: "/images/team/mats.jpg" },
+  { name: "Carl Christian Ottander", role: "Förvaltare", href: "/team/carl", image: "/images/team/carl.jpg" },
+  { name: "Fredrik Strömberg", role: "Förvaltare", href: "/team/fredrik-stromberg", image: "/images/team/fredrik.jpg" },
 ];
 
 export default function OmTeamList() {

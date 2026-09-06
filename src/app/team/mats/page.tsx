@@ -27,9 +27,9 @@ const relatedServices = [
 
 const expertise = [
   "Kapitalförvaltning",
-  "Skatteoptimering",
-  "Pensionsrådgivning",
-  "Portföljanalys",
+  "Diskretionär förvaltning",
+  "Institutionsrådgivning",
+  "Portföljstrategi",
 ];
 
 export default function MatsPage() {
@@ -57,7 +57,7 @@ export default function MatsPage() {
               {/* Header */}
               <div className="chm-header">
                 <span className="chm-eyebrow font-mono">
-                  Senior Rådgivare
+                  Förvaltare
                 </span>
                 <h1 className="font-display chm-name">
                   Mats
@@ -96,30 +96,10 @@ export default function MatsPage() {
               {/* Biography */}
               <div className="chm-bio">
                 <p>
-                  Mats Gunnå är <strong>Senior Rådgivare</strong> på AddEqt med
-                  mångårig erfarenhet inom kapitalförvaltning och finansiell rådgivning.
-                  Under sin karriär har han arbetat med både privata och institutionella
-                  kunder och utvecklat en djup expertis inom <strong>skatteoptimering,
-                  pensionslösningar och portföljanalys</strong>. Mats är känd för sin
-                  noggrannhet och sitt strukturerade tillvägagångssätt — egenskaper som
-                  skapar trygghet hos de kunder han arbetar med.
+                  Mats har över 25 års erfarenhet av kapitalförvaltning och analys. Karriären inleddes med rådgivning till institutioner på Wassum innan han gick vidare till rollen som fondförvaltare på HQ Bank. Mats har därefter skött kapitalförvaltningen på Erik Penser Bank samt verkat som kapitalförvaltare och chefsstrateg på Söderberg & Partners.
                 </p>
                 <p>
-                  Med en bakgrund som spänner över flera decennier i den svenska
-                  finansbranschen har Mats sett marknader i alla faser — från högkonjunktur
-                  till kris. Denna erfarenhet ger honom en <strong>unik förmåga att
-                  vägleda kunder genom osäkra tider</strong> med lugn och klarhet.
-                  Han är övertygad om att framgångsrik förmögenhetsförvaltning kräver
-                  en holistisk syn som inkluderar skatt, pension och arvsplanering
-                  tillsammans med själva portföljförvaltningen.
-                </p>
-                <p>
-                  På AddEqt arbetar Mats nära sina kunder med att skapa
-                  <strong> långsiktiga finansiella planer</strong> som tar hänsyn till
-                  varje individs unika livssituation. Han brinner för att göra
-                  komplicerade finansiella frågor begripliga och hanterbara. På
-                  fritiden är Mats en hängiven naturälskare som gärna tillbringar
-                  tid med fiske och vandring i den svenska fjällvärlden.
+                  Idag är Mats förvaltare på AddEqt och driver tillsammans med Carl Christian och Fredrik bolagets diskretionära förvaltning. Fritiden ägnas åt familj, vänner och fotboll.
                 </p>
               </div>
 
@@ -153,7 +133,7 @@ export default function MatsPage() {
               <div className="chm-portrait">
                 <Image
                   src="/images/team/mats.jpg"
-                  alt="Mats Gunnå — Senior Rådgivare, AddEqt"
+                  alt="Mats Gunnå — Förvaltare, AddEqt"
                   fill
                   className="object-cover object-top"
                   sizes="(max-width: 1024px) 100vw, 40vw"

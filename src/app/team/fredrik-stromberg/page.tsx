@@ -27,9 +27,9 @@ const relatedServices = [
 
 const expertise = [
   "Kapitalförvaltning",
-  "ETF-allokering",
-  "Fondanalys",
-  "Marknadsanalys",
+  "Diskretionär förvaltning",
+  "Portföljförvaltning",
+  "Chefsstrategi",
 ];
 
 export default function FredrikStrombergPage() {
@@ -57,7 +57,7 @@ export default function FredrikStrombergPage() {
               {/* Header */}
               <div className="chm-header">
                 <span className="chm-eyebrow font-mono">
-                  Senior Rådgivare
+                  Förvaltare
                 </span>
                 <h1 className="font-display chm-name">
                   Fredrik
@@ -96,31 +96,10 @@ export default function FredrikStrombergPage() {
               {/* Biography */}
               <div className="chm-bio">
                 <p>
-                  Fredrik Strömberg är <strong>Senior Rådgivare</strong> på AddEqt
-                  med specialistkunskap inom kapitalförvaltning, ETF-allokering och
-                  fondanalys. Med en analytisk och datadriven approach har Fredrik
-                  byggt en karriär där <strong>transparens, kostnadskontroll och
-                  disciplinerad investeringsprocess</strong> alltid står i förgrunden.
-                  Han tror starkt på att informerade beslut slår spekulation — och
-                  att varje krona i avgift måste motiveras av mervärde.
+                  Fredrik har över 25 års erfarenhet av analys och kapitalförvaltning och inledde karriären som aktieanalytiker och förvaltare av diskretionära mandat och fonder på SEB. Fredrik var med och startade affärsområdet Wealth Management på Söderberg & Partners, där han haft ett helhetsansvar för portföljförvaltningen och var medlem av ledningsgruppen. Över tid har han haft roller som analytiker, portföljförvaltare samt chefsstrateg.
                 </p>
                 <p>
-                  Under sin karriär har Fredrik specialiserat sig på att konstruera
-                  <strong> kostnadseffektiva och välbalanserade portföljer</strong> med
-                  hjälp av ETF:er och noggrant utvalda fonder. Hans analysramverk
-                  kombinerar kvantitativa modeller med en djup förståelse för
-                  makroekonomiska trender och strukturella marknadsskiften. Resultatet
-                  är portföljer som levererar stabil, riskjusterad avkastning utan
-                  onödig komplexitet.
-                </p>
-                <p>
-                  På AddEqt ansvarar Fredrik för <strong>marknadsanalys och
-                  investeringsstrategi</strong>, där han kontinuerligt utvärderar och
-                  optimerar bolagets allokeringsmodeller. Han uppskattar AddEqts
-                  kultur av oberoende och kunskapsdrivet beslutsfattande — en miljö
-                  där kundens intresse aldrig kompromissas. På fritiden är Fredrik
-                  en dedikerad löpare och teknikentusiast med ett särskilt intresse
-                  för fintech-innovationer.
+                  Innan Fredrik återförenades med Mats och Carl Christian på AddEqt drev han egen konsultverksamhet inom finansbranschen. Idag är Fredrik förvaltare på AddEqt och driver den diskretionära förvaltningen tillsammans med Carl Christian och Mats. Privat tillbringar Fredrik helst sin tid med familjen, antingen hemma eller på sommarstället, eller med träning i olika former.
                 </p>
               </div>
 
@@ -154,7 +133,7 @@ export default function FredrikStrombergPage() {
               <div className="chm-portrait">
                 <Image
                   src="/images/team/fredrik.jpg"
-                  alt="Fredrik Strömberg — Senior Rådgivare, AddEqt"
+                  alt="Fredrik Strömberg — Förvaltare, AddEqt"
                   fill
                   className="object-cover object-top"
                   sizes="(max-width: 1024px) 100vw, 40vw"
