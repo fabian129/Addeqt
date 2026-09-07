@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADDEQT — Hero Cycle Preview (C2 + D2)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Manrope:wght@200;300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0F0F10; color: #FFFFFF; font-family: 'Manrope', -apple-system, sans-serif; overflow: hidden; user-select: none; }
+    .addeqt-hero { position: relative; width: 100vw; height: 100vh; min-height: 750px; overflow: hidden; background: #0F0F10; }
+    .addeqt-hero-stage { position: absolute; inset: 0; z-index: 1; }
+    .addeqt-hero-panel { position: absolute; inset: 0; overflow: hidden; }
+    .panel-left { clip-path: polygon(0 0, 100% 0, 0 100%); }
+    .panel-right { clip-path: polygon(100% 0, 100% 100%, 0 100%); }
+    .hero-image-layer { position: absolute; inset: 0; width: 100%; height: 100%; background-size: cover; background-repeat: no-repeat; transition: opacity 2.4s cubic-bezier(0.25, 0.1, 0.25, 1); will-change: opacity; opacity: 0; }
+    .hero-image-layer.active { opacity: 1; }
+    .layer-A { background-image: url('images/pexels-sam-a-351058944-32716815.jpg'); background-position: center 48%; filter: brightness(0.98) saturate(0.92); }
+    .layer-C2 { background-image: url('images/candidate2-katya-nordic.jpg'); background-position: center center; }
+    .layer-B { background-image: url('images/pexels-manu-19873394.jpg'); background-position: center 52%; filter: brightness(0.98) saturate(0.92); }
+    .layer-D2 { background-image: url('images/candidate-d2-como-villa.jpg'); background-position: center center; }
+    .addeqt-hero-diagonal { position: absolute; inset: 0; z-index: 3; pointer-events: none; filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.4)); }
+    .addeqt-hero-overlay { position: absolute; inset: 0; z-index: 4; pointer-events: none; }
+    .overlay-left-to-right { background: linear-gradient(to right, rgba(15, 15, 16, 0.72) 0%, rgba(15, 15, 16, 0.38) 45%, rgba(15, 15, 16, 0.20) 75%, rgba(15, 15, 16, 0.35) 100%); }
+    .overlay-top-to-bottom { background: linear-gradient(to bottom, rgba(15, 15, 16, 0.35) 0%, rgba(15, 15, 16, 0.05) 35%, rgba(15, 15, 16, 0.50) 85%, rgba(15, 15, 16, 0.85) 100%); }
+    .hero-layout { position: relative; z-index: 10; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: clamp(7rem, 12vh, 10rem) clamp(2rem, 8vw, 12rem) clamp(2rem, 4vh, 3rem); width: 100%; }
+    .hero-eyebrow { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1.5rem; }
+    .hero-tag { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255, 255, 255, 0.65); }
+    .hero-tag-sep { color: rgba(255, 255, 255, 0.35); font-size: 11px; }
+    .hero-headline { font-family: 'Manrope', -apple-system, sans-serif; font-size: clamp(2.4rem, 5.2vw, 5rem); font-weight: 300; line-height: 1.08; letter-spacing: -0.025em; color: #ffffff; margin: 0; max-width: 850px; text-shadow: 0 4px 50px rgba(0,0,0,0.65); }
+    .hero-description { font-family: 'Inter', sans-serif; font-size: clamp(15px, 1.2vw, 19px); font-weight: 300; color: rgba(255, 255, 255, 0.78); line-height: 1.6; max-width: 520px; margin-top: 1.5rem; text-shadow: 0 2px 20px rgba(0,0,0,0.5); }
+    .hero-bottom-bar { display: flex; justify-content: flex-end; align-items: flex-end; border-bottom: 1px solid rgba(255, 255, 255, 0.22); padding-bottom: clamp(1.2rem, 2.5vh, 2rem); width: 100%; }
+    .hero-bottom-nav { display: flex; align-items: center; gap: clamp(2rem, 4vw, 4.5rem); flex-shrink: 0; }
+    .hero-nav-item { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: #ffffff; opacity: 0.85; font-family: 'Manrope', sans-serif; font-size: clamp(0.85rem, 1.1vw, 1rem); font-weight: 300; text-transform: uppercase; letter-spacing: 0.14em; }
+    .preview-toolbar { position: fixed; top: 24px; right: 32px; z-index: 50; display: flex; align-items: center; gap: 12px; background: rgba(15, 15, 16, 0.78); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 9999px; padding: 6px 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+    .phase-badge { display: flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(255, 255, 255, 0.9); letter-spacing: 0.08em; text-transform: uppercase; padding-right: 12px; border-right: 1px solid rgba(255, 255, 255, 0.15); }
+    .phase-dot { width: 8px; height: 8px; border-radius: 50%; background: #5eead4; box-shadow: 0 0 10px #5eead4; }
+    .btn-group { display: flex; gap: 6px; }
+    .btn-phase { background: transparent; border: 1px solid transparent; color: rgba(255, 255, 255, 0.65); font-family: 'Manrope', sans-serif; font-size: 11px; font-weight: 500; padding: 5px 12px; border-radius: 9999px; cursor: pointer; transition: all 0.3s ease; }
+    .btn-phase:hover { color: #FFFFFF; background: rgba(255, 255, 255, 0.08); }
+    .btn-phase.active { color: #0F0F10; background: #FFFFFF; font-weight: 600; }
+    .btn-play { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: #FFFFFF; font-family: 'Manrope', sans-serif; font-size: 11px; font-weight: 500; padding: 5px 12px; border-radius: 9999px; cursor: pointer; margin-left: 6px; }
+    .cycle-progress { position: fixed; bottom: 0; left: 0; height: 3px; background: #5eead4; z-index: 60; width: 0%; transition: width 0.1s linear; }
+  </style>
+</head>
+<body>
+  <div id="progressBar" class="cycle-progress"></div>
+  <div class="preview-toolbar">
+    <div class="phase-badge"><div class="phase-dot"></div><span id="phaseLabel">FASE 1: A + B</span></div>
+    <div class="btn-group">
+      <button class="btn-phase active" onclick="setPhase(0)">1. A + B</button>
+      <button class="btn-phase" onclick="setPhase(1)">2. C2 + B</button>
+      <button class="btn-phase" onclick="setPhase(2)">3. C2 + D2</button>
+      <button class="btn-phase" onclick="setPhase(3)">4. A + D2</button>
+    </div>
+    <button class="btn-play" id="btnAutoplay" onclick="toggleAutoplay()">Pausar</button>
+  </div>
+  <section class="addeqt-hero">
+    <div class="addeqt-hero-stage">
+      <div class="addeqt-hero-panel panel-left">
+        <div id="layerA" class="hero-image-layer layer-A active"></div>
+        <div id="layerC2" class="hero-image-layer layer-C2"></div>
+      </div>
+      <div class="addeqt-hero-panel panel-right">
+        <div id="layerB" class="hero-image-layer layer-B active"></div>
+        <div id="layerD2" class="hero-image-layer layer-D2"></div>
+      </div>
+    </div>
+    <svg class="addeqt-hero-diagonal" width="100%" height="100%" aria-hidden="true" preserveAspectRatio="none">
+      <line x1="100%" y1="0" x2="0" y2="100%" stroke="rgba(255, 255, 255, 0.32)" stroke-width="1.2" vector-effect="non-scaling-stroke" />
+    </svg>
+    <div class="addeqt-hero-overlay overlay-left-to-right"></div>
+    <div class="addeqt-hero-overlay overlay-top-to-bottom"></div>
+    <div class="hero-layout">
+      <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
+        <div class="hero-eyebrow">
+          <span class="hero-tag">Oberoende</span>
+          <span class="hero-tag-sep">·</span>
+          <span class="hero-tag">Stockholm</span>
+          <span class="hero-tag-sep">·</span>
+          <span class="hero-tag">FI-tillstånd</span>
+        </div>
+        <h1 class="hero-headline">Rätt rådgivning. <br><span>På dina villkor.</span></h1>
+        <p class="hero-description">Inga egna fonder. Inga dolda incitament. Bara ren, skräddarsydd rådgivning på dina villkor.</p>
+      </div>
+      <div class="hero-bottom-bar">
+        <div class="hero-bottom-nav">
+          <div class="hero-nav-item"><span>TJÄNSTER</span> <span>→</span></div>
+          <div class="hero-nav-item"><span>OM ADDEQT</span> <span>→</span></div>
+          <div class="hero-nav-item"><span>VÅR PROCESS</span> <span>→</span></div>
+          <div class="hero-nav-item"><span>KONTAKT</span> <span>→</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    const phases = [
+      { id: 0, label: 'FASE 1: A + B (BASE ACTUAL)', left: 'A', right: 'B' },
+      { id: 1, label: 'FASE 2: C2 + B (ENTRA NÓRDICO)', left: 'C2', right: 'B' },
+      { id: 2, label: 'FASE 3: C2 + D2 (NÓRDICO + COMO)', left: 'C2', right: 'D2' },
+      { id: 3, label: 'FASE 4: A + D2 (RETORNA TORRE A)', left: 'A', right: 'D2' }
+    ];
+    let currentPhaseIdx = 0;
+    let autoplay = true;
+    let timer = null;
+    let progressTimer = null;
+    const INTERVAL = 5000;
+    let startTime = Date.now();
+    const layerA = document.getElementById('layerA');
+    const layerC2 = document.getElementById('layerC2');
+    const layerB = document.getElementById('layerB');
+    const layerD2 = document.getElementById('layerD2');
+    const phaseLabel = document.getElementById('phaseLabel');
+    const btnAutoplay = document.getElementById('btnAutoplay');
+    const progressBar = document.getElementById('progressBar');
+    const buttons = document.querySelectorAll('.btn-phase');
+    function renderPhase(idx) {
+      currentPhaseIdx = idx;
+      const p = phases[idx];
+      if (p.left === 'A') { layerA.classList.add('active'); layerC2.classList.remove('active'); }
+      else { layerA.classList.remove('active'); layerC2.classList.add('active'); }
+      if (p.right === 'B') { layerB.classList.add('active'); layerD2.classList.remove('active'); }
+      else { layerB.classList.remove('active'); layerD2.classList.add('active'); }
+      phaseLabel.innerText = p.label;
+      buttons.forEach((b, i) => { if (i === idx) b.classList.add('active'); else b.classList.remove('active'); });
+    }
+    function setPhase(idx) { renderPhase(idx); resetCycleTimer(); }
+    function nextPhase() { const next = (currentPhaseIdx + 1) % phases.length; renderPhase(next); startTime = Date.now(); }
+    function updateProgress() {
+      if (!autoplay) { progressBar.style.width = '0%'; return; }
+      const elapsed = Date.now() - startTime;
+      const pct = Math.min(100, (elapsed / INTERVAL) * 100);
+      progressBar.style.width = pct + '%';
+    }
+    function resetCycleTimer() {
+      startTime = Date.now();
+      if (timer) clearInterval(timer);
+      if (autoplay) timer = setInterval(nextPhase, INTERVAL);
+    }
+    function toggleAutoplay() {
+      autoplay = !autoplay;
+      btnAutoplay.innerText = autoplay ? 'Pausar' : 'Reanudar Ciclo';
+      btnAutoplay.style.background = autoplay ? 'rgba(255,255,255,0.1)' : '#5eead4';
+      btnAutoplay.style.color = autoplay ? '#FFFFFF' : '#0F0F10';
+      resetCycleTimer();
+    }
+    renderPhase(0);
+    resetCycleTimer();
+    progressTimer = setInterval(updateProgress, 50);
+  </script>
+</body>
+</html>
