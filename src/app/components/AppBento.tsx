@@ -170,13 +170,55 @@ export default function AppBento() {
             </p>
           </div>
 
-          {/* Premium CTA Button */}
-          <div className="mt-12">
-            <button className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-white/5 border border-white/10 rounded-full text-white font-medium hover:bg-white/10 hover:border-white/20 hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] transition-all duration-300 overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-[#3B82F6]/20 to-[#06B6D4]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <svg className="w-5 h-5 relative z-10 text-[#3B82F6]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
-              <span className="relative z-10 tracking-wide text-sm">Ladda ner Addeqt</span>
+          {/* Premium CTA Buttons & App Store Badges */}
+          <div className="mt-8 flex flex-col gap-4">
+            <button className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-white/10 hover:bg-white/15 border border-white/20 hover:border-white/30 rounded-full text-white font-medium hover:shadow-[0_0_30px_rgba(59,130,246,0.35)] transition-all duration-300 overflow-hidden w-fit">
+              <div className="absolute inset-0 bg-gradient-to-r from-[#3B82F6]/30 to-[#06B6D4]/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <svg className="w-5 h-5 relative z-10 text-[#3B82F6]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+              </svg>
+              <span className="relative z-10 tracking-wide text-sm font-medium">Ladda ner Addeqt</span>
             </button>
+
+            {/* App Store & Google Play Badges */}
+            <div className="flex flex-wrap items-center gap-3 pt-2">
+              <a
+                href="#app-store"
+                className="group flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/25 transition-all duration-200"
+              >
+                {/* Apple Icon */}
+                <svg className="w-5 h-5 text-white/90 group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.92-2.85-.9.04-2 .6-2.65 1.35-.58.66-1.09 1.73-.95 2.75 1.01.08 2.06-.5 2.68-1.25z"/>
+                </svg>
+                <div className="flex flex-col text-left">
+                  <span className="text-[9px] uppercase tracking-wider text-white/50 leading-none">Hämta i</span>
+                  <span className="text-xs font-medium text-white/90 group-hover:text-white leading-tight">App Store</span>
+                </div>
+              </a>
+
+              <a
+                href="#google-play"
+                className="group flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/25 transition-all duration-200"
+              >
+                {/* Google Play Icon */}
+                <svg className="w-5 h-5 text-white/90 group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M3.609 1.814L13.793 12 3.61 22.186a2.036 2.036 0 0 1-.22-.924V2.738c0-.337.08-.654.219-.924zm11.242 11.243l2.456 2.456-11.45 6.47 8.994-8.926zm0-2.114L5.857 2.017l11.45 6.47-2.456 2.456zm1.472 1.057l3.666 2.072a1.05 1.05 0 0 1 0 1.856l-3.666 2.072-2.18-2.18 2.18-1.82z"/>
+                </svg>
+                <div className="flex flex-col text-left">
+                  <span className="text-[9px] uppercase tracking-wider text-white/50 leading-none">Ladda ned på</span>
+                  <span className="text-xs font-medium text-white/90 group-hover:text-white leading-tight">Google Play</span>
+                </div>
+              </a>
+            </div>
+
+            {/* BankID / FI badge */}
+            <div className="flex items-center gap-2 pt-1 text-white/40 text-[11px]">
+              <svg className="w-3.5 h-3.5 text-[#3B82F6]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              <span>BankID-verifierad · FI-tillstånd</span>
+            </div>
           </div>
         </div>
 

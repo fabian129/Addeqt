@@ -3,23 +3,25 @@
 export default function TrustMarquee() {
   const items = [
     "FI-tillstånd feb 2023",
-    "Nordnet som depå",
-    "Fast procentuell",
-    "100% oberoende",
+    "Nordnet som depåbank",
+    "Över 3 mdr kr under förvaltning",
+    "100% oberoende rådgivning",
     "Inga egna fonder",
+    "Fast procentuell avgift",
     "Artillerigatan 45, Stockholm",
   ];
 
-  // Double the items for seamless loop
-  const track = [...items, ...items];
+  // Multiple items for seamless infinite marquee loop
+  const track = [...items, ...items, ...items];
 
   return (
     <div
-      className="w-full overflow-hidden"
+      className="w-full overflow-hidden select-none relative z-10"
       style={{
-        borderTop: "1px solid var(--hairline)",
-        borderBottom: "1px solid var(--hairline)",
-        paddingBlock: "20px",
+        backgroundColor: "var(--bg-warm, #FAF8F5)",
+        borderTop: "1px solid var(--hairline, rgba(36, 39, 72, 0.08))",
+        borderBottom: "1px solid var(--hairline, rgba(36, 39, 72, 0.08))",
+        paddingBlock: "22px",
       }}
     >
       <div className="ticker-track flex items-center gap-0 whitespace-nowrap">
@@ -29,9 +31,11 @@ export default function TrustMarquee() {
               className="font-mono"
               style={{
                 fontSize: "11px",
-                letterSpacing: "0.1em",
+                letterSpacing: "0.14em",
                 textTransform: "uppercase",
-                color: "var(--fg-muted)",
+                color: "var(--navy, #242748)",
+                opacity: 0.75,
+                fontWeight: 500,
               }}
             >
               {item}
@@ -39,8 +43,8 @@ export default function TrustMarquee() {
             <span
               className="mx-8"
               style={{
-                color: "var(--fg-muted)",
-                opacity: 0.4,
+                color: "var(--gold, #C4A882)",
+                opacity: 0.6,
                 fontSize: "11px",
               }}
             >
@@ -49,6 +53,24 @@ export default function TrustMarquee() {
           </span>
         ))}
       </div>
+
+      <style>{`
+        .ticker-track {
+          animation: tickerScroll 45s linear infinite;
+        }
+        .ticker-track:hover {
+          animation-play-state: paused;
+        }
+        @keyframes tickerScroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-33.333%); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .ticker-track {
+            animation: none;
+          }
+        }
+      `}</style>
     </div>
   );
 }

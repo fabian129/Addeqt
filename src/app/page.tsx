@@ -1,15 +1,12 @@
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import TrustMarquee from "./components/TrustMarquee";
-import Manifesto from "./components/Manifesto";
-import VarforAddeqt from "./components/VarforAddeqt";
-import HomepageServices from "./components/HomepageServices";
-import StorySection from "./components/StorySection";
-import LightsOutWrapper from "./components/LightsOutWrapper";
-import AppBento from "./components/AppBento";
-import ProcessSteps from "./components/ProcessSteps";
-import TeamSection from "./components/TeamSection";
-import Footer from "./components/Footer";
+import EditorialIntro from "./components/EditorialIntro";
+import AuthorityGrid from "./components/AuthorityGrid";
+import InteractiveServices from "./components/InteractiveServices";
+import DigitalPlatform from "./components/DigitalPlatform";
+import ProcessTimeline from "./components/ProcessTimeline";
+import TeamEditorial from "./components/TeamEditorial";
+import InstitutionalFooterCTA from "./components/InstitutionalFooterCTA";
 
 export default function Home() {
   return (
@@ -18,22 +15,17 @@ export default function Home() {
       <Hero />
 
       <main className="relative z-10">
-        <TrustMarquee />
-        <Manifesto />
-        <VarforAddeqt />
-        <HomepageServices />
-        <LightsOutWrapper>
-          <StorySection />
-          <AppBento />
-        </LightsOutWrapper>
-        <div id="process">
-          <ProcessSteps />
-        </div>
-        <TeamSection />
+        <EditorialIntro />
+        <AuthorityGrid />
+        <InteractiveServices />
+        <DigitalPlatform />
+        <ProcessTimeline />
+        <TeamEditorial />
       </main>
-      <Footer />
 
-      {/* TEMP: kund-preview av hero-varianter. Ta bort efter avstämning. */}
+      <InstitutionalFooterCTA />
+
+      {/* Kund-preview av hero-varianter */}
       <div
         style={{
           position: "fixed",
@@ -49,16 +41,19 @@ export default function Home() {
         <a
           href="/hero-2"
           style={{
-            background: "rgba(15,15,16,0.82)",
+            background: "rgba(15,15,16,0.85)",
             color: "#fff",
-            fontSize: "10px",
+            fontSize: "11px",
             letterSpacing: "0.08em",
             textTransform: "uppercase",
-            padding: "5px 11px",
+            padding: "6px 14px",
             borderRadius: "999px",
             textDecoration: "none",
-            backdropFilter: "blur(8px)",
-            boxShadow: "0 8px 30px rgba(0,0,0,0.25)",
+            backdropFilter: "blur(12px)",
+            WebkitBackdropFilter: "blur(12px)",
+            border: "1px solid rgba(255,255,255,0.15)",
+            boxShadow: "0 8px 30px rgba(0,0,0,0.3)",
+            transition: "all 0.2s ease",
           }}
         >
           Hero 2 →
@@ -66,16 +61,19 @@ export default function Home() {
         <a
           href="/hero-3"
           style={{
-            background: "rgba(15,15,16,0.82)",
+            background: "rgba(15,15,16,0.85)",
             color: "#fff",
-            fontSize: "10px",
+            fontSize: "11px",
             letterSpacing: "0.08em",
             textTransform: "uppercase",
-            padding: "5px 11px",
+            padding: "6px 14px",
             borderRadius: "999px",
             textDecoration: "none",
-            backdropFilter: "blur(8px)",
-            boxShadow: "0 8px 30px rgba(0,0,0,0.25)",
+            backdropFilter: "blur(12px)",
+            WebkitBackdropFilter: "blur(12px)",
+            border: "1px solid rgba(255,255,255,0.15)",
+            boxShadow: "0 8px 30px rgba(0,0,0,0.3)",
+            transition: "all 0.2s ease",
           }}
         >
           Hero 3 →
@@ -83,16 +81,19 @@ export default function Home() {
         <a
           href="/hero-4"
           style={{
-            background: "rgba(15,15,16,0.82)",
+            background: "rgba(15,15,16,0.85)",
             color: "#fff",
-            fontSize: "10px",
+            fontSize: "11px",
             letterSpacing: "0.08em",
             textTransform: "uppercase",
-            padding: "5px 11px",
+            padding: "6px 14px",
             borderRadius: "999px",
             textDecoration: "none",
-            backdropFilter: "blur(8px)",
-            boxShadow: "0 8px 30px rgba(0,0,0,0.25)",
+            backdropFilter: "blur(12px)",
+            WebkitBackdropFilter: "blur(12px)",
+            border: "1px solid rgba(255,255,255,0.15)",
+            boxShadow: "0 8px 30px rgba(0,0,0,0.3)",
+            transition: "all 0.2s ease",
           }}
         >
           Hero 4 →

@@ -16,14 +16,16 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
 
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.4,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      lerp: 0.08,
+      wheelMultiplier: 0.9,
+      touchMultiplier: 1.5,
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
     });
 
     setLenisInstance(lenis);
+    (window as any).__lenis = lenis;
 
     // Integrate with GSAP ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update);

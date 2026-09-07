@@ -134,7 +134,7 @@ export default function StorySection() {
              <div className="relative w-full overflow-hidden bg-white/5" style={{ aspectRatio: "16/10" }}>
               <Image 
                 src="/images/hero-harbor.jpg" 
-                alt="Monaco harbor" 
+                alt="Addeqt — tidlös arkitektur och oberoende" 
                 fill 
                 className="object-cover gsap-parallax-image scale-[1.35]"
                 sizes="(max-width: 768px) 100vw, 60vw"

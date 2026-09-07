@@ -1,15 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { useScrollReveal } from "../hooks/useScrollReveal";
-import { useSectionReveal } from "../hooks/useSectionReveal";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const steps = [
   {
     num: "01",
     title: "Kartläggning",
+    subtitle: "Förutsättningar & målbild",
     description:
       "Vi börjar med att förstå din ekonomiska situation, dina mål och din riskprofil på djupet. Genom strukturerade samtal kartlägger vi allt från tillgångar och skulder till familjesituation och framtidsplaner.",
     metrics: [
@@ -21,8 +25,9 @@ const steps = [
   {
     num: "02",
     title: "Strategi & Plan",
+    subtitle: "Skräddarsydd portföljallokering",
     description:
-      "Baserat på kartläggningen bygger vi en skräddarsydd investeringsstrategi. Vi presenterar allokering, förväntad avkastning, risknivåer och kostnadsstruktur — transparent och tydligt.",
+      "Baserat på kartläggningen bygger vi en skräddarsydd investeringsstrategi. Vi presenterar allokering, förväntad avkastning, risknivåer och kostnadsstruktur — transparent och tydligt, helt utan dolda provisioner.",
     metrics: [
       { label: "Tillgångsallokering", value: "Individuell" },
       { label: "Prognos", value: "10+ år" },
@@ -32,8 +37,9 @@ const steps = [
   {
     num: "03",
     title: "Genomförande",
+    subtitle: "Effektiv etablering & mandat",
     description:
-      "När strategin är godkänd implementerar vi den effektivt. Vi öppnar depåkonton, väljer fonder och instrument, och säkerställer att allt är på plats för optimal förvaltning.",
+      "När strategin är godkänd implementerar vi den effektivt. Vi öppnar depåkonton hos Nordnet, väljer instrument bland marknadens bästa alternativ, och säkerställer att allt är på plats för optimal förvaltning.",
     metrics: [
       { label: "Implementering", value: "5–10 dagar" },
       { label: "Depåbank", value: "Nordnet" },
@@ -43,268 +49,227 @@ const steps = [
   {
     num: "04",
     title: "Löpande uppföljning",
+    subtitle: "Aktiv tillsyn & ständig kontakt",
     description:
-      "Din portfölj övervakas kontinuerligt och rebalanseras vid behov. Du får regelbundna rapporter, har tillgång till vår app dygnet runt, och din rådgivare finns alltid tillgänglig.",
+      "Din portfölj övervakas kontinuerligt och rebalanseras vid marknadsförändringar. Du får regelbundna rapporter, har tillgång till vår portal dygnet runt, och din rådgivare finns alltid ett telefonsamtal bort.",
     metrics: [
       { label: "Kvartalsrapporter", value: "Automatiska" },
-      { label: "App-åtkomst", value: "24/7" },
+      { label: "Depååtkomst", value: "24/7" },
       { label: "Rådgivarsamtal", value: "När du vill" },
     ],
   },
 ];
 
 export default function ProcessSteps() {
-  const sectionRef = useScrollReveal();
-  const gsapRef = useSectionReveal();
-  const [activeIndex, setActiveIndex] = useState<number | null>(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [activeStep, setActiveStep] = useState(0);
 
-  const toggle = (i: number) => {
-    setActiveIndex(activeIndex === i ? null : i);
-  };
+  useGSAP(
+    () => {
+      const container = containerRef.current;
+      if (!container) return;
+
+      const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+      if (mediaQuery.matches) return;
+
+      const stepCards = container.querySelectorAll<HTMLElement>(".process-step-card");
+      stepCards.forEach((card, index) => {
+        ScrollTrigger.create({
+          trigger: card,
+          start: "top 60%",
+          end: "bottom 40%",
+          onEnter: () => setActiveStep(index),
+          onEnterBack: () => setActiveStep(index),
+        });
+
+        gsap.fromTo(
+          card,
+          { opacity: 0.35, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 75%",
+              end: "top 45%",
+              scrub: 0.5,
+            },
+          }
+        );
+      });
+    },
+    { scope: containerRef }
+  );
 
   return (
     <section
-      ref={sectionRef}
+      ref={containerRef}
       id="process"
+      className="relative"
       style={{
-        paddingTop: "var(--section-gap)",
-        paddingBottom: "var(--section-gap)",
+        paddingTop: "clamp(7rem, 12vw, 11rem)",
+        paddingBottom: "clamp(7rem, 12vw, 11rem)",
+        backgroundColor: "var(--bg, #FAFAF8)",
       }}
     >
       <div
-        ref={gsapRef}
-        className="max-w-[var(--content-width)] mx-auto px-6 md:px-8 relative"
+        className="mx-auto px-6 md:px-8"
+        style={{ maxWidth: "var(--content-width)" }}
       >
-        {/* Centered header */}
-        <div className="text-center mb-16 md:mb-20 gsap-reveal">
-          <div
-            className="font-mono mb-6"
-            style={{
-              fontSize: "11px",
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              color: "var(--fg-muted)",
-            }}
-          >
-            Hur vi arbetar
-          </div>
-          <h2
-            className="font-display gsap-reveal-heading"
-            style={{
-              fontSize: "clamp(2.5rem, 4.5vw, 4rem)",
-              fontWeight: 300,
-              letterSpacing: "-0.03em",
-              lineHeight: 1.08,
-              color: "var(--fg)",
-              marginBottom: "1.5rem",
-            }}
-          >
-            En strukturerad process
-            <br />
-            för din trygghet.
-          </h2>
-          <p
-            className="mx-auto"
-            style={{
-              fontSize: "16px",
-              lineHeight: 1.7,
-              color: "var(--fg-dim)",
-              maxWidth: "520px",
-            }}
-          >
-            Varje klientrelation börjar med att vi lyssnar. Sedan bygger vi —
-            steg för steg, med full transparens.
-          </p>
-        </div>
-
-        {/* Full-width accordion */}
-        <div>
-          {steps.map((step, i) => {
-            const isOpen = activeIndex === i;
-            return (
-              <div
-                key={step.num}
-                className="gsap-reveal"
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          {/* Left Column: Sticky Process Manifesto & Indicator */}
+          <div className="lg:col-span-5 lg:sticky lg:top-36 flex flex-col justify-between">
+            <div>
+              <span
+                className="font-mono"
                 style={{
-                  borderTop: "1px solid var(--hairline-strong)",
-                  ...(i === steps.length - 1
-                    ? { borderBottom: "1px solid var(--hairline-strong)" }
-                    : {}),
+                  fontSize: "11px",
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
+                  color: "var(--fg-muted, #737373)",
                 }}
               >
-                {/* Row header — clickable */}
-                <button
-                  onClick={() => toggle(i)}
-                  className="w-full text-left group"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "clamp(1.5rem, 3vw, 2.5rem)",
-                    paddingTop: "clamp(2rem, 3.5vw, 3rem)",
-                    paddingBottom: "clamp(2rem, 3.5vw, 3rem)",
-                    cursor: "pointer",
-                    background: "none",
-                    border: "none",
-                    width: "100%",
-                  }}
-                >
-                  {/* Number */}
-                  <span
-                    className="font-mono shrink-0"
+                [ 03 ] Vår Process · Arbetssätt
+              </span>
+
+              <h2
+                className="font-display mt-6"
+                style={{
+                  fontSize: "clamp(2.4rem, 4vw, 3.8rem)",
+                  fontWeight: 300,
+                  letterSpacing: "-0.03em",
+                  lineHeight: 1.1,
+                  color: "var(--fg, #0F0F10)",
+                }}
+              >
+                En strukturerad process för din trygghet.
+              </h2>
+
+              <p
+                className="font-light mt-6"
+                style={{
+                  fontSize: "clamp(15px, 1.1vw, 18px)",
+                  lineHeight: 1.65,
+                  color: "var(--fg-muted, #4A4A4D)",
+                  maxWidth: "420px",
+                }}
+              >
+                Varje klientrelation inleds med att vi lyssnar på dina ambitioner. Sedan bygger
+                vi — strukturerat, metodiskt och med full transparens genom varje fas.
+              </p>
+            </div>
+
+            {/* Vertical Indicator Track */}
+            <div className="hidden lg:flex flex-col gap-4 mt-12 pt-8 border-t border-black/[0.08]">
+              {steps.map((step, i) => {
+                const isActive = i === activeStep;
+                return (
+                  <div
+                    key={step.num}
+                    className="flex items-center gap-4 transition-all duration-500"
                     style={{
-                      fontSize: "13px",
-                      letterSpacing: "0.05em",
-                      textTransform: "uppercase",
-                      color: isOpen ? "var(--gold)" : "var(--fg-muted)",
-                      transition: "color 0.4s ease",
-                      minWidth: "2rem",
+                      opacity: isActive ? 1 : 0.35,
+                      transform: isActive ? "translateX(6px)" : "translateX(0)",
                     }}
                   >
-                    {step.num}
-                  </span>
+                    <span
+                      className="font-mono text-[11px] tracking-widest font-semibold"
+                      style={{
+                        color: isActive ? "var(--navy, #171C26)" : "inherit",
+                      }}
+                    >
+                      {step.num}
+                    </span>
+                    <div
+                      className="h-px transition-all duration-500"
+                      style={{
+                        width: isActive ? "28px" : "14px",
+                        backgroundColor: isActive
+                          ? "var(--navy, #171C26)"
+                          : "rgba(0,0,0,0.2)",
+                      }}
+                    />
+                    <span className="font-display text-[15px] font-light">
+                      {step.title}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
 
-                  {/* Title */}
+          {/* Right Column: Narrative Steps Sequence */}
+          <div className="lg:col-span-7 flex flex-col gap-16 lg:gap-24">
+            {steps.map((step, i) => (
+              <div
+                key={step.num}
+                className="process-step-card relative rounded-[2px] p-8 md:p-12 border border-black/[0.08] bg-white/[0.6] backdrop-blur-sm shadow-sm transition-all"
+                style={{
+                  overflow: "hidden",
+                }}
+              >
+                {/* Giant Monolith Watermark Number */}
+                <div
+                  aria-hidden="true"
+                  className="font-display select-none pointer-events-none absolute right-4 -bottom-4 text-black/[0.04]"
+                  style={{
+                    fontSize: "clamp(6rem, 12vw, 10rem)",
+                    lineHeight: 0.8,
+                    fontWeight: 200,
+                  }}
+                >
+                  {step.num}
+                </div>
+
+                <div className="relative z-10">
+                  <div className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-wider text-black/40 mb-3">
+                    <span>Steg {step.num}</span>
+                    <span>·</span>
+                    <span>{step.subtitle}</span>
+                  </div>
+
                   <h3
-                    className="font-display"
-                    style={{
-                      fontSize: "clamp(2.5rem, 5vw, 4rem)",
-                      fontWeight: 300,
-                      letterSpacing: "-0.03em",
-                      lineHeight: 1.05,
-                      color: "var(--fg)",
-                      flex: 1,
-                      transition: "transform 0.4s ease",
-                      transform: isOpen ? "translateX(0.5rem)" : "translateX(0)",
-                    }}
+                    className="font-display text-2xl md:text-3xl font-light text-neutral-900"
+                    style={{ letterSpacing: "-0.02em" }}
                   >
                     {step.title}
                   </h3>
 
-                  {/* Expand icon */}
-                  <span
-                    style={{
-                      fontSize: "1.75rem",
-                      fontWeight: 200,
-                      lineHeight: 1,
-                      color: "var(--fg-muted)",
-                      transition: "transform 0.4s ease, color 0.4s ease",
-                      transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
-                      flexShrink: 0,
-                      width: "2rem",
-                      height: "2rem",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    +
-                  </span>
-                </button>
-
-                {/* Expandable content */}
-                <div
-                  style={{
-                    maxHeight: isOpen ? "500px" : "0",
-                    opacity: isOpen ? 1 : 0,
-                    overflow: "hidden",
-                    transition:
-                      "max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease, padding 0.5s ease",
-                    paddingTop: isOpen ? "0.5rem" : "0",
-                    paddingBottom: isOpen ? "3rem" : "0",
-                    paddingLeft: "calc(2rem + clamp(1.5rem, 3vw, 2.5rem))",
-                  }}
-                >
-                  {/* Description */}
-                  <p
-                    style={{
-                      fontSize: "16px",
-                      lineHeight: 1.7,
-                      color: "var(--fg-dim)",
-                      maxWidth: "560px",
-                      marginBottom: "2rem",
-                    }}
-                  >
+                  <p className="mt-4 text-neutral-600 font-light text-base md:text-lg leading-relaxed max-w-xl">
                     {step.description}
                   </p>
 
-                  {/* Metrics row */}
-                  <div
-                    style={{
-                      display: "flex",
-                      flexWrap: "wrap",
-                      gap: "3rem",
-                    }}
-                  >
+                  {/* Metrics Badges */}
+                  <div className="grid grid-cols-3 gap-4 mt-8 pt-6 border-t border-black/[0.06]">
                     {step.metrics.map((metric) => (
                       <div key={metric.label}>
-                        <div
-                          className="font-mono"
-                          style={{
-                            fontSize: "10px",
-                            letterSpacing: "0.1em",
-                            textTransform: "uppercase",
-                            color: "var(--fg-muted)",
-                            marginBottom: "0.4rem",
-                          }}
-                        >
+                        <span className="font-mono text-[10px] uppercase tracking-wider text-black/40 block">
                           {metric.label}
-                        </div>
-                        <div
-                          className="font-display"
-                          style={{
-                            fontSize: "1.1rem",
-                            fontWeight: 500,
-                            color: "var(--fg)",
-                          }}
-                        >
+                        </span>
+                        <span className="font-display text-[14px] font-normal text-neutral-800 mt-1 block">
                           {metric.value}
-                        </div>
+                        </span>
                       </div>
                     ))}
                   </div>
                 </div>
               </div>
-            );
-          })}
+            ))}
+          </div>
         </div>
 
-        {/* CTA row — same format as accordion rows but navy full-width */}
-        <Link
-          href="#kontakt"
-          className="gsap-reveal group"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "1rem",
-            padding: "1rem 1.5rem",
-            backgroundColor: "var(--navy)",
-            borderRadius: "60px",
-            textDecoration: "none",
-            marginTop: "clamp(1.5rem, 3vw, 2.5rem)",
-            transition: "transform 0.3s ease, box-shadow 0.3s ease",
-          }}
-        >
-          <span
-            className="font-display"
-            style={{
-              fontSize: "clamp(1rem, 1.6vw, 1.25rem)",
-              fontWeight: 400,
-              letterSpacing: "-0.01em",
-              lineHeight: 1.2,
-              color: "#FFFFFF",
-              flex: 1,
-            }}
+        {/* Process CTA — Discreet, quiet wealth tone */}
+        <div className="mt-20 text-center border-t border-black/[0.08] pt-12">
+          <Link
+            href="#kontakt"
+            className="inline-flex items-center gap-3 font-mono text-[12px] uppercase tracking-widest text-neutral-800 hover:text-black transition-colors group"
           >
-            Boka kostnadsfritt möte
-          </span>
-
-          <span
-            className="shrink-0 inline-flex items-center justify-center transition-transform duration-300 group-hover:translate-x-1"
-            style={{ color: "#FFFFFF" }}
-          >
-            <ArrowRight className="w-5 h-5" />
-          </span>
-        </Link>
+            <span>Boka ett förutsättningslöst introduktionsmöte</span>
+            <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </div>
       </div>
     </section>
   );

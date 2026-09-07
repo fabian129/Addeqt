@@ -42,8 +42,10 @@ const iconMap: Record<string, React.ComponentType<{ className?: string; style?: 
   compass: Compass,
 };
 
+type NavState = 'hero-transparent' | 'light-frosted' | 'dark-frosted';
+
 export default function Navbar({ forceScrolled = false }: { forceScrolled?: boolean }) {
-  const [scrolled, setScrolled] = useState(forceScrolled);
+  const [navState, setNavState] = useState<NavState>(forceScrolled ? 'light-frosted' : 'hero-transparent');
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [mobileOmOpen, setMobileOmOpen] = useState(false);
@@ -51,22 +53,29 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
 
   useEffect(() => {
     const handleScroll = () => {
+      const scrollY = window.scrollY;
+      
+      // 1. If at the very top (Hero section) and not force-scrolled, remain transparent
+      if (scrollY <= 40 && !forceScrolled) {
+        setNavState('hero-transparent');
+        return;
+      }
+
+      // 2. Check if navbar top area is within any .dark-section
       let isOverDark = false;
       const darkSections = document.querySelectorAll('.dark-section');
       darkSections.forEach((section) => {
         const rect = section.getBoundingClientRect();
-        // Check if the top of the viewport (plus a bit of margin for the navbar) is within this dark section
-        if (rect.top <= 50 && rect.bottom >= 50) {
+        // The navbar occupies y=0 to 70px. Check if y=50 intersects this section
+        if (rect.top <= 55 && rect.bottom >= 55) {
           isOverDark = true;
         }
       });
-      
+
       if (isOverDark) {
-        setScrolled(false); // Transparent/white text over dark sections
-      } else if (forceScrolled) {
-        setScrolled(true); // Solid/dark text by default if forceScrolled is true
+        setNavState('dark-frosted');
       } else {
-        setScrolled(window.scrollY > 40); // Standard threshold behavior
+        setNavState('light-frosted');
       }
     };
     
@@ -102,22 +111,43 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
     }, 100);
   }, []);
 
-  // Dynamic colors based on scroll state
-  const linkColor = scrolled ? "var(--fg-dim)" : "rgba(255, 255, 255, 0.85)";
-  const linkHover = scrolled ? "var(--fg)" : "#ffffff";
-  const logoFill = scrolled ? "var(--navy)" : "#ffffff";
+  // Theme states
+  const isDarkTheme = navState === 'hero-transparent' || navState === 'dark-frosted';
+  const isScrolled = navState !== 'hero-transparent';
+
+  // Dynamic colors based on quiet luxury palette
+  const linkColor = isDarkTheme ? "rgba(255, 255, 255, 0.78)" : "var(--fg-dim)";
+  const linkHover = isDarkTheme ? "#ffffff" : "var(--fg)";
+  const logoFill = isDarkTheme ? "#ffffff" : "var(--navy)";
+  const ctaColor = navState === 'dark-frosted' ? "#C4A882" : isDarkTheme ? "rgba(255, 255, 255, 0.88)" : "var(--fg)";
+  const ctaBorder = navState === 'dark-frosted' ? "rgba(196, 168, 130, 0.5)" : isDarkTheme ? "rgba(255, 255, 255, 0.4)" : "rgba(26, 29, 54, 0.35)";
+  const ctaHover = navState === 'dark-frosted' ? "#ffffff" : isDarkTheme ? "#ffffff" : "#C4A882";
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-        scrolled 
-          ? "bg-white/85 shadow-[0_4px_30px_rgba(0,0,0,0.03)] border-b border-black/[0.04]" 
-          : "bg-transparent border-b border-transparent"
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
       style={{
-        height: scrolled ? '70px' : '90px',
-        backdropFilter: scrolled ? 'blur(20px) saturate(150%)' : 'none',
-        WebkitBackdropFilter: scrolled ? 'blur(20px) saturate(150%)' : 'none',
+        height: isScrolled ? '70px' : '90px',
+        backgroundColor: 
+          navState === 'hero-transparent' 
+            ? 'transparent' 
+            : navState === 'dark-frosted' 
+              ? 'rgba(15, 15, 16, 0.88)' 
+              : 'rgba(250, 248, 245, 0.88)',
+        borderBottom: 
+          navState === 'hero-transparent' 
+            ? '1px solid transparent' 
+            : navState === 'dark-frosted' 
+              ? '1px solid rgba(255, 255, 255, 0.08)' 
+              : '1px solid rgba(0, 0, 0, 0.06)',
+        boxShadow: 
+          navState === 'hero-transparent' 
+            ? 'none' 
+            : navState === 'dark-frosted' 
+              ? '0 10px 30px rgba(0, 0, 0, 0.5)' 
+              : '0 4px 30px rgba(0, 0, 0, 0.03)',
+        backdropFilter: isScrolled ? 'blur(20px) saturate(150%)' : 'none',
+        WebkitBackdropFilter: isScrolled ? 'blur(20px) saturate(150%)' : 'none',
       }}
     >
       <div
@@ -207,14 +237,14 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
           <Link
             href="#kontakt"
             className="group inline-flex items-center gap-2 font-display uppercase tracking-[0.1em] font-semibold transition-all duration-300 ml-16"
-            style={{ color: linkColor, borderBottom: `1px solid ${linkColor}` }}
+            style={{ color: ctaColor, borderBottom: `1px solid ${ctaBorder}` }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.color = linkHover;
-              e.currentTarget.style.borderBottomColor = linkHover;
+              e.currentTarget.style.color = ctaHover;
+              e.currentTarget.style.borderBottomColor = ctaHover;
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.color = linkColor;
-              e.currentTarget.style.borderBottomColor = linkColor;
+              e.currentTarget.style.color = ctaColor;
+              e.currentTarget.style.borderBottomColor = ctaBorder;
             }}
           >
             <span className="text-[13px] pb-1">Boka möte</span>
@@ -237,13 +267,13 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
             className={`block w-4 h-[1.5px] transition-all duration-300 ${
               menuOpen ? "rotate-45 translate-y-[4px]" : ""
             }`}
-            style={{ backgroundColor: scrolled ? "var(--fg)" : "#ffffff" }}
+            style={{ backgroundColor: isDarkTheme ? "#ffffff" : "var(--fg)" }}
           />
           <span
             className={`block w-4 h-[1.5px] transition-all duration-300 ${
               menuOpen ? "-rotate-45 -translate-y-[2px]" : ""
             }`}
-            style={{ backgroundColor: scrolled ? "var(--fg)" : "#ffffff" }}
+            style={{ backgroundColor: isDarkTheme ? "#ffffff" : "var(--fg)" }}
           />
         </button>
       </div>
@@ -270,9 +300,9 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
             opacity: activeDropdown === 'tjanster' ? 1 : 0,
             transform: activeDropdown === 'tjanster' ? 'translateY(0)' : 'translateY(-8px)',
             transition: 'opacity 0.3s ease, transform 0.3s ease',
-            background: '#ffffff',
-            borderBottom: '1px solid var(--hairline, rgba(0,0,0,0.08))',
-            boxShadow: '0 20px 60px rgba(0,0,0,0.08)',
+            background: isDarkTheme ? '#121316' : '#FAF8F5',
+            borderBottom: isDarkTheme ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(0, 0, 0, 0.08)',
+            boxShadow: isDarkTheme ? '0 30px 80px rgba(0, 0, 0, 0.75)' : '0 20px 60px rgba(0, 0, 0, 0.08)',
           }}
         >
           <div
@@ -301,20 +331,22 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
                       flexDirection: 'column',
                       gap: '1rem',
                       padding: '1.5rem',
-                      background: 'var(--bg-warm, #f8f7f5)',
-                      border: '1px solid var(--hairline, rgba(0,0,0,0.08))',
-                      borderRadius: '12px',
+                      background: isDarkTheme ? 'rgba(255, 255, 255, 0.03)' : '#ffffff',
+                      border: isDarkTheme ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(0, 0, 0, 0.07)',
+                      borderRadius: '14px',
                       textDecoration: 'none',
-                      transition: 'transform 0.25s ease, box-shadow 0.25s ease',
+                      transition: 'transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease',
                       minHeight: '160px',
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.transform = 'translateY(-2px)';
-                      e.currentTarget.style.boxShadow = '0 8px 30px rgba(0,0,0,0.1)';
+                      e.currentTarget.style.boxShadow = isDarkTheme ? '0 12px 30px rgba(0,0,0,0.5)' : '0 8px 30px rgba(0,0,0,0.08)';
+                      e.currentTarget.style.borderColor = '#C4A882';
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.transform = 'translateY(0)';
                       e.currentTarget.style.boxShadow = 'none';
+                      e.currentTarget.style.borderColor = isDarkTheme ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.07)';
                     }}
                   >
                     {/* Icon */}
@@ -323,7 +355,8 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
                         width: '40px',
                         height: '40px',
                         borderRadius: '10px',
-                        background: 'var(--navy, #0f1d3a)',
+                        background: isDarkTheme ? 'rgba(196, 168, 130, 0.12)' : 'var(--navy, #0f1d3a)',
+                        border: isDarkTheme ? '1px solid rgba(196, 168, 130, 0.25)' : 'none',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -333,7 +366,7 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
                       {IconComponent && (
                         <IconComponent
                           className="w-5 h-5"
-                          style={{ color: '#ffffff' }}
+                          style={{ color: isDarkTheme ? '#C4A882' : '#ffffff' }}
                         />
                       )}
                     </div>
@@ -345,7 +378,7 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
                           fontFamily: 'var(--font-display, inherit)',
                           fontSize: '15px',
                           fontWeight: 500,
-                          color: 'var(--fg, #1a1a1a)',
+                          color: isDarkTheme ? '#ffffff' : 'var(--fg, #1a1a1a)',
                           lineHeight: 1.3,
                         }}
                       >
@@ -354,7 +387,7 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
                       <span
                         style={{
                           fontSize: '13px',
-                          color: 'var(--fg-muted, #888)',
+                          color: isDarkTheme ? 'rgba(255, 255, 255, 0.55)' : 'var(--fg-muted, #888)',
                           lineHeight: 1.5,
                         }}
                       >
@@ -391,9 +424,9 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
             opacity: activeDropdown === 'om-addeqt' ? 1 : 0,
             transform: activeDropdown === 'om-addeqt' ? 'translateY(0)' : 'translateY(-8px)',
             transition: 'opacity 0.3s ease, transform 0.3s ease',
-            background: '#ffffff',
-            borderBottom: '1px solid var(--hairline, rgba(0,0,0,0.08))',
-            boxShadow: '0 20px 60px rgba(0,0,0,0.08)',
+            background: isDarkTheme ? '#121316' : '#FAF8F5',
+            borderBottom: isDarkTheme ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(0, 0, 0, 0.08)',
+            boxShadow: isDarkTheme ? '0 30px 80px rgba(0, 0, 0, 0.75)' : '0 20px 60px rgba(0, 0, 0, 0.08)',
           }}
         >
           <div
@@ -422,20 +455,22 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
                       flexDirection: 'column',
                       gap: '1rem',
                       padding: '1.5rem',
-                      background: 'var(--bg-warm, #f8f7f5)',
-                      border: '1px solid var(--hairline, rgba(0,0,0,0.08))',
-                      borderRadius: '12px',
+                      background: isDarkTheme ? 'rgba(255, 255, 255, 0.03)' : '#ffffff',
+                      border: isDarkTheme ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(0, 0, 0, 0.07)',
+                      borderRadius: '14px',
                       textDecoration: 'none',
-                      transition: 'transform 0.25s ease, box-shadow 0.25s ease',
+                      transition: 'transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease',
                       minHeight: '160px',
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.transform = 'translateY(-2px)';
-                      e.currentTarget.style.boxShadow = '0 8px 30px rgba(0,0,0,0.1)';
+                      e.currentTarget.style.boxShadow = isDarkTheme ? '0 12px 30px rgba(0,0,0,0.5)' : '0 8px 30px rgba(0,0,0,0.08)';
+                      e.currentTarget.style.borderColor = '#C4A882';
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.transform = 'translateY(0)';
                       e.currentTarget.style.boxShadow = 'none';
+                      e.currentTarget.style.borderColor = isDarkTheme ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.07)';
                     }}
                   >
                     {/* Icon */}
@@ -444,7 +479,8 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
                         width: '40px',
                         height: '40px',
                         borderRadius: '10px',
-                        background: 'var(--navy, #0f1d3a)',
+                        background: isDarkTheme ? 'rgba(196, 168, 130, 0.12)' : 'var(--navy, #0f1d3a)',
+                        border: isDarkTheme ? '1px solid rgba(196, 168, 130, 0.25)' : 'none',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -454,7 +490,7 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
                       {IconComponent && (
                         <IconComponent
                           className="w-5 h-5"
-                          style={{ color: '#ffffff' }}
+                          style={{ color: isDarkTheme ? '#C4A882' : '#ffffff' }}
                         />
                       )}
                     </div>
@@ -466,7 +502,7 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
                           fontFamily: 'var(--font-display, inherit)',
                           fontSize: '15px',
                           fontWeight: 500,
-                          color: 'var(--fg, #1a1a1a)',
+                          color: isDarkTheme ? '#ffffff' : 'var(--fg, #1a1a1a)',
                           lineHeight: 1.3,
                         }}
                       >
@@ -475,7 +511,7 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
                       <span
                         style={{
                           fontSize: '13px',
-                          color: 'var(--fg-muted, #888)',
+                          color: isDarkTheme ? 'rgba(255, 255, 255, 0.55)' : 'var(--fg-muted, #888)',
                           lineHeight: 1.5,
                         }}
                       >
@@ -496,10 +532,12 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
           menuOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"
         }`}
         style={{
-          background: 'rgba(255,255,255,0.95)',
+          background: isDarkTheme ? 'rgba(15, 15, 16, 0.98)' : 'rgba(250, 248, 245, 0.98)',
           backdropFilter: 'blur(24px)',
           WebkitBackdropFilter: 'blur(24px)',
-          borderBottom: menuOpen ? '1px solid rgba(0,0,0,0.06)' : 'none',
+          borderBottom: menuOpen 
+            ? isDarkTheme ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(0, 0, 0, 0.06)' 
+            : 'none',
         }}
       >
         <div
@@ -515,7 +553,7 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
               href="/tjanster"
               onClick={() => setMenuOpen(false)}
               className="block text-sm font-medium transition-colors py-2"
-              style={{ color: 'var(--fg-dim)' }}
+              style={{ color: isDarkTheme ? 'rgba(255,255,255,0.85)' : 'var(--fg-dim)' }}
             >
               Tjänster
             </Link>
@@ -525,7 +563,7 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
               <button
                 onClick={() => setMobileOmOpen((prev) => !prev)}
                 className="flex items-center gap-1 text-sm font-medium transition-colors py-2 w-full"
-                style={{ color: 'var(--fg-dim)', background: 'none', border: 'none', cursor: 'pointer', padding: '0.5rem 0' }}
+                style={{ color: isDarkTheme ? 'rgba(255,255,255,0.85)' : 'var(--fg-dim)', background: 'none', border: 'none', cursor: 'pointer', padding: '0.5rem 0' }}
               >
                 Om Addeqt
                 <ChevronDown
@@ -545,7 +583,7 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
                       href={link.href}
                       onClick={() => { setMenuOpen(false); setMobileOmOpen(false); }}
                       className="block text-sm transition-colors py-1.5"
-                      style={{ color: 'var(--fg-muted, #888)' }}
+                      style={{ color: isDarkTheme ? 'rgba(255,255,255,0.6)' : 'var(--fg-muted, #888)' }}
                     >
                       {link.label}
                     </Link>
@@ -559,7 +597,7 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
               href="/#varfor-addeqt"
               onClick={() => setMenuOpen(false)}
               className="block text-sm font-medium transition-colors py-2"
-              style={{ color: 'var(--fg-dim)' }}
+              style={{ color: isDarkTheme ? 'rgba(255,255,255,0.85)' : 'var(--fg-dim)' }}
             >
               Varför Addeqt
             </Link>
@@ -567,7 +605,7 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
               href="/#kontakt"
               onClick={() => setMenuOpen(false)}
               className="block text-sm font-medium transition-colors py-2"
-              style={{ color: 'var(--fg-dim)' }}
+              style={{ color: isDarkTheme ? 'rgba(255,255,255,0.85)' : 'var(--fg-dim)' }}
             >
               Kontakt
             </Link>
@@ -576,7 +614,11 @@ export default function Navbar({ forceScrolled = false }: { forceScrolled?: bool
             <Link
               href="#kontakt"
               onClick={() => setMenuOpen(false)}
-              className="block bg-[var(--navy)] text-white px-5 py-3 rounded-full text-sm font-medium text-center mt-4"
+              className={`block px-5 py-3 rounded-full text-sm font-medium text-center mt-4 transition-colors ${
+                isDarkTheme 
+                  ? "bg-[#C4A882] text-[#0F0F10] font-semibold hover:bg-[#D4BC98]" 
+                  : "bg-[var(--navy)] text-white hover:bg-black"
+              }`}
             >
               Boka möte
             </Link>
